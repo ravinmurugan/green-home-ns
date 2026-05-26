@@ -21,10 +21,11 @@ const provinceData: Record<string, {
   ON:  { name: "Ontario",            electricRate: 0.175, oilRate: 1.48, propaneRate: 1.10, maxRebateHP: 10000, rebateNote: "Enbridge HER+ $5K + Greener Homes $5K" },
 };
 
+// Energy content in MJ/litre ÷ 3.6 = kWh/litre, then × furnace efficiency
 const fuelCosts: Record<string, { label: string; unit: string; kwhPerUnit: number }> = {
-  oil:                { label: "Heating Oil",       unit: "litres/yr", kwhPerUnit: 38.6 * 0.85 },
+  oil:                { label: "Heating Oil",       unit: "litres/yr", kwhPerUnit: (38.6 / 3.6) * 0.85 },
   "electric-baseboard": { label: "Electric Baseboard", unit: "kWh/yr",    kwhPerUnit: 1 },
-  propane:            { label: "Propane",           unit: "litres/yr", kwhPerUnit: 25.3 * 0.92 },
+  propane:            { label: "Propane",           unit: "litres/yr", kwhPerUnit: (25.3 / 3.6) * 0.92 },
 };
 
 const HP_COP = 2.8;
