@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { TrendingDown, Info } from "lucide-react";
 import {
-  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine,
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, Cell,
 } from "recharts";
 
 const fuelCosts: Record<string, { label: string; unit: string; costPerUnit: number; kwhPerUnit: number }> = {
@@ -26,13 +26,8 @@ function calcResults(fuel: string, usageRaw: number, installCost: number, rebate
   const payback = annualSavings > 0 ? netInstall / annualSavings : null;
 
   const cumulativeData = Array.from({ length: 21 }, (_, yr) => {
-    const withoutHeatPump = -yr * currentCost;
-    const withHeatPump = -installCost + rebate + yr * annualSavings;
-    return {
-      year: `Yr ${yr}`,
-      "Without heat pump": Math.round(withoutHeatPump),
-      "With heat pump": Math.round(withHeatPump),
-    };
+    const netSavings = Math.round(-installCost + rebate + yr * annualSavings);
+    return { year: yr === 0 ? "Now" : `Yr ${yr}`, netSavings };
   });
 
   return { currentCost, hpCost, annualSavings, netInstall, payback, hpKwh, cumulativeData };
@@ -50,7 +45,7 @@ export default function SavingsCalculatorPage() {
   const r = useMemo(() => calcResults(fuel, usage, installCost, rebate), [fuel, usage, installCost, rebate]);
 
   const breakEvenYear = r.cumulativeData.findIndex(
-    (d, i) => i > 0 && d["With heat pump"] >= d["Without heat pump"]
+    (d, i) => i > 0 && d.netSavings >= 0
   );
 
   return (
@@ -155,45 +150,47 @@ export default function SavingsCalculatorPage() {
             ))}
           </div>
 
-          {/* Cumulative chart */}
+          {/* Cumulative savings chart */}
           <div className="bg-white border border-gray-200 rounded-2xl p-5">
-            <div className="font-semibold text-gray-700 mb-1">20-year cumulative cost comparison</div>
-            <div className="text-xs text-gray-600 mb-4">
-              Negative = money spent. Heat pump line rises above oil line at year {breakEvenYear > 0 ? breakEvenYear : "?"} — that&apos;s your break-even.
+            <div className="flex items-start justify-between mb-1">
+              <div className="font-semibold text-gray-700">20-year net savings</div>
+              {breakEvenYear > 0 && (
+                <span className="text-xs font-semibold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
+                  Break-even: Year {breakEvenYear}
+                </span>
+              )}
+            </div>
+            <div className="text-xs text-gray-500 mb-4">
+              Red bars = still recouping install cost. Green bars = money in your pocket.
             </div>
             <ResponsiveContainer width="100%" height={240}>
-              <AreaChart data={r.cumulativeData} margin={{ top: 5, right: 5, left: 0, bottom: 5 }}>
-                <defs>
-                  <linearGradient id="colorOil" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#ef4444" stopOpacity={0.2} />
-                    <stop offset="95%" stopColor="#ef4444" stopOpacity={0} />
-                  </linearGradient>
-                  <linearGradient id="colorHP" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#22c55e" stopOpacity={0.2} />
-                    <stop offset="95%" stopColor="#22c55e" stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+              <BarChart data={r.cumulativeData} margin={{ top: 5, right: 5, left: 0, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false} />
                 <XAxis dataKey="year" tick={{ fontSize: 10 }} interval={4} />
                 <YAxis tick={{ fontSize: 10 }} tickFormatter={(v) => `$${(v / 1000).toFixed(0)}K`} />
-                <Tooltip formatter={(v) => [`$${Math.abs(Number(v)).toLocaleString()}`, ""]} />
-                <ReferenceLine y={0} stroke="#6b7280" strokeDasharray="4 4" />
-                <Area
-                  type="monotone"
-                  dataKey="Without heat pump"
-                  stroke="#ef4444"
-                  strokeWidth={2}
-                  fill="url(#colorOil)"
+                <Tooltip
+                  formatter={(v) => {
+                    const val = Number(v);
+                    return [val >= 0 ? `+$${val.toLocaleString()}` : `-$${Math.abs(val).toLocaleString()}`, "Net savings"];
+                  }}
+                  labelFormatter={(l) => `${l}`}
                 />
-                <Area
-                  type="monotone"
-                  dataKey="With heat pump"
-                  stroke="#22c55e"
-                  strokeWidth={2}
-                  fill="url(#colorHP)"
-                />
-              </AreaChart>
+                <ReferenceLine y={0} stroke="#374151" strokeWidth={1.5} />
+                <Bar dataKey="netSavings" radius={[3, 3, 0, 0]}>
+                  {r.cumulativeData.map((entry, index) => (
+                    <Cell key={index} fill={entry.netSavings >= 0 ? "#16a34a" : "#ef4444"} fillOpacity={0.85} />
+                  ))}
+                </Bar>
+              </BarChart>
             </ResponsiveContainer>
+            {r.payback && r.payback < 25 && (
+              <div className="mt-3 flex items-center justify-between text-sm border-t border-gray-100 pt-3">
+                <span className="text-gray-600">Year 20 net gain:</span>
+                <span className="font-bold text-green-600 text-lg">
+                  {fmt(r.annualSavings * 20 - r.netInstall)}
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Efficiency breakdown */}
