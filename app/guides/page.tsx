@@ -9,11 +9,11 @@ export const metadata: Metadata = {
 };
 
 const provinces = [
-  { code: "NS", name: "Nova Scotia",       hpMax: 15000, solarMax: 5000, programs: 5 },
-  { code: "NB", name: "New Brunswick",     hpMax: 7000,  solarMax: 5000, programs: 3 },
-  { code: "PEI", name: "Prince Edward Is.", hpMax: 7000, solarMax: 5000, programs: 3 },
-  { code: "NL", name: "Newfoundland",      hpMax: 7000,  solarMax: 5000, programs: 3 },
-  { code: "ON", name: "Ontario",           hpMax: 10000, solarMax: 5000, programs: 3 },
+  { code: "NS",  hpMax: 15000 },
+  { code: "NB",  hpMax: 7000  },
+  { code: "PEI", hpMax: 7000  },
+  { code: "NL",  hpMax: 7000  },
+  { code: "ON",  hpMax: 10000 },
 ];
 
 const situationCards = [
@@ -154,90 +154,16 @@ export default function GuidesPage() {
         </div>
       </section>
 
-      {/* Province rebate comparison table */}
-      <section className="mb-12">
-        <h2 className="text-xl font-bold mb-5">Max Rebates by Province — 2026</h2>
-        <div className="overflow-x-auto rounded-2xl border border-gray-200">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="text-left px-4 py-3 font-semibold text-gray-700">Province</th>
-                <th className="text-right px-4 py-3 font-semibold text-blue-700">HP Provincial</th>
-                <th className="text-right px-4 py-3 font-semibold text-red-700">HP Federal</th>
-                <th className="text-right px-4 py-3 font-semibold text-green-700">HP Total Max</th>
-                <th className="text-right px-4 py-3 font-semibold text-amber-700">Solar Max</th>
-                <th className="text-right px-4 py-3 font-semibold text-gray-600">Programs</th>
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                { code: "NS", name: "Nova Scotia",        hp_prov: 3000, hp_fed: 5000, hp_total: 15000, solar: 5000, programs: 5, star: true, note: "*income-qual. can stack OHPA" },
-                { code: "NB", name: "New Brunswick",      hp_prov: 2000, hp_fed: 5000, hp_total: 7000,  solar: 5000, programs: 3, star: false },
-                { code: "PEI", name: "Prince Edward Is.", hp_prov: 2000, hp_fed: 5000, hp_total: 7000,  solar: 5000, programs: 3, star: false },
-                { code: "NL", name: "Newfoundland",       hp_prov: 2000, hp_fed: 5000, hp_total: 7000,  solar: 5000, programs: 3, star: false },
-                { code: "ON", name: "Ontario",            hp_prov: 5000, hp_fed: 5000, hp_total: 10000, solar: 5000, programs: 3, star: false },
-              ].map((row, i) => (
-                <tr
-                  key={row.code}
-                  className={`border-b border-gray-100 last:border-0 ${row.star ? "bg-green-50" : i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}
-                >
-                  <td className="px-4 py-3">
-                    <div className="flex items-center gap-2">
-                      <span className={`text-xs font-bold px-1.5 py-0.5 rounded ${row.star ? "bg-green-600 text-white" : "bg-gray-100 text-gray-600"}`}>{row.code}</span>
-                      <span className="font-medium text-gray-900">{row.name}</span>
-                      {row.star && <span className="text-xs text-green-600 font-semibold">Highest</span>}
-                    </div>
-                    {row.note && <div className="text-xs text-gray-500 mt-0.5 pl-9">{row.note}</div>}
-                  </td>
-                  <td className="px-4 py-3 text-right font-medium text-blue-700">${row.hp_prov.toLocaleString()}</td>
-                  <td className="px-4 py-3 text-right font-medium text-red-700">${row.hp_fed.toLocaleString()}</td>
-                  <td className="px-4 py-3 text-right">
-                    <span className={`font-bold ${row.star ? "text-green-700 text-base" : "text-gray-900"}`}>${row.hp_total.toLocaleString()}</span>
-                    {row.star && <span className="text-xs text-green-600 ml-1">*</span>}
-                  </td>
-                  <td className="px-4 py-3 text-right font-medium text-amber-700">${row.solar.toLocaleString()}</td>
-                  <td className="px-4 py-3 text-right text-gray-600">{row.programs}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      {/* Rebate teaser — drives to /rebates for full data */}
+      <div className="mb-12 flex items-center justify-between bg-green-50 border border-green-200 rounded-xl px-5 py-4">
+        <div>
+          <div className="font-semibold text-gray-800 text-sm">Province-by-province rebate breakdown</div>
+          <div className="text-xs text-gray-600 mt-0.5">Charts, comparison table, and stacking sequence for NS, NB, PEI, NL &amp; ON</div>
         </div>
-        <p className="text-xs text-gray-500 mt-2">*NS max $15,000 for income-qualified households stacking CleanHeat + OHPA + Greener Homes. Standard NS max: $8,000.</p>
-      </section>
-
-      {/* Visual stacking bar for NS */}
-      <section className="mb-12">
-        <h2 className="text-xl font-bold mb-2">How NS Rebates Stack — Visual Guide</h2>
-        <p className="text-sm text-gray-600 mb-5">Most complex province shown. Other provinces follow the same federal + provincial structure.</p>
-        <div className="bg-white border border-gray-200 rounded-2xl p-6">
-          <div className="space-y-3">
-            {[
-              { label: "Step 1 — Book EnerGuide (pre-install)", color: "bg-gray-200", width: "w-full", tag: "Required", tagColor: "bg-gray-500 text-white", amount: null },
-              { label: "Step 2 — Efficiency NS rebate", color: "bg-blue-500", width: "w-1/5", tag: "Up to $3,000", tagColor: "bg-blue-100 text-blue-700", amount: 3000 },
-              { label: "Step 3 — Canada Greener Homes Grant", color: "bg-red-500", width: "w-1/3", tag: "Up to $5,000", tagColor: "bg-red-100 text-red-700", amount: 5000 },
-              { label: "Step 4 — OHPA (oil heat only)", color: "bg-green-500", width: "w-2/3", tag: "Up to $10,000", tagColor: "bg-green-100 text-green-700", amount: 10000 },
-              { label: "Step 5 — Post-install EnerGuide", color: "bg-gray-200", width: "w-full", tag: "Unlocks federal grant", tagColor: "bg-gray-500 text-white", amount: null },
-            ].map((step, i) => (
-              <div key={i} className="flex items-center gap-3">
-                <div className="w-6 h-6 rounded-full bg-gray-100 border border-gray-300 text-xs font-bold flex items-center justify-center text-gray-600 shrink-0">{i + 1}</div>
-                <div className="flex-1">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-sm font-medium text-gray-700">{step.label}</span>
-                    <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${step.tagColor}`}>{step.tag}</span>
-                  </div>
-                  <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
-                    <div className={`h-full rounded-full ${step.color} ${step.width}`} />
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-5 pt-4 border-t border-gray-100 flex items-center justify-between">
-            <span className="text-sm font-semibold text-gray-700">Maximum stacked (income-qualified):</span>
-            <span className="text-2xl font-bold text-green-600">$15,000</span>
-          </div>
-        </div>
-      </section>
+        <Link href="/rebates" className="inline-flex items-center gap-1.5 text-sm font-semibold text-green-700 hover:underline shrink-0 ml-4">
+          Full Rebate Guide <ArrowRight className="w-3.5 h-3.5" />
+        </Link>
+      </div>
 
       {/* Main guide cards */}
       <section className="mb-12">
