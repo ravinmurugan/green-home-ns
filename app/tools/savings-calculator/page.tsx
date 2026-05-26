@@ -6,21 +6,37 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, Cell,
 } from "recharts";
 
-const fuelCosts: Record<string, { label: string; unit: string; costPerUnit: number; kwhPerUnit: number }> = {
-  oil: { label: "Heating Oil", unit: "litres/yr", costPerUnit: 1.55, kwhPerUnit: 38.6 * 0.85 },
-  "electric-baseboard": { label: "Electric Baseboard", unit: "kWh/yr", costPerUnit: 0.185, kwhPerUnit: 1 },
-  propane: { label: "Propane", unit: "litres/yr", costPerUnit: 1.20, kwhPerUnit: 25.3 * 0.92 },
+const provinceData: Record<string, {
+  name: string;
+  electricRate: number;
+  oilRate: number;
+  propaneRate: number;
+  maxRebateHP: number;
+  rebateNote: string;
+}> = {
+  NS:  { name: "Nova Scotia",        electricRate: 0.185, oilRate: 1.55, propaneRate: 1.20, maxRebateHP: 15000, rebateNote: "ENS $3K + Greener Homes $5K + OHPA up to $10K" },
+  NB:  { name: "New Brunswick",      electricRate: 0.138, oilRate: 1.52, propaneRate: 1.15, maxRebateHP: 7000,  rebateNote: "NB Power $2K + Greener Homes $5K" },
+  PEI: { name: "Prince Edward Is.",  electricRate: 0.172, oilRate: 1.58, propaneRate: 1.22, maxRebateHP: 7000,  rebateNote: "Island Prosperity $2K + Greener Homes $5K" },
+  NL:  { name: "Newfoundland",       electricRate: 0.148, oilRate: 1.60, propaneRate: 1.25, maxRebateHP: 7000,  rebateNote: "NL Incentive $2K + Greener Homes $5K" },
+  ON:  { name: "Ontario",            electricRate: 0.175, oilRate: 1.48, propaneRate: 1.10, maxRebateHP: 10000, rebateNote: "Enbridge HER+ $5K + Greener Homes $5K" },
+};
+
+const fuelCosts: Record<string, { label: string; unit: string; kwhPerUnit: number }> = {
+  oil:                { label: "Heating Oil",       unit: "litres/yr", kwhPerUnit: 38.6 * 0.85 },
+  "electric-baseboard": { label: "Electric Baseboard", unit: "kWh/yr",    kwhPerUnit: 1 },
+  propane:            { label: "Propane",           unit: "litres/yr", kwhPerUnit: 25.3 * 0.92 },
 };
 
 const HP_COP = 2.8;
-const HP_ELEC_RATE = 0.185;
 
-function calcResults(fuel: string, usageRaw: number, installCost: number, rebate: number) {
-  const { costPerUnit, kwhPerUnit } = fuelCosts[fuel];
+function calcResults(fuel: string, usageRaw: number, installCost: number, rebate: number, province: string) {
+  const prov = provinceData[province];
+  const { kwhPerUnit } = fuelCosts[fuel];
+  const costPerUnit = fuel === "oil" ? prov.oilRate : fuel === "propane" ? prov.propaneRate : prov.electricRate;
   const currentCost = usageRaw * costPerUnit;
   const heatingKwh = usageRaw * kwhPerUnit;
   const hpKwh = heatingKwh / HP_COP;
-  const hpCost = hpKwh * HP_ELEC_RATE;
+  const hpCost = hpKwh * prov.electricRate;
   const annualSavings = currentCost - hpCost;
   const netInstall = Math.max(0, installCost - rebate);
   const payback = annualSavings > 0 ? netInstall / annualSavings : null;
@@ -37,12 +53,14 @@ const fmt = (n: number) =>
   new Intl.NumberFormat("en-CA", { style: "currency", currency: "CAD", maximumFractionDigits: 0 }).format(n);
 
 export default function SavingsCalculatorPage() {
+  const [province, setProvince] = useState("NS");
   const [fuel, setFuel] = useState("oil");
   const [usage, setUsage] = useState(2000);
   const [installCost, setInstallCost] = useState(9000);
   const [rebate, setRebate] = useState(8000);
 
-  const r = useMemo(() => calcResults(fuel, usage, installCost, rebate), [fuel, usage, installCost, rebate]);
+  const prov = provinceData[province];
+  const r = useMemo(() => calcResults(fuel, usage, installCost, rebate, province), [fuel, usage, installCost, rebate, province]);
 
   const breakEvenYear = r.cumulativeData.findIndex(
     (d, i) => i > 0 && d.netSavings >= 0
@@ -53,10 +71,30 @@ export default function SavingsCalculatorPage() {
       <div className="mb-8">
         <div className="flex items-center gap-2 text-blue-600 text-sm font-medium mb-3">
           <TrendingDown className="w-4 h-4" />
-          Heat Pump Savings — NS Specific
+          Heat Pump Savings Calculator
         </div>
         <h1 className="text-3xl font-bold mb-2">Oil vs Heat Pump: What Do You Actually Save?</h1>
-        <p className="text-gray-600">Enter your real fuel usage — see annual savings, payback period, and 20-year cumulative return.</p>
+        <p className="text-gray-600 mb-5">Enter your real fuel usage — see annual savings, payback period, and 20-year return. Rates are province-specific.</p>
+
+        {/* Province selector */}
+        <div className="flex flex-wrap gap-2">
+          {Object.entries(provinceData).map(([code, p]) => (
+            <button
+              key={code}
+              onClick={() => { setProvince(code); setRebate(p.maxRebateHP > 8000 ? 8000 : p.maxRebateHP); }}
+              className={`px-4 py-2 rounded-full text-sm font-semibold border-2 transition-all ${
+                province === code
+                  ? "bg-blue-600 border-blue-600 text-white"
+                  : "border-gray-200 text-gray-600 hover:border-blue-300"
+              }`}
+            >
+              {code}
+            </button>
+          ))}
+        </div>
+        <div className="mt-2 text-xs text-gray-500">
+          {prov.name} — electricity ${prov.electricRate}/kWh · oil ${prov.oilRate}/L · max rebate ${prov.maxRebateHP.toLocaleString()}
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -97,10 +135,10 @@ export default function SavingsCalculatorPage() {
             />
             <p className="text-xs text-gray-600 mt-1">
               {fuel === "oil"
-                ? "NS avg: 1,800–2,400 litres/yr for primary oil heat"
+                ? "Atlantic Canada avg: 1,800–2,400 litres/yr for primary oil heat"
                 : fuel === "propane"
-                ? "NS avg: 1,500–2,500 litres/yr for primary propane heat"
-                : "NS avg: 12,000–18,000 kWh/yr for baseboard"}
+                ? "Atlantic Canada avg: 1,500–2,500 litres/yr for primary propane heat"
+                : "Avg: 12,000–18,000 kWh/yr for electric baseboard"}
             </p>
           </div>
 
@@ -129,7 +167,7 @@ export default function SavingsCalculatorPage() {
               onChange={(e) => setRebate(Number(e.target.value))}
               className="w-full accent-green-600"
             />
-            <p className="text-xs text-gray-600 mt-1">ENS up to $3K + federal up to $5K = $8K max standard. OHPA up to $15K if eligible.</p>
+            <p className="text-xs text-gray-600 mt-1">{prov.rebateNote}. Max: ${prov.maxRebateHP.toLocaleString()}.</p>
           </div>
         </div>
 
@@ -219,7 +257,7 @@ export default function SavingsCalculatorPage() {
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex gap-2">
             <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
             <p className="text-xs text-gray-700">
-              Uses NS avg rates: electricity $0.185/kWh, oil $1.55/L, propane $1.20/L. COP 2.8 is a seasonal average for NS cold-climate units. Results vary with home size, insulation, and thermostat habits.
+              Using {prov.name} rates: electricity ${prov.electricRate}/kWh, oil ${prov.oilRate}/L, propane ${prov.propaneRate}/L. COP 2.8 is a seasonal average for cold-climate units. Results vary with home size, insulation, and thermostat habits.
             </p>
           </div>
 
@@ -228,7 +266,7 @@ export default function SavingsCalculatorPage() {
               Check My Rebate Eligibility →
             </a>
             <a href="/installers?service=heat-pump" className="flex-1 border border-gray-300 text-gray-700 font-semibold py-3 rounded-xl text-center text-sm hover:bg-gray-50 transition-colors">
-              Find NS Installers
+              Find {prov.name} Installers
             </a>
           </div>
         </div>
