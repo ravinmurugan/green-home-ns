@@ -1,11 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle2, ChevronRight, DollarSign, AlertCircle, ArrowLeft, Flame, Zap, Droplets, Thermometer, Home, Key, Gauge } from "lucide-react";
+import {
+  CheckCircle2, ChevronRight, DollarSign, AlertCircle, ArrowLeft,
+  Flame, Zap, Droplets, Thermometer, Home, Key, Gauge, MapPin, ExternalLink, RotateCcw,
+} from "lucide-react";
 
-type Step = "heat-source" | "ownership" | "income" | "oil-usage" | "result";
+type Province = "NS" | "NB" | "PEI" | "NL" | "ON";
+type Step = "province" | "heat-source" | "ownership" | "income" | "oil-usage" | "result";
 
 interface Answers {
+  province: Province | null;
   heatSource: "oil" | "baseboard" | "propane" | "other" | null;
   ownership: "own" | "rent" | null;
   income: "under40" | "40to75" | "75to100" | "over100" | null;
@@ -19,144 +24,221 @@ interface Program {
   color: string;
   badge: string;
   note: string;
-  sequence: string[];
+  applyUrl: string;
+  applyLabel: string;
 }
 
+interface RoadmapStep {
+  label: string;
+  detail: string;
+  critical?: boolean;
+}
+
+const provinceNames: Record<Province, string> = {
+  NS: "Nova Scotia", NB: "New Brunswick", PEI: "Prince Edward Island",
+  NL: "Newfoundland", ON: "Ontario",
+};
+
+// ─── Province-specific program logic ─────────────────────────────────────────
+
 function calcPrograms(answers: Answers): Program[] {
+  if (!answers.province) return [];
+  const { province, heatSource, ownership, income, oilLitres } = answers;
   const programs: Program[] = [];
-  const { heatSource, ownership, income, oilLitres } = answers;
 
-  // OHPA — oil heaters only, homeowners only
-  if (heatSource === "oil" && ownership === "own" && oilLitres !== "under500") {
-    let ohpaAmount = 0;
-    let ohpaBadge = "";
-    let ohpaNote = "";
+  // ── Nova Scotia ────────────────────────────────────────────────────────────
+  if (province === "NS") {
+    if (heatSource === "oil" && ownership === "own" && oilLitres !== "under500") {
+      let amount = 0, badge = "", note = "";
+      if (income === "under40")    { amount = 15000; badge = "Maximum benefit"; note = "Federal $10,000 + NS provincial match $5,000. Covers heat pump + panel upgrades."; }
+      else if (income === "40to75") { amount = 10000; badge = "High benefit";    note = "Federal OHPA $10,000. Apply for pre-approval before choosing equipment."; }
+      else if (income === "75to100"){ amount = 5000;  badge = "Partial benefit"; note = "Reduced federal grant based on income. Confirm at canada.ca/heat-pump-grant."; }
+      if (amount > 0) {
+        programs.push({ name: "Oil to Heat Pump Affordability (OHPA)", provider: "Federal + NS Government", amount, color: "border-green-500 bg-green-50", badge, note, applyUrl: "https://www.canada.ca/en/natural-resources-canada/news/2023/03/oil-to-heat-pump-affordability-program.html", applyLabel: "Apply at canada.ca" });
+      }
+    }
+    if (ownership === "own") {
+      programs.push({ name: "Efficiency NS Heat Pump Rebate", provider: "Efficiency Nova Scotia", amount: 3000, color: "border-blue-500 bg-blue-50", badge: "Available to all NS homeowners", note: "Requires ENS-approved installer + cold-climate unit (HSPF2 ≥ 7.5). Stackable with OHPA.", applyUrl: "https://www.efficiencyns.ca/residential/heating-cooling/heat-pumps/", applyLabel: "Apply at efficiencyns.ca" });
+    }
+    if (ownership === "own" && (income === "under40" || income === "40to75")) {
+      programs.push({ name: "Moderate Income Rebate (MIR)", provider: "Efficiency Nova Scotia", amount: 15000, color: "border-purple-500 bg-purple-50", badge: income === "under40" ? "Likely eligible" : "May be eligible", note: "Income threshold varies. Can cover heat pump, insulation, windows. Check eligibility at efficiencyns.ca.", applyUrl: "https://www.efficiencyns.ca/residential/heating-cooling/heat-pumps/", applyLabel: "Check eligibility at efficiencyns.ca" });
+    }
+    if (ownership === "rent" || income === "under40") {
+      programs.push({ name: "Heating Assistance Rebate Program", provider: "Nova Scotia Government", amount: 1000, color: "border-amber-500 bg-amber-50", badge: "For low-income households", note: "Annual rebate on heating costs. Renters: ask landlord — heat pump retrofits may qualify separately.", applyUrl: "https://novascotia.ca/heating-assistance", applyLabel: "Apply at novascotia.ca" });
+    }
+    if (ownership === "own") {
+      programs.push({ name: "Canada Greener Homes Grant — Heat Pump", provider: "Government of Canada", amount: 5000, color: "border-red-400 bg-red-50", badge: "All Canadian homeowners", note: "Requires pre + post EnerGuide assessment. Stacks with ENS rebate. Up to $600 assessment cost covered.", applyUrl: "https://www.canada.ca/en/natural-resources-canada/news/2021/05/canada-greener-homes-grant.html", applyLabel: "Apply at canada.ca" });
+    }
+  }
 
+  // ── New Brunswick ──────────────────────────────────────────────────────────
+  if (province === "NB") {
+    if (ownership === "own") {
+      programs.push({ name: "NB Power Smart Saver Heat Pump Rebate", provider: "NB Power", amount: 2000, color: "border-blue-500 bg-blue-50", badge: "NB Power customers", note: "Register at nbpower.com BEFORE installation. Must use NB Power participating installer.", applyUrl: "https://www.nbpower.com/en/save-energy/residential/smart-saver/", applyLabel: "Register at nbpower.com" });
+      programs.push({ name: "Canada Greener Homes Grant — Heat Pump", provider: "Government of Canada", amount: 5000, color: "border-red-400 bg-red-50", badge: "All Canadian homeowners", note: "Pre + post EnerGuide assessments required. Up to $600 assessment cost covered.", applyUrl: "https://www.canada.ca/en/natural-resources-canada/news/2021/05/canada-greener-homes-grant.html", applyLabel: "Apply at canada.ca" });
+    }
+    if (ownership === "rent" || income === "under40") {
+      programs.push({ name: "NB Power Low Income Program", provider: "NB Power", amount: 1500, color: "border-amber-500 bg-amber-50", badge: "Low-income households", note: "Qualifying households may receive enhanced support. Contact NB Power directly.", applyUrl: "https://www.nbpower.com/en/save-energy/residential/", applyLabel: "Check at nbpower.com" });
+    }
+  }
+
+  // ── Prince Edward Island ───────────────────────────────────────────────────
+  if (province === "PEI") {
+    if (ownership === "own") {
+      programs.push({ name: "Island Prosperity Fund — Heat Pump Rebate", provider: "Province of PEI", amount: 2000, color: "border-blue-500 bg-blue-50", badge: "PEI homeowners", note: "Apply at princeedwardisland.ca before installation. Requires certified installer.", applyUrl: "https://www.princeedwardisland.ca/en/topic/energy-efficiency", applyLabel: "Apply at princeedwardisland.ca" });
+      programs.push({ name: "Canada Greener Homes Grant — Heat Pump", provider: "Government of Canada", amount: 5000, color: "border-red-400 bg-red-50", badge: "All Canadian homeowners", note: "Pre + post EnerGuide assessments required. Stacks with Island Prosperity Fund.", applyUrl: "https://www.canada.ca/en/natural-resources-canada/news/2021/05/canada-greener-homes-grant.html", applyLabel: "Apply at canada.ca" });
+    }
     if (income === "under40") {
-      ohpaAmount = 15000;
-      ohpaBadge = "Maximum benefit";
-      ohpaNote = "Federal $10,000 + NS provincial match $5,000. Covers heat pump + electrical panel upgrades.";
-    } else if (income === "40to75") {
-      ohpaAmount = 10000;
-      ohpaBadge = "High benefit";
-      ohpaNote = "Federal $10,000 grant. Apply before choosing equipment.";
-    } else if (income === "75to100") {
-      ohpaAmount = 5000;
-      ohpaBadge = "Partial benefit";
-      ohpaNote = "Reduced federal grant based on income. Confirm exact amount at canada.ca/heat-pump-grant.";
-    }
-
-    if (ohpaAmount > 0) {
-      programs.push({
-        name: "Oil to Heat Pump Affordability (OHPA)",
-        provider: "Federal + Nova Scotia Government",
-        amount: ohpaAmount,
-        color: "border-green-500 bg-green-50",
-        badge: ohpaBadge,
-        note: ohpaNote,
-        sequence: [
-          "Verify income eligibility at canada.ca/heat-pump-grant",
-          "Apply to OHPA — get pre-approval BEFORE installation",
-          "Book EnerGuide pre-assessment (free under this program)",
-          "Get 3 quotes from ENS-approved installers",
-          "Select AHRI-listed cold-climate unit",
-          "Installation + electrical upgrades if needed",
-          "Submit completion documents for rebate",
-        ],
-      });
+      programs.push({ name: "PEI Energy Efficiency Assistance", provider: "Province of PEI", amount: 1000, color: "border-amber-500 bg-amber-50", badge: "Low-income households", note: "Additional support for qualifying households. Contact Office of Energy Efficiency.", applyUrl: "https://www.princeedwardisland.ca/en/topic/energy-efficiency", applyLabel: "Check at princeedwardisland.ca" });
     }
   }
 
-  // ENS standard rebate — all homeowners
-  if (ownership === "own") {
-    programs.push({
-      name: "Efficiency NS Heat Pump Rebate",
-      provider: "Efficiency Nova Scotia",
-      amount: 3000,
-      color: "border-blue-500 bg-blue-50",
-      badge: "Available to all homeowners",
-      note: "Requires ENS-approved installer and cold-climate rated unit (HSPF2 ≥ 7.5). Stackable with OHPA.",
-      sequence: [
-        "Book EnerGuide home energy assessment (pre-install)",
-        "Get quotes only from ENS-approved installers",
-        "Install cold-climate heat pump (HSPF2 ≥ 7.5)",
-        "Book post-install EnerGuide assessment",
-        "Installer submits rebate claim on your behalf",
-      ],
-    });
+  // ── Newfoundland ───────────────────────────────────────────────────────────
+  if (province === "NL") {
+    if (ownership === "own") {
+      programs.push({ name: "NL Heat Pump Incentive Program", provider: "Newfoundland Power / NL Hydro", amount: 2000, color: "border-blue-500 bg-blue-50", badge: "NL homeowners", note: "Register with Newfoundland Power or NL Hydro before installation. Cold-climate unit required.", applyUrl: "https://www.newfoundlandpower.com/residential/rebates-and-programs", applyLabel: "Register at newfoundlandpower.com" });
+      programs.push({ name: "Canada Greener Homes Grant — Heat Pump", provider: "Government of Canada", amount: 5000, color: "border-red-400 bg-red-50", badge: "All Canadian homeowners", note: "Pre + post EnerGuide assessments required. Up to $600 assessment cost covered.", applyUrl: "https://www.canada.ca/en/natural-resources-canada/news/2021/05/canada-greener-homes-grant.html", applyLabel: "Apply at canada.ca" });
+    }
   }
 
-  // Moderate Income Rebate
-  if (ownership === "own" && (income === "under40" || income === "40to75")) {
-    programs.push({
-      name: "Moderate Income Rebate (MIR)",
-      provider: "Efficiency Nova Scotia",
-      amount: 15000,
-      color: "border-purple-500 bg-purple-50",
-      badge: income === "under40" ? "Likely eligible" : "May be eligible",
-      note: "Income threshold varies. Can cover heat pump, insulation, windows. Check eligibility at efficiencyns.ca.",
-      sequence: [
-        "Apply through Efficiency NS — income verification required",
-        "Book home energy assessment",
-        "Choose from approved upgrade list (heat pump, insulation, etc.)",
-        "Contractor installs approved equipment",
-        "ENS processes rebate directly",
-      ],
-    });
-  }
-
-  // Renters / low income
-  if (ownership === "rent" || income === "under40") {
-    programs.push({
-      name: "Heating Assistance Rebate Program",
-      provider: "Nova Scotia Government",
-      amount: 1000,
-      color: "border-amber-500 bg-amber-50",
-      badge: "For low-income households",
-      note: "Annual rebate on heating costs. Also check with your landlord — heat pump retrofits may qualify for separate programs.",
-      sequence: [
-        "Apply at novascotia.ca/heating-assistance",
-        "Provide income documentation",
-        "Rebate applied as bill credit or cheque",
-      ],
-    });
+  // ── Ontario ────────────────────────────────────────────────────────────────
+  if (province === "ON") {
+    if (ownership === "own") {
+      programs.push({ name: "Enbridge Home Efficiency Rebate Plus (HER+)", provider: "Enbridge Gas", amount: 5000, color: "border-blue-500 bg-blue-50", badge: "Enbridge Gas customers", note: "For Enbridge Gas customers. Apply through Enbridge portal before installation. Check for local utility programs if not Enbridge.", applyUrl: "https://www.enbridgegas.com/residential/accountservices/homeefficiencyrebate", applyLabel: "Apply at enbridgegas.com" });
+      programs.push({ name: "Canada Greener Homes Grant — Heat Pump", provider: "Government of Canada", amount: 5000, color: "border-red-400 bg-red-50", badge: "All Canadian homeowners", note: "Pre + post EnerGuide assessments required. Stacks with Enbridge HER+.", applyUrl: "https://www.canada.ca/en/natural-resources-canada/news/2021/05/canada-greener-homes-grant.html", applyLabel: "Apply at canada.ca" });
+    }
+    if (income === "under40" || income === "40to75") {
+      programs.push({ name: "Ontario Affordability / LEAP Program", provider: "Ontario Energy Board", amount: 1000, color: "border-amber-500 bg-amber-50", badge: "Low-income households", note: "LEAP (Low-income Energy Assistance Program) helps with energy costs. Contact your local utility for referral.", applyUrl: "https://www.oeb.ca/consumer-protection-and-privacy/getting-help-your-energy-bills/low-income-energy-assistance-program", applyLabel: "Check at oeb.ca" });
+    }
   }
 
   return programs;
 }
 
-const STEPS: Step[] = ["heat-source", "ownership", "income", "oil-usage", "result"];
+// ─── Province-specific application roadmaps ──────────────────────────────────
+
+function getApplicationRoadmap(answers: Answers): RoadmapStep[] {
+  const { province, heatSource, ownership, income, oilLitres } = answers;
+  const isOilNS = province === "NS" && heatSource === "oil" && ownership === "own" && oilLitres !== "under500";
+  const incomeQualified = income === "under40" || income === "40to75";
+
+  if (province === "NS") {
+    if (isOilNS && incomeQualified) {
+      return [
+        { label: "Verify OHPA income eligibility", detail: "Go to canada.ca/heat-pump-grant — confirm your household income qualifies before taking any action.", critical: true },
+        { label: "Apply for OHPA pre-approval", detail: "Submit your OHPA application and receive pre-approval BEFORE hiring any installer or purchasing equipment.", critical: true },
+        { label: "Book a pre-retrofit EnerGuide assessment", detail: "Required for the federal Greener Homes grant. Cost is covered (up to $600). Book at nrcan.gc.ca.", critical: true },
+        { label: "Get 3 quotes from ENS-approved installers only", detail: "Only Efficiency NS approved contractors qualify you for the ENS rebate. Find them at our installer directory.", critical: true },
+        { label: "Select a cold-climate unit (HSPF2 ≥ 7.5)", detail: "Required for all NS rebate programs. Ask for the AHRI certificate and confirm HSPF2 rating in writing before signing." },
+        { label: "Installation + electrical upgrade (if needed)", detail: "Typical install: 1–3 days. Panel upgrade may add 1–2 days. Installer pulls all permits." },
+        { label: "Book your post-retrofit EnerGuide assessment", detail: "Required to claim the federal Greener Homes grant. Book with the same energy advisor from step 3." },
+        { label: "Your installer submits the ENS rebate automatically", detail: "Efficiency NS rebate (up to $3,000) is submitted by your installer post-installation. You don't apply separately." },
+        { label: "Submit federal OHPA + Greener Homes claim", detail: "Use your pre and post EnerGuide reports to submit your federal claim at canada.ca. Rebate arrives by cheque." },
+        { label: "Wait for rebates to arrive", detail: "ENS rebate: 4–8 weeks. Federal OHPA/Greener Homes: 6–12 weeks by cheque." },
+      ];
+    }
+    if (ownership === "own") {
+      return [
+        { label: "Book a pre-retrofit EnerGuide assessment", detail: "Required for the Canada Greener Homes Grant. Book at nrcan.gc.ca. Cost up to $600 covered by the grant.", critical: true },
+        { label: "Get quotes from ENS-approved installers only", detail: "Only ENS-approved contractors qualify you for the provincial rebate. Non-approved installer = lose $3,000.", critical: true },
+        { label: "Select a cold-climate unit (HSPF2 ≥ 7.5)", detail: "Required for the ENS rebate. Confirm HSPF2 rating in your quote in writing before signing." },
+        { label: "Installation day (1–3 days)", detail: "Installer pulls electrical permits. Mini-splits typically 1 day; central ducted 2–3 days." },
+        { label: "Book your post-retrofit EnerGuide assessment", detail: "Required to unlock the federal Greener Homes grant ($5,000). Same energy advisor as step 1." },
+        { label: "ENS rebate submitted by your installer", detail: "Up to $3,000 submitted automatically by your installer. You don't apply separately for the ENS rebate." },
+        { label: "Submit your federal Greener Homes claim", detail: "Use pre + post EnerGuide reports to submit at canada.ca. Federal $5,000 rebate arrives by cheque." },
+        { label: "Wait for rebates", detail: "ENS: 4–8 weeks. Federal Greener Homes: 6–12 weeks by cheque to your address." },
+      ];
+    }
+  }
+
+  if (province === "NB") {
+    return [
+      { label: "Register with NB Power Smart Saver BEFORE any work", detail: "Go to nbpower.com/smartsaver and register before hiring a contractor. Retroactive claims are NOT accepted.", critical: true },
+      { label: "Book a pre-retrofit EnerGuide assessment", detail: "Required for the federal Greener Homes grant. Book at nrcan.gc.ca — cost covered up to $600.", critical: true },
+      { label: "Get quotes from NB Power participating installers", detail: "Only installers listed in the NB Power program qualify for the Smart Saver rebate. Ask to confirm before signing." },
+      { label: "Select a cold-climate heat pump (HSPF2 ≥ 7.5)", detail: "Required for maximum rebate eligibility. Confirm rating in your quote in writing." },
+      { label: "Installation (1–3 days)", detail: "Your installer pulls all required permits. NB requires electrical inspection post-install." },
+      { label: "NB Power rebate submitted through installer or portal", detail: "Up to $2,000. Your installer may handle this or you submit at nbpower.com/smartsaver." },
+      { label: "Book post-retrofit EnerGuide assessment", detail: "Required to claim the $5,000 federal Greener Homes grant." },
+      { label: "Submit federal Greener Homes claim", detail: "Use pre + post reports at canada.ca. Federal rebate arrives by cheque in 6–12 weeks." },
+    ];
+  }
+
+  if (province === "PEI") {
+    return [
+      { label: "Apply to Island Prosperity Fund before installation", detail: "Visit princeedwardisland.ca/energy and submit your application before any work begins.", critical: true },
+      { label: "Book a pre-retrofit EnerGuide assessment", detail: "Required for the federal Greener Homes grant. Cost up to $600 covered. Book at nrcan.gc.ca.", critical: true },
+      { label: "Get quotes from certified PEI installers", detail: "Ask each installer to confirm they are approved under the Island Prosperity Fund program." },
+      { label: "Select approved cold-climate equipment", detail: "Confirm equipment is on the approved product list for the Island Prosperity Fund before signing." },
+      { label: "Installation (1–3 days)", detail: "Installer pulls permits. Maritime Electric requires interconnection agreement for net-metered solar." },
+      { label: "Book post-retrofit EnerGuide assessment", detail: "Required for the federal $5,000 Greener Homes grant." },
+      { label: "Submit provincial + federal claims", detail: "Provincial Island Prosperity Fund + federal Greener Homes. Submit separately through each program portal." },
+      { label: "Wait for rebates", detail: "Provincial: 6–10 weeks. Federal Greener Homes: 6–12 weeks by cheque." },
+    ];
+  }
+
+  if (province === "NL") {
+    return [
+      { label: "Register for NL Heat Pump Incentive before installation", detail: "Register at newfoundlandpower.com or nlhydro.com depending on your utility. Must be pre-approved.", critical: true },
+      { label: "Book a pre-retrofit EnerGuide assessment", detail: "Required for the federal Greener Homes grant. Book at nrcan.gc.ca — cost up to $600 covered.", critical: true },
+      { label: "Get quotes from certified NL installers", detail: "Confirm the installer is registered under the provincial incentive program before signing any quote." },
+      { label: "Select a cold-climate heat pump (HSPF2 ≥ 7.5)", detail: "Required for the NL incentive program and federal grant. Get the HSPF2 rating in writing." },
+      { label: "Installation (1–3 days)", detail: "Installer handles permits and utility interconnection application." },
+      { label: "Book post-retrofit EnerGuide assessment", detail: "Required to unlock the $5,000 federal Greener Homes grant." },
+      { label: "Submit NL incentive + federal claims", detail: "NL: through your utility portal. Federal: canada.ca using pre + post EnerGuide reports." },
+      { label: "Wait for rebates", detail: "NL incentive: 6–10 weeks. Federal Greener Homes: 6–12 weeks by cheque." },
+    ];
+  }
+
+  if (province === "ON") {
+    return [
+      { label: "Apply to Enbridge HER+ portal before installation", detail: "If you're an Enbridge Gas customer, apply at enbridgegas.com/her BEFORE any work. Retroactive not accepted.", critical: true },
+      { label: "Book a pre-retrofit EnerGuide assessment", detail: "Required for the federal Greener Homes grant. Book at nrcan.gc.ca — cost up to $600 covered.", critical: true },
+      { label: "Get quotes from Enbridge-approved installers", detail: "Enbridge HER+ requires approved contractors. Check the Enbridge installer list before signing any quote." },
+      { label: "Select a cold-climate heat pump (HSPF2 ≥ 7.5)", detail: "Required for Enbridge HER+ and the federal grant. Confirm HSPF2 rating in writing." },
+      { label: "Installation (1–3 days)", detail: "Installer handles all permits. In ON, ESA electrical inspection is required after installation." },
+      { label: "Book post-retrofit EnerGuide assessment", detail: "Required to unlock the $5,000 federal Greener Homes grant." },
+      { label: "Submit Enbridge HER+ claim", detail: "Through the Enbridge portal with proof of install. Typically processed 4–8 weeks." },
+      { label: "Submit federal Greener Homes claim", detail: "At canada.ca using pre + post EnerGuide reports. Rebate arrives by cheque in 6–12 weeks." },
+    ];
+  }
+
+  return [];
+}
+
+// ─── Component ────────────────────────────────────────────────────────────────
+
+const STEPS: Step[] = ["province", "heat-source", "ownership", "income", "oil-usage", "result"];
 
 export default function RebateQuizPage() {
-  const [step, setStep] = useState<Step>("heat-source");
+  const [step, setStep] = useState<Step>("province");
   const [answers, setAnswers] = useState<Answers>({
-    heatSource: null,
-    ownership: null,
-    income: null,
-    oilLitres: null,
+    province: null, heatSource: null, ownership: null, income: null, oilLitres: null,
   });
 
   const stepIndex = STEPS.indexOf(step);
-  const totalSteps = answers.heatSource === "oil" ? 5 : 4;
-  const progress = Math.round((stepIndex / (totalSteps - 1)) * 100);
+  const showOilStep = answers.heatSource === "oil";
+  const totalSteps = showOilStep ? 5 : 4;
+  const questionStepIndex = Math.max(0, stepIndex - 0);
+  const progress = step === "result" ? 100 : Math.round((questionStepIndex / totalSteps) * 100);
 
-  function next(nextStep: Step) {
-    setStep(nextStep);
-  }
+  function next(nextStep: Step) { setStep(nextStep); }
 
   function back() {
-    if (step === "ownership") setStep("heat-source");
+    if (step === "heat-source") setStep("province");
+    else if (step === "ownership") setStep("heat-source");
     else if (step === "income") setStep("ownership");
     else if (step === "oil-usage") setStep("income");
     else if (step === "result") setStep(answers.heatSource === "oil" ? "oil-usage" : "income");
   }
 
   function reset() {
-    setStep("heat-source");
-    setAnswers({ heatSource: null, ownership: null, income: null, oilLitres: null });
+    setStep("province");
+    setAnswers({ province: null, heatSource: null, ownership: null, income: null, oilLitres: null });
   }
 
   const programs = step === "result" ? calcPrograms(answers) : [];
+  const roadmap = step === "result" ? getApplicationRoadmap(answers) : [];
   const totalMax = programs.reduce((sum, p) => sum + p.amount, 0);
 
   return (
@@ -164,35 +246,61 @@ export default function RebateQuizPage() {
       <div className="mb-8">
         <div className="flex items-center gap-2 text-green-600 text-sm font-medium mb-3">
           <DollarSign className="w-4 h-4" />
-          NS Rebate Eligibility — 2026
+          Green Energy Rebate Eligibility — 2026
         </div>
         <h1 className="text-3xl font-bold mb-2">Which Rebates Do You Qualify For?</h1>
-        <p className="text-gray-600">Answer 4 questions — see your exact NS programs and maximum rebate amount.</p>
+        <p className="text-gray-600">Answer {totalSteps} questions — see your exact programs, amounts, and step-by-step application process.</p>
       </div>
 
       {step !== "result" && (
         <div className="mb-8">
           <div className="flex justify-between text-xs text-gray-600 mb-2">
-            <span>Step {stepIndex + 1} of {totalSteps}</span>
+            <span>Step {stepIndex + 1} of {totalSteps + 1}</span>
             <span>{progress}% complete</span>
           </div>
           <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-green-500 rounded-full transition-all duration-500"
-              style={{ width: `${progress}%` }}
-            />
+            <div className="h-full bg-green-500 rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
           </div>
         </div>
       )}
 
       <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-        {step !== "heat-source" && step !== "result" && (
+        {step !== "province" && step !== "result" && (
           <button onClick={back} className="flex items-center gap-1 text-sm text-gray-600 hover:text-gray-900 mb-6">
             <ArrowLeft className="w-3.5 h-3.5" /> Back
           </button>
         )}
 
-        {/* Step 1: Heat source */}
+        {/* Step 1: Province */}
+        {step === "province" && (
+          <div>
+            <h2 className="text-xl font-bold mb-2">Which province are you in?</h2>
+            <p className="text-sm text-gray-600 mb-6">Rebate programs and amounts vary significantly by province.</p>
+            <div className="grid grid-cols-1 gap-3">
+              {(["NS", "NB", "PEI", "NL", "ON"] as Province[]).map((prov) => {
+                const maxRebates: Record<Province, string> = { NS: "Up to $15,000", NB: "Up to $7,000", PEI: "Up to $7,000", NL: "Up to $7,000", ON: "Up to $10,000" };
+                return (
+                  <button
+                    key={prov}
+                    onClick={() => { setAnswers((a) => ({ ...a, province: prov })); next("heat-source"); }}
+                    className="flex items-center gap-4 p-4 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all text-left group"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-green-50 text-green-600 flex items-center justify-center shrink-0">
+                      <MapPin className="w-5 h-5" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="font-semibold group-hover:text-green-700">{provinceNames[prov]}</div>
+                      <div className="text-sm text-gray-600">{maxRebates[prov]} in stacked rebates</div>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-green-600" />
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Step 2: Heat source */}
         {step === "heat-source" && (
           <div>
             <h2 className="text-xl font-bold mb-6">What do you currently use to heat your home?</h2>
@@ -203,21 +311,10 @@ export default function RebateQuizPage() {
                 { value: "propane", label: "Propane", Icon: Droplets, detail: "Propane tank or line", iconColor: "text-blue-600 bg-blue-50" },
                 { value: "other", label: "Natural Gas / Wood / Other", Icon: Flame, detail: "Any other heat source", iconColor: "text-red-500 bg-red-50" },
               ].map((opt) => (
-                <button
-                  key={opt.value}
-                  onClick={() => {
-                    setAnswers((a) => ({ ...a, heatSource: opt.value as Answers["heatSource"] }));
-                    next("ownership");
-                  }}
-                  className="flex items-center gap-4 p-4 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all text-left group"
-                >
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${opt.iconColor}`}>
-                    <opt.Icon className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="font-semibold group-hover:text-green-700">{opt.label}</div>
-                    <div className="text-sm text-gray-600">{opt.detail}</div>
-                  </div>
+                <button key={opt.value} onClick={() => { setAnswers((a) => ({ ...a, heatSource: opt.value as Answers["heatSource"] })); next("ownership"); }}
+                  className="flex items-center gap-4 p-4 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all text-left group">
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${opt.iconColor}`}><opt.Icon className="w-5 h-5" /></div>
+                  <div><div className="font-semibold group-hover:text-green-700">{opt.label}</div><div className="text-sm text-gray-600">{opt.detail}</div></div>
                   <ChevronRight className="w-4 h-4 ml-auto text-gray-400 group-hover:text-green-600" />
                 </button>
               ))}
@@ -225,7 +322,7 @@ export default function RebateQuizPage() {
           </div>
         )}
 
-        {/* Step 2: Ownership */}
+        {/* Step 3: Ownership */}
         {step === "ownership" && (
           <div>
             <h2 className="text-xl font-bold mb-6">Do you own or rent your home?</h2>
@@ -234,21 +331,10 @@ export default function RebateQuizPage() {
                 { value: "own", label: "I own my home", Icon: Home, detail: "Freehold or condo ownership", iconColor: "text-green-600 bg-green-50" },
                 { value: "rent", label: "I rent my home", Icon: Key, detail: "Tenant — landlord owns the property", iconColor: "text-gray-600 bg-gray-100" },
               ].map((opt) => (
-                <button
-                  key={opt.value}
-                  onClick={() => {
-                    setAnswers((a) => ({ ...a, ownership: opt.value as Answers["ownership"] }));
-                    next("income");
-                  }}
-                  className="flex items-center gap-4 p-4 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all text-left group"
-                >
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${opt.iconColor}`}>
-                    <opt.Icon className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="font-semibold group-hover:text-green-700">{opt.label}</div>
-                    <div className="text-sm text-gray-600">{opt.detail}</div>
-                  </div>
+                <button key={opt.value} onClick={() => { setAnswers((a) => ({ ...a, ownership: opt.value as Answers["ownership"] })); next("income"); }}
+                  className="flex items-center gap-4 p-4 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all text-left group">
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${opt.iconColor}`}><opt.Icon className="w-5 h-5" /></div>
+                  <div><div className="font-semibold group-hover:text-green-700">{opt.label}</div><div className="text-sm text-gray-600">{opt.detail}</div></div>
                   <ChevronRight className="w-4 h-4 ml-auto text-gray-400 group-hover:text-green-600" />
                 </button>
               ))}
@@ -256,35 +342,22 @@ export default function RebateQuizPage() {
           </div>
         )}
 
-        {/* Step 3: Income */}
+        {/* Step 4: Income */}
         {step === "income" && (
           <div>
             <h2 className="text-xl font-bold mb-2">What is your household annual income?</h2>
-            <p className="text-sm text-gray-600 mb-6">Combined income of all adults in your household. Used to determine program eligibility — not shared.</p>
+            <p className="text-sm text-gray-600 mb-6">Combined income of all adults. Used only to determine program eligibility.</p>
             <div className="grid grid-cols-1 gap-3">
               {[
                 { value: "under40", label: "Under $40,000", detail: "Maximum rebate programs available" },
                 { value: "40to75", label: "$40,000 – $75,000", detail: "Most programs available" },
                 { value: "75to100", label: "$75,000 – $100,000", detail: "Some programs available" },
-                { value: "over100", label: "Over $100,000", detail: "Standard ENS rebate available" },
+                { value: "over100", label: "Over $100,000", detail: "Standard rebates available" },
               ].map((opt) => (
-                <button
-                  key={opt.value}
-                  onClick={() => {
-                    const a = { ...answers, income: opt.value as Answers["income"] };
-                    setAnswers(a);
-                    if (a.heatSource === "oil") next("oil-usage");
-                    else next("result");
-                  }}
-                  className="flex items-center gap-4 p-4 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all text-left group"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-green-50 text-green-600 flex items-center justify-center shrink-0">
-                    <DollarSign className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="font-semibold group-hover:text-green-700">{opt.label}</div>
-                    <div className="text-sm text-gray-600">{opt.detail}</div>
-                  </div>
+                <button key={opt.value} onClick={() => { const a = { ...answers, income: opt.value as Answers["income"] }; setAnswers(a); if (a.heatSource === "oil" && a.province === "NS") next("oil-usage"); else next("result"); }}
+                  className="flex items-center gap-4 p-4 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all text-left group">
+                  <div className="w-10 h-10 rounded-xl bg-green-50 text-green-600 flex items-center justify-center shrink-0"><DollarSign className="w-5 h-5" /></div>
+                  <div><div className="font-semibold group-hover:text-green-700">{opt.label}</div><div className="text-sm text-gray-600">{opt.detail}</div></div>
                   <ChevronRight className="w-4 h-4 ml-auto text-gray-400 group-hover:text-green-600" />
                 </button>
               ))}
@@ -292,32 +365,21 @@ export default function RebateQuizPage() {
           </div>
         )}
 
-        {/* Step 4: Oil usage (oil heaters only) */}
+        {/* Step 5: Oil usage (NS oil heaters only) */}
         {step === "oil-usage" && (
           <div>
             <h2 className="text-xl font-bold mb-2">How much heating oil do you use per year?</h2>
-            <p className="text-sm text-gray-600 mb-6">Check your last 12 months of delivery receipts. The OHPA program requires at least 500 litres.</p>
+            <p className="text-sm text-gray-600 mb-6">Check your last 12 months of delivery receipts. OHPA requires at least 500 litres.</p>
             <div className="grid grid-cols-1 gap-3">
               {[
                 { value: "under500", label: "Less than 500 litres", detail: "Below OHPA minimum threshold" },
-                { value: "500to1000", label: "500 – 1,000 litres", detail: "Typical NS home with some oil heat" },
+                { value: "500to1000", label: "500 – 1,000 litres", detail: "Typical home with some oil heat" },
                 { value: "over1000", label: "Over 1,000 litres", detail: "Oil as primary heat source" },
               ].map((opt) => (
-                <button
-                  key={opt.value}
-                  onClick={() => {
-                    setAnswers((a) => ({ ...a, oilLitres: opt.value as Answers["oilLitres"] }));
-                    next("result");
-                  }}
-                  className="flex items-center gap-4 p-4 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all text-left group"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
-                    <Gauge className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="font-semibold group-hover:text-green-700">{opt.label}</div>
-                    <div className="text-sm text-gray-600">{opt.detail}</div>
-                  </div>
+                <button key={opt.value} onClick={() => { setAnswers((a) => ({ ...a, oilLitres: opt.value as Answers["oilLitres"] })); next("result"); }}
+                  className="flex items-center gap-4 p-4 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all text-left group">
+                  <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0"><Gauge className="w-5 h-5" /></div>
+                  <div><div className="font-semibold group-hover:text-green-700">{opt.label}</div><div className="text-sm text-gray-600">{opt.detail}</div></div>
                   <ChevronRight className="w-4 h-4 ml-auto text-gray-400 group-hover:text-green-600" />
                 </button>
               ))}
@@ -336,18 +398,21 @@ export default function RebateQuizPage() {
               <div className="text-center py-8">
                 <AlertCircle className="w-12 h-12 text-amber-500 mx-auto mb-4" />
                 <h2 className="text-xl font-bold mb-2">Limited Rebates Available</h2>
-                <p className="text-gray-600">Based on your answers, standard rebate programs may not apply. Contact Efficiency NS directly at 1-877-999-6035 for custom guidance.</p>
+                <p className="text-gray-600 mb-6">Based on your answers, standard rebate programs may not apply directly. Contact your provincial energy agency for custom guidance.</p>
+                <button onClick={reset} className="inline-flex items-center gap-2 border border-gray-300 text-gray-700 font-semibold py-2.5 px-5 rounded-xl text-sm hover:bg-gray-50 transition-colors">
+                  <RotateCcw className="w-4 h-4" /> Start Over
+                </button>
               </div>
             ) : (
               <>
                 {/* Total banner */}
                 <div className="bg-green-600 text-white rounded-xl p-5 mb-6 text-center">
-                  <div className="text-sm font-medium text-green-100 mb-1">Your estimated maximum rebate</div>
+                  <div className="text-xs font-semibold text-green-200 uppercase tracking-wide mb-1">{answers.province && provinceNames[answers.province]} — Your Estimated Maximum Rebate</div>
                   <div className="text-5xl font-bold">${totalMax.toLocaleString()}</div>
                   <div className="text-sm text-green-100 mt-1">across {programs.length} program{programs.length > 1 ? "s" : ""}</div>
                 </div>
 
-                {/* Visual stacking bars */}
+                {/* Rebate breakdown bars */}
                 <div className="mb-6">
                   <div className="text-sm font-semibold text-gray-700 mb-3">Rebate breakdown</div>
                   <div className="space-y-2">
@@ -358,18 +423,38 @@ export default function RebateQuizPage() {
                           <span className="font-bold text-green-700 shrink-0">${p.amount.toLocaleString()}</span>
                         </div>
                         <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
-                          <div
-                            className="h-full bg-green-500 rounded-full"
-                            style={{ width: `${Math.round((p.amount / totalMax) * 100)}%` }}
-                          />
+                          <div className="h-full bg-green-500 rounded-full" style={{ width: `${Math.round((p.amount / totalMax) * 100)}%` }} />
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
 
+                {/* Application Roadmap — primary new section */}
+                {roadmap.length > 0 && (
+                  <div className="mb-6">
+                    <div className="text-base font-bold text-gray-800 mb-1">Your Step-by-Step Application Roadmap</div>
+                    <div className="text-xs text-gray-500 mb-4">Follow these steps in order — skipping or reordering can disqualify you from rebates.</div>
+                    <div className="space-y-3">
+                      {roadmap.map((s, i) => (
+                        <div key={i} className={`flex gap-3 p-3 rounded-xl border ${s.critical ? "border-red-200 bg-red-50" : "border-gray-200 bg-gray-50"}`}>
+                          <div className={`w-6 h-6 rounded-full text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5 ${s.critical ? "bg-red-500" : "bg-green-600"}`}>{i + 1}</div>
+                          <div>
+                            <div className="font-semibold text-sm text-gray-800 flex items-center gap-1.5">
+                              {s.label}
+                              {s.critical && <span className="text-xs font-bold text-red-600 bg-red-100 px-1.5 py-0.5 rounded">Do this first</span>}
+                            </div>
+                            <div className="text-xs text-gray-600 mt-0.5 leading-relaxed">{s.detail}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {/* Program cards */}
                 <div className="space-y-4 mb-6">
+                  <div className="text-sm font-semibold text-gray-700">Eligible Programs</div>
                   {programs.map((p) => (
                     <div key={p.name} className={`border-2 rounded-xl p-4 ${p.color}`}>
                       <div className="flex items-start justify-between gap-3 mb-2">
@@ -383,38 +468,32 @@ export default function RebateQuizPage() {
                         </div>
                       </div>
                       <p className="text-xs text-gray-700 mb-3">{p.note}</p>
-                      <div className="text-xs font-semibold text-gray-700 mb-2">Steps to claim:</div>
-                      <ol className="space-y-1">
-                        {p.sequence.map((s, i) => (
-                          <li key={i} className="flex items-start gap-2 text-xs text-gray-700">
-                            <span className="w-4 h-4 rounded-full bg-green-600 text-white text-xs flex items-center justify-center shrink-0 font-bold">{i + 1}</span>
-                            {s}
-                          </li>
-                        ))}
-                      </ol>
+                      <a href={p.applyUrl} target="_blank" rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-green-700 hover:underline">
+                        <ExternalLink className="w-3 h-3" /> {p.applyLabel}
+                      </a>
                     </div>
                   ))}
                 </div>
 
+                {/* Disclaimer */}
                 <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex gap-3 mb-6">
                   <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
                   <p className="text-xs text-gray-700">
-                    <strong>Rebate amounts are estimates.</strong> Programs change frequently. Always verify current amounts and eligibility at <strong>efficiencyns.ca</strong> or call 1-877-999-6035 before starting any work.
+                    <strong>Amounts are estimates.</strong> Programs change frequently. Verify current eligibility and amounts at each program&apos;s official site before starting any work.
                   </p>
                 </div>
 
+                {/* CTAs */}
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <a
-                    href="/installers?service=heat-pump"
-                    className="flex-1 bg-green-600 text-white font-semibold py-3 px-4 rounded-xl text-center text-sm hover:bg-green-700 transition-colors"
-                  >
-                    Find ENS-Approved Installers →
+                  <a href={`/installers?service=heat-pump${answers.province ? `&province=${answers.province === "NS" ? "Nova+Scotia" : answers.province === "NB" ? "New+Brunswick" : answers.province === "PEI" ? "Prince+Edward+Island" : answers.province === "NL" ? "Newfoundland" : "Ontario"}` : ""}`}
+                    className="flex-1 bg-green-600 text-white font-semibold py-3 px-4 rounded-xl text-center text-sm hover:bg-green-700 transition-colors flex items-center justify-center gap-2">
+                    <Thermometer className="w-4 h-4" />
+                    Find Approved Installers{answers.province ? ` in ${answers.province}` : ""}
                   </a>
-                  <button
-                    onClick={reset}
-                    className="flex-1 border border-gray-300 text-gray-700 font-semibold py-3 px-4 rounded-xl text-sm hover:bg-gray-50 transition-colors"
-                  >
-                    Start Over
+                  <button onClick={reset}
+                    className="flex-1 border border-gray-300 text-gray-700 font-semibold py-3 px-4 rounded-xl text-sm hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+                    <RotateCcw className="w-4 h-4" /> Start Over
                   </button>
                 </div>
               </>
@@ -423,8 +502,8 @@ export default function RebateQuizPage() {
         )}
       </div>
 
-      <p className="text-xs text-gray-600 text-center mt-4">
-        Results are estimates based on 2026 program guidelines. Not financial advice.
+      <p className="text-xs text-gray-500 text-center mt-4">
+        Results are estimates based on 2026 program guidelines. Not financial or legal advice.
       </p>
     </main>
   );
