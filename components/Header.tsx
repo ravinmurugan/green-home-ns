@@ -2,11 +2,11 @@ import Link from "next/link";
 import { Leaf } from "lucide-react";
 
 const nav = [
-  { href: "/installers", label: "Find Installers" },
-  { href: "/rebates", label: "NS Rebates" },
-  { href: "/heat-pumps", label: "Heat Pumps" },
-  { href: "/solar", label: "Solar" },
+  { href: "/installers", label: "Ratings" },
+  { href: "/rebates", label: "Rebate Guide" },
+  { href: "/guides", label: "Guides" },
   { href: "/tools", label: "Tools" },
+  { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
 ];
 
@@ -29,7 +29,7 @@ export default function Header() {
           href="/installers"
           className="bg-green-600 hover:bg-green-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors"
         >
-          Find Installers
+          View Ratings
         </Link>
       </div>
     </header>
