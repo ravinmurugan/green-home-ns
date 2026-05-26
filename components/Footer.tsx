@@ -37,6 +37,8 @@ export default function Footer() {
               <div><Link href="/heat-pumps" className="hover:text-gray-900">Heat Pump Guide</Link></div>
               <div><Link href="/solar" className="hover:text-gray-900">Solar Guide</Link></div>
               <div><Link href="/tools" className="hover:text-gray-900">Free Tools</Link></div>
+              <div><Link href="/about" className="hover:text-gray-900">About & Methodology</Link></div>
+              <div><a href="mailto:info@greenhomens.com" className="hover:text-gray-900">info@greenhomens.com</a></div>
             </div>
           </div>
         </div>

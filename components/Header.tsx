@@ -7,6 +7,7 @@ const nav = [
   { href: "/heat-pumps", label: "Heat Pumps" },
   { href: "/solar", label: "Solar" },
   { href: "/tools", label: "Tools" },
+  { href: "/about", label: "About" },
 ];
 
 export default function Header() {
