@@ -4,9 +4,9 @@ import { rebatePrograms, totalMaxRebate } from "@/data/rebates/programs";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Nova Scotia Heat Pump & Solar Rebates 2025 — GreenHomeNS",
+  title: "Heat Pump & Solar Rebates — Atlantic Canada & Ontario 2026 | GreenHomeNS",
   description:
-    "Complete guide to NS heat pump and solar rebates. Stack Efficiency NS (up to $3,000) + federal Greener Homes ($5,000) for up to $8,000 total. Updated May 2025.",
+    "Complete rebate guide for heat pumps and solar across NS, NB, PEI, NL, and Ontario. Stack provincial and federal grants for up to $15,000. Updated 2026.",
 };
 
 const providerLabel: Record<string, string> = {
@@ -33,11 +33,11 @@ export default function RebatesPage() {
       <div className="mb-10">
         <div className="inline-flex items-center gap-2 text-green-600 text-sm font-medium mb-3">
           <DollarSign className="w-4 h-4" />
-          NS Rebate Guide — Updated May 2025
+          Rebate Guide — NS, NB, PEI, NL &amp; Ontario — Updated 2026
         </div>
-        <h1 className="text-3xl font-bold mb-3">Nova Scotia Green Energy Rebates</h1>
+        <h1 className="text-3xl font-bold mb-3">Green Energy Rebate Guide</h1>
         <p className="text-gray-600 text-lg max-w-2xl">
-          NS homeowners can stack provincial and federal rebates for major savings. Here&apos;s every active program, what you qualify for, and how to apply.
+          Homeowners across Atlantic Canada and Ontario can stack provincial and federal rebates for major savings. Here&apos;s every active program, what you qualify for, and how to apply.
         </p>
       </div>
 
@@ -62,8 +62,8 @@ export default function RebatesPage() {
           </div>
         </div>
         <p className="text-sm text-gray-600">
-          <strong>Key rule:</strong> You must use an Efficiency NS approved installer and follow the application order (pre-retrofit assessment → install → post-retrofit assessment) to claim all rebates.{" "}
-          <Link href="/installers" className="text-green-700 underline">Get a free quote from an approved installer →</Link>
+          <strong>Key rule:</strong> You must use a provincially approved installer and follow the application order (pre-retrofit assessment → install → post-retrofit assessment) to claim all rebates.{" "}
+          <Link href="/installers" className="text-green-700 underline">Compare rated installers by province →</Link>
         </p>
       </div>
 
@@ -171,13 +171,13 @@ export default function RebatesPage() {
       <div className="bg-green-600 text-white rounded-2xl p-8 text-center">
         <h2 className="text-2xl font-bold mb-3">Ready to Claim Your Rebate?</h2>
         <p className="text-green-100 mb-6">
-          The right installer handles your rebate paperwork. Get quotes from Efficiency NS approved contractors and let them do the work.
+          The right installer handles your rebate paperwork. Compare independently rated contractors in your province and let them do the work.
         </p>
         <Link
           href="/installers"
           className="bg-white text-green-700 font-semibold px-6 py-3 rounded-lg hover:bg-green-50 transition-colors inline-flex items-center gap-2"
         >
-          Get Free Quotes <ArrowRight className="w-4 h-4" />
+          View Installer Ratings <ArrowRight className="w-4 h-4" />
         </Link>
       </div>
     </main>

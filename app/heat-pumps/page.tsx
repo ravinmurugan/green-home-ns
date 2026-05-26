@@ -3,9 +3,9 @@ import { Thermometer, CheckCircle2, ArrowRight, DollarSign } from "lucide-react"
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Heat Pumps in Nova Scotia — Complete Guide 2025 | GreenHomeNS",
+  title: "Heat Pumps in Atlantic Canada — Complete Guide 2026 | GreenHomeNS",
   description:
-    "Everything NS homeowners need to know about heat pumps: types, costs, rebates up to $8,000, and how to choose a cold-climate installer. Updated May 2025.",
+    "Everything Atlantic Canadian homeowners need to know about heat pumps: types, costs, rebates up to $15,000, and how to choose a cold-climate installer. Updated 2026.",
 };
 
 const heatPumpTypes = [
@@ -46,7 +46,7 @@ const heatPumpTypes = [
 const ratingLabel: Record<string, { label: string; color: string }> = {
   "cold-climate": { label: "Cold Climate", color: "bg-blue-100 text-blue-700" },
   "best-value": { label: "Best Value", color: "bg-green-100 text-green-700" },
-  recommended: { label: "Recommended for NS", color: "bg-green-600 text-white" },
+  recommended: { label: "Recommended", color: "bg-green-600 text-white" },
   premium: { label: "Premium", color: "bg-purple-100 text-purple-700" },
 };
 
@@ -57,23 +57,23 @@ export default function HeatPumpsPage() {
       <div className="mb-10">
         <div className="flex items-center gap-2 text-blue-600 text-sm font-medium mb-3">
           <Thermometer className="w-4 h-4" />
-          NS Heat Pump Guide — Updated May 2025
+          Atlantic Canada Heat Pump Guide — Updated 2026
         </div>
-        <h1 className="text-3xl font-bold mb-3">Heat Pumps in Nova Scotia</h1>
+        <h1 className="text-3xl font-bold mb-3">Heat Pumps in Atlantic Canada</h1>
         <p className="text-gray-600 text-lg max-w-2xl leading-relaxed">
-          Nova Scotia&apos;s cold winters require cold-climate rated heat pumps. With up to $8,000 in available rebates and oil heat costs rising, the payback period has never been shorter.
+          Atlantic Canada&apos;s cold winters require cold-climate rated heat pumps. With up to $15,000 in stacked rebates across NS, NB, PEI, NL, and Ontario, the payback period has never been shorter.
         </p>
       </div>
 
       {/* Why NS is ideal */}
       <section className="bg-blue-50 border border-blue-200 rounded-2xl p-6 mb-12">
-        <h2 className="font-bold text-xl mb-4">Why Heat Pumps Make Sense in NS Right Now</h2>
+        <h2 className="font-bold text-xl mb-4">Why Heat Pumps Make Sense in Atlantic Canada Right Now</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
-            { stat: "60%+", label: "of NS homes still heat with oil — highest in Canada" },
-            { stat: "$3,000", label: "max Efficiency NS rebate for cold-climate heat pumps" },
-            { stat: "$5,000", label: "federal Greener Homes Grant available to stack" },
-            { stat: "4–7 yrs", label: "typical payback period replacing oil with heat pump" },
+            { stat: "60%+", label: "of Atlantic Canada homes still heat with oil — highest in Canada" },
+            { stat: "Up to $15,000", label: "in stacked provincial + federal rebates available" },
+            { stat: "$10,000", label: "federal OHPA grant for eligible oil-to-heat-pump switches" },
+            { stat: "4–7 yrs", label: "typical payback period replacing oil with a cold-climate heat pump" },
           ].map((item) => (
             <div key={item.label} className="bg-white rounded-xl p-4 border border-blue-100">
               <div className="text-2xl font-bold text-blue-600">{item.stat}</div>
@@ -85,7 +85,7 @@ export default function HeatPumpsPage() {
 
       {/* Types */}
       <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Types of Heat Pumps for NS Homes</h2>
+        <h2 className="text-2xl font-bold mb-6">Types of Heat Pumps for Atlantic Canadian Homes</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {heatPumpTypes.map((hp) => (
             <div key={hp.name} className="border border-gray-200 rounded-xl p-5">
@@ -117,12 +117,12 @@ export default function HeatPumpsPage() {
 
       {/* Steps */}
       <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">How to Get a Heat Pump Installed in NS</h2>
+        <h2 className="text-2xl font-bold mb-6">How to Get a Heat Pump Installed</h2>
         <div className="space-y-4">
           {[
             { step: "1", title: "Book a free EnerGuide assessment", desc: "Required before claiming the federal Greener Homes Grant. Takes 2–3 hours. Cost covered by grant (up to $600)." },
-            { step: "2", title: "Get 3 quotes from ENS-approved installers", desc: "Only Efficiency NS approved contractors qualify you for provincial rebates. Use our directory to find vetted NS installers." },
-            { step: "3", title: "Choose your installer and equipment", desc: "Cold-climate units (HSPF2 ≥ 7.5) qualify for the maximum rebates. Confirm rebate eligibility with your installer before signing." },
+            { step: "2", title: "Get 3 quotes from provincially-approved installers", desc: "Only provincially approved contractors qualify you for rebates. Use our directory to find rated installers in your province." },
+            { step: "3", title: "Choose your installer and equipment", desc: "Cold-climate units (HSPF2 ≥ 7.5) qualify for the maximum rebates. Confirm program eligibility with your installer before signing." },
             { step: "4", title: "Installation day (1–3 days)", desc: "Mini-splits typically take 1 day. Central systems 2–3 days. Installer applies for ENS rebate on your behalf post-install." },
             { step: "5", title: "Post-install EnerGuide assessment + claim", desc: "Required for federal grant. Your installer guides you through the claim. Federal rebate arrives by cheque 6–12 weeks later." },
           ].map((s) => (
@@ -140,7 +140,7 @@ export default function HeatPumpsPage() {
       {/* CTA */}
       <div className="bg-blue-600 text-white rounded-2xl p-8 text-center">
         <h2 className="text-2xl font-bold mb-3">Ready to Get Quotes?</h2>
-        <p className="text-blue-100 mb-6">Compare certified NS heat pump installers and unlock up to $8,000 in rebates.</p>
+        <p className="text-blue-100 mb-6">Compare certified heat pump installers across Atlantic Canada and Ontario. Unlock up to $15,000 in stacked rebates.</p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link href="/installers" className="bg-white text-blue-700 font-semibold px-6 py-3 rounded-lg hover:bg-blue-50 transition-colors inline-flex items-center gap-2">
             Get Free Quotes <ArrowRight className="w-4 h-4" />
