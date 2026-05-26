@@ -41,7 +41,8 @@ export interface Installer {
 export interface RebateProgram {
   id: string;
   name: string;
-  provider: "efficiency-ns" | "federal" | "ns-power" | "municipal";
+  provider: "efficiency-ns" | "federal" | "ns-power" | "municipal" | "nb-power" | "pei-fund" | "nl-crown" | "enbridge";
+  provinces: string[];
   services: ServiceType[];
   maxAmount: number;
   description: string;
