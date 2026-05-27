@@ -39,6 +39,80 @@ const articleContent: Record<string, React.ReactNode> = {
       <p>Use our <a href="/tools/rebate-quiz">Rebate Eligibility Quiz</a> to find what&apos;s currently active for your situation. Program availability changes frequently — never rely on information more than 30 days old.</p>
     </div>
   ),
+  "hspf2-rating-guide-nova-scotia": (
+    <div className="prose prose-gray max-w-none">
+      <p className="text-lg leading-relaxed text-gray-700 mb-6">
+        When you&apos;re shopping for a heat pump in Nova Scotia, you&apos;ll encounter a spec called &quot;HSPF2.&quot; Most contractors mention it in passing, but few explain what it actually means — or why choosing a unit with the wrong rating could disqualify you from thousands of dollars in provincial rebates.
+      </p>
+
+      <h2>What Is HSPF2?</h2>
+      <p>
+        HSPF stands for Heating Seasonal Performance Factor. The &quot;2&quot; marks the updated test standard introduced by the Air Conditioning, Heating and Refrigeration Institute (AHRI) in 2023, which simulates colder, more realistic climate conditions than the original HSPF test. The number tells you how much heat a system delivers per unit of electricity consumed over a full heating season — the higher the number, the more efficient the system.
+      </p>
+      <p>
+        A unit with an HSPF2 of 10, for example, delivers 10 BTUs of heat for every watt-hour of electricity it uses. Older, single-speed units often rate around 7–8 HSPF2. Modern cold-climate inverter-driven systems regularly hit 10–13.
+      </p>
+
+      <h2>HSPF vs. HSPF2 — Why the Number Looks Lower Now</h2>
+      <p>
+        If you&apos;re comparing quotes and one spec sheet says &quot;12 HSPF&quot; while another says &quot;8.5 HSPF2,&quot; the test methodology change explains the gap. HSPF2 uses a colder test region (Region IV) than the legacy HSPF test, which makes the two numbers directly incomparable. A rough rule of thumb: <strong>HSPF2 ≈ HSPF × 0.85</strong>, though this varies by unit.
+      </p>
+      <p>Always compare HSPF2 to HSPF2. Mixing the two in a side-by-side gives you a false picture of efficiency.</p>
+
+      <h2>Why HSPF2 Controls Your Rebate Eligibility in Nova Scotia</h2>
+      <p>Both Efficiency Nova Scotia (ENS) and the provincial CleanHeat rebate program use HSPF2 thresholds as eligibility gates. As of 2026:</p>
+      <ul>
+        <li><strong>ENS cold-climate heat pump rebates (up to $3,000):</strong> require HSPF2 ≥ 7.5</li>
+        <li><strong>CleanHeat income-qualified rebates (up to $10,000):</strong> typically require HSPF2 ≥ 8.2 for the top rebate tier</li>
+        <li><strong>Canada Greener Homes Loan (still active as of 2026):</strong> requires EnerGuide-verified efficiency, which includes HSPF2 thresholds determined at assessment</li>
+      </ul>
+      <p>
+        If your installer quotes a unit below the minimum HSPF2, you won&apos;t qualify for ENS or CleanHeat rebates — and some contractors don&apos;t check the approved equipment list before writing a proposal. Always verify before signing. Use our <a href="/tools/rebate-quiz">Rebate Eligibility Quiz</a> to see what programs you currently qualify for.
+      </p>
+
+      <h2>What HSPF2 Means for Your Heating Bill</h2>
+      <p>For a typical NS home currently heating with oil at around $1.35–$1.50/litre, efficiency differences add up fast:</p>
+      <ul>
+        <li>An HSPF2 7.5 unit typically cuts annual heating costs by <strong>40–50%</strong> compared to oil</li>
+        <li>An HSPF2 10+ unit typically cuts costs by <strong>55–65%</strong></li>
+        <li>Each full HSPF2 point above the minimum saves roughly <strong>$100–$200/year</strong> in a 1,500 sq ft home, depending on electricity rates and usage</li>
+      </ul>
+      <p>
+        Over 15–20 years of operation, the gap between a 7.5 and a 10.5 HSPF2 unit can compound to $2,000–$4,000 in electricity savings — on top of the higher upfront rebate you unlock with the better-rated unit.
+      </p>
+
+      <h2>High-HSPF2 Cold-Climate Units Common in Atlantic Canada</h2>
+      <p>Several brands widely installed across NS, NB, and PEI hit HSPF2 ratings well above the rebate threshold:</p>
+      <ul>
+        <li><strong>Mitsubishi Hyper-Heat (MXZ / MSZ series):</strong> HSPF2 10–13 depending on model and capacity</li>
+        <li><strong>Fujitsu Halcyon AOU series:</strong> HSPF2 9–12</li>
+        <li><strong>Daikin Fit:</strong> HSPF2 8.5–9.5</li>
+        <li><strong>Bosch IDS 2.0:</strong> HSPF2 9–11</li>
+      </ul>
+      <p>
+        Note: HSPF2 varies by tonnage within the same product line. Always ask for — and verify — the AHRI certificate for the exact model and capacity you&apos;re being quoted.
+      </p>
+
+      <h2>How to Confirm HSPF2 Before Signing Any Quote</h2>
+      <ol>
+        <li>Ask your installer for the <strong>AHRI certificate number</strong> for the specific model and indoor/outdoor unit combination</li>
+        <li>Look up the certificate at <strong>ahridirectory.org</strong> to confirm the HSPF2 rating</li>
+        <li>Cross-reference with the <strong>ENS approved equipment list</strong> at efficiencyns.ca to confirm rebate eligibility</li>
+        <li>Run our <a href="/tools/rebate-quiz">Rebate Quiz</a> with your province, income level, and equipment spec to see your total potential rebate stack</li>
+      </ol>
+      <p>
+        Every installer in our <a href="/installers">NS installer directory</a> is rated in part on whether they consistently specify qualifying, high-HSPF2 equipment. Check ratings before you request quotes.
+      </p>
+
+      <h2>The Bottom Line</h2>
+      <p>
+        HSPF2 is not a footnote. In Nova Scotia in 2026, it&apos;s the number that sits between you and up to $13,000 in combined ENS and CleanHeat rebates. It also determines what you&apos;ll spend on electricity every winter for the next two decades.
+      </p>
+      <p>
+        Before you sign any installation quote, confirm your unit&apos;s HSPF2 rating on the AHRI directory — not from a brochure, not from the contractor&apos;s word. Then visit our <a href="/rebates">rebates page</a> for current program details, or use the <a href="/tools/rebate-quiz">Rebate Quiz</a> to calculate your specific eligibility.
+      </p>
+    </div>
+  ),
   "heat-pump-winter-performance-atlantic": (
     <div className="prose prose-gray max-w-none">
       <p className="text-lg leading-relaxed text-gray-700 mb-6">
