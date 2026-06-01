@@ -70,7 +70,7 @@ export default function PaybackCalculatorPage() {
         <div>
           <label className="block text-sm font-semibold mb-2">Federal grant amount ($)</label>
           <input type="number" value={grant} onChange={(e) => setGrant(e.target.value)} className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm" />
-          <p className="text-xs text-gray-600 mt-1">Max federal Greener Homes Grant: $5,000</p>
+          <p className="text-xs text-gray-600 mt-1">Federal Greener Homes Grant closed Feb 2024. Canada Greener Homes Loan (interest-free, up to $40,000) may be available.</p>
         </div>
         <button
           onClick={calculate}

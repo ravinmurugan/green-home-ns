@@ -8,15 +8,14 @@ export const rebatePrograms: RebateProgram[] = [
     services: ["heat-pump"],
     maxAmount: 3000,
     description:
-      "Efficiency Nova Scotia offers rebates of up to $3,000 for cold-climate heat pump installations in NS homes. Mini-split systems receive up to $2,000; central ducted heat pump systems up to $3,000. Installer must be Efficiency NS approved. Application submitted by installer post-install.",
+      "⚠️ CLOSED as of December 31, 2025. The Home Heating System Rebates program is no longer accepting applications. Homeowners may still qualify for the Oil to Heat Pump Affordability Program (OHPA) — see below — or the Moderate Income Rebates program. Confirm current offerings at efficiencyns.ca.",
     eligibility: [
-      "Nova Scotia homeowner (primary or secondary residence)",
-      "Install performed by Efficiency NS approved contractor",
-      "Cold-climate rated unit (minimum HSPF2 ≥ 7.5 for mini-split)",
-      "Home must have existing heating system being supplemented or replaced",
+      "Program closed December 31, 2025 — no new applications accepted",
+      "See Oil to Heat Pump Affordability Program (OHPA) for current federal+provincial support",
+      "Moderate Income Rebates program may be available for qualifying households",
     ],
-    url: "https://www.efficiencyns.ca/residential/heating-cooling/heat-pumps/",
-    active: true,
+    url: "https://www.efficiencyns.ca/programs-rebates/home-heating-system-rebates",
+    active: false,
   },
   {
     id: "federal-greener-homes-heat-pump",
@@ -25,16 +24,14 @@ export const rebatePrograms: RebateProgram[] = [
     services: ["heat-pump"],
     maxAmount: 5000,
     description:
-      "The federal Canada Greener Homes Grant provides up to $5,000 for cold-climate air-source heat pumps and up to $5,000 for ground-source heat pumps. Requires a pre-install EnerGuide home energy assessment (grant covers up to $600 of assessment cost). Application through Natural Resources Canada.",
+      "CLOSED February 12, 2024. No longer accepting applications. The Oil to Heat Pump Affordability Program (OHPA) is the active federal replacement for oil-heated homes, offering up to $10,000–$15,000 for income-qualifying households. Visit natural-resources.canada.ca for current programs.",
     eligibility: [
-      "Canadian homeowner, primary residence",
-      "Pre-retrofit EnerGuide energy evaluation required",
-      "ENERGY STAR certified or equivalent heat pump",
-      "Post-retrofit evaluation required to claim grant",
-      "Maximum one grant per home",
+      "Grant closed February 12, 2024 — no new applications",
+      "Replacement: Oil to Heat Pump Affordability Program (OHPA) for oil-heated homes",
+      "Canada Greener Homes Loan (interest-free up to $40,000) may still be available",
     ],
-    url: "https://www.canada.ca/en/natural-resources-canada/news/2021/05/canada-greener-homes-grant.html",
-    active: true,
+    url: "https://natural-resources.canada.ca/energy-efficiency/home-energy-efficiency/canada-greener-homes-initiative/canada-greener-homes-initiative",
+    active: false,
   },
   {
     id: "federal-greener-homes-solar",
@@ -43,16 +40,14 @@ export const rebatePrograms: RebateProgram[] = [
     services: ["solar"],
     maxAmount: 5000,
     description:
-      "Up to $5,000 for residential solar photovoltaic systems under the Canada Greener Homes Grant. System must be grid-tied (not off-grid). Requires pre and post EnerGuide evaluations. Can be combined with NS Power net metering for maximum savings.",
+      "CLOSED February 12, 2024. No longer accepting applications. The Canada Greener Homes Affordability Program (CGHAP) and Canada Greener Homes Loan remain active for qualifying households. Visit natural-resources.canada.ca for currently open federal programs.",
     eligibility: [
-      "Canadian homeowner, primary residence",
-      "Grid-tied solar PV system only (not off-grid)",
-      "Pre and post EnerGuide home energy evaluations",
-      "System installed by qualified electrician",
-      "Maximum one grant per home",
+      "Grant closed February 12, 2024 — no new applications",
+      "Canada Greener Homes Loan (interest-free up to $40,000) may still be available",
+      "Check natural-resources.canada.ca for current federal solar incentives",
     ],
-    url: "https://www.canada.ca/en/natural-resources-canada/news/2021/05/canada-greener-homes-grant.html",
-    active: true,
+    url: "https://natural-resources.canada.ca/energy-efficiency/home-energy-efficiency/canada-greener-homes-initiative/canada-greener-homes-initiative",
+    active: false,
   },
   {
     id: "ns-power-net-metering",
@@ -114,7 +109,7 @@ export function getRebatesByService(service: string): RebateProgram[] {
 }
 
 export const totalMaxRebate = {
-  heatPump: 8000,  // ENS $3,000 + federal $5,000
-  solar: 5000,     // federal $5,000 (net metering is ongoing savings, not upfront)
-  both: 13000,
+  heatPump: 15000, // OHPA up to $15K (income-qualified, oil-heated homes); ENS standard + federal grant both closed
+  solar: 0,        // No active federal grant; Canada Greener Homes Loan available (interest-free, up to $40K)
+  both: 15000,
 };

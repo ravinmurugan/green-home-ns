@@ -134,7 +134,7 @@ export default function SavingsCalculatorPage() {
               onChange={(e) => setRebate(Number(e.target.value))}
               className="w-full accent-green-600"
             />
-            <p className="text-xs text-gray-600 mt-1">ENS up to $3K + federal up to $5K = $8K max standard. OHPA up to $15K if eligible.</p>
+            <p className="text-xs text-gray-600 mt-1">ENS standard rebate closed Dec 2025; federal Greener Homes Grant closed Feb 2024. OHPA up to $15K available for oil-heated homes (income-qualified).</p>
           </div>
         </div>
 

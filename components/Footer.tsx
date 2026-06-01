@@ -45,6 +45,7 @@ export default function Footer() {
         </div>
         <div className="border-t border-gray-200 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-gray-600">
           <span>© {new Date().getFullYear()} GreenHomeNS.com — Independent. Not affiliated with any installer, utility, or government program.</span>
+          <span>Last checked June 2026</span>
           <Link href="/affiliate-disclosure" className="hover:text-gray-900">Affiliate Disclosure</Link>
         </div>
       </div>
