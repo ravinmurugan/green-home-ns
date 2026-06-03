@@ -39,6 +39,79 @@ const articleContent: Record<string, React.ReactNode> = {
       <p>Use our <a href="/tools/rebate-quiz">Rebate Eligibility Quiz</a> to find what&apos;s currently active for your situation. Program availability changes frequently — never rely on information more than 30 days old.</p>
     </div>
   ),
+  "hspf2-rating-explained-ns-rebates": (
+    <div className="prose prose-gray max-w-none">
+      <p className="text-lg leading-relaxed text-gray-700 mb-6">
+        If you&apos;ve been comparing heat pump quotes lately, you&apos;ve almost certainly seen &quot;HSPF2&quot; on spec sheets. It&apos;s the number that describes a heat pump&apos;s seasonal heating efficiency — and in Nova Scotia, it&apos;s now the gating criterion for provincial and federal rebates. Understanding it takes five minutes and can protect thousands of dollars in incentives.
+      </p>
+
+      <h2>HSPF vs HSPF2 — What Changed in 2023</h2>
+      <p>Until 2023, heat pump efficiency was measured using HSPF (Heating Seasonal Performance Factor). The problem: HSPF was based on test conditions that didn&apos;t reflect real-world Atlantic winters. In 2023, the industry switched to HSPF2, which uses lower outdoor test temperatures, updated duct leakage assumptions, and a revised calculation methodology that better mirrors actual heating-season performance.</p>
+      <p>The practical result: HSPF2 numbers are roughly 15–25% lower than old HSPF numbers <em>for the same unit</em>. A unit previously rated HSPF 10 will now show approximately HSPF2 7.5–8.5. The unit hasn&apos;t gotten less efficient — the measurement is simply more honest.</p>
+      <p><strong>Why this matters:</strong> If a contractor hands you a spec sheet showing only an HSPF number (not HSPF2), ask for the current rating. Comparing old HSPF figures against HSPF2 rebate thresholds will mislead you about eligibility.</p>
+
+      <h2>What HSPF2 Numbers Actually Mean</h2>
+      <p>HSPF2 is the ratio of seasonal heating output (BTUs) to electrical energy input (watt-hours). In plain terms, an HSPF2 of 7.5 means you get 7.5 units of heat for every 1 unit of electricity consumed. Compare this to electric baseboard heat, which has an effective ratio of about 3.4 — it cannot exceed a 1:1 energy conversion. Even a mid-range heat pump is roughly twice as efficient as a baseboard. Top-tier units with HSPF2 of 10+ are three times more efficient, which translates directly into lower monthly electricity bills.</p>
+
+      <h2>Minimum HSPF2 Thresholds for NS Rebates</h2>
+      <p>This is where it gets practical. Both Efficiency Nova Scotia and the CleanHeat rebate program enforce minimum HSPF2 thresholds:</p>
+      <ul>
+        <li><strong>Efficiency NS cold-climate rebate (up to $3,000):</strong> HSPF2 ≥ 7.5 required</li>
+        <li><strong>CleanHeat program (up to $10,000 for income-qualified households):</strong> HSPF2 ≥ 7.5 at rated conditions</li>
+        <li><strong>Canada Greener Homes Loan</strong> (0% interest, still active as of 2026): HSPF2 ≥ 7.1 for most heat pump types</li>
+      </ul>
+      <p>Note: the federal Greener Homes <em>Grant</em> closed February 12, 2024 and is no longer accepting applications. The loan program remained active — check Natural Resources Canada for current status.</p>
+      <p>The combined maximum provincial rebate in NS is up to approximately <strong>$13,000</strong> (Efficiency NS $3K + CleanHeat up to $10K for income-qualified households). That&apos;s real money — and you lose it entirely if the installed unit doesn&apos;t hit the HSPF2 threshold. Use the <a href="/tools/rebate-quiz">Rebate Eligibility Quiz</a> to see exactly what you qualify for.</p>
+
+      <h2>How Cold-Climate Rating and HSPF2 Work Together</h2>
+      <p>HSPF2 is a seasonal average, but Atlantic Canadian winters also demand performance at extreme cold. Look for two specs side by side on every quote:</p>
+      <ul>
+        <li><strong>HSPF2</strong> — seasonal efficiency (determines rebate eligibility)</li>
+        <li><strong>Rated heating capacity at -15°C and -25°C</strong> — how much heat the unit delivers during the coldest stretches</li>
+      </ul>
+      <p>Well-regarded cold-climate models typically achieve HSPF2 ratings of 9–13 while maintaining meaningful output at -25°C. Budget units may technically pass the 7.5 threshold but lose significant capacity at -20°C. For NS, NB, and especially NL, verify both numbers before signing a contract. Browse our <a href="/heat-pumps">heat pump ratings</a> to compare models side by side.</p>
+
+      <h2>How to Check HSPF2 Before You Buy</h2>
+      <p>Three reliable ways to verify a unit&apos;s HSPF2 rating:</p>
+      <ul>
+        <li><strong>AHRI Directory</strong> (ahridirectory.org): The official certification database. Search by model number to confirm the certified HSPF2 rating directly from the manufacturer&apos;s submission.</li>
+        <li><strong>NRCan Product List:</strong> Natural Resources Canada&apos;s qualifying products list for Greener Homes programs.</li>
+        <li><strong>Efficiency NS Approved Equipment List:</strong> Published at efficiencyns.ca, this is the fastest way to confirm rebate eligibility for a specific NS installation.</li>
+      </ul>
+      <p>If your installer cannot produce a spec sheet showing HSPF2 ≥ 7.5 for the unit they&apos;re quoting, your rebate eligibility is at risk. Every installer in our <a href="/installers">NS and Atlantic Canada directory</a> uses certified cold-climate equipment — but asking for the exact model number before signing is always worth doing.</p>
+
+      <h2>Quick Reference: HSPF2 and NS Rebate Eligibility</h2>
+      <div className="overflow-x-auto my-6">
+        <table className="w-full text-sm border-collapse">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="text-left p-3 border border-gray-200 font-semibold">HSPF2 Rating</th>
+              <th className="text-left p-3 border border-gray-200 font-semibold">What It Means for NS Rebates</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="p-3 border border-gray-200">Below 7.1</td>
+              <td className="p-3 border border-gray-200">Does not qualify for any NS or federal rebates</td>
+            </tr>
+            <tr className="bg-gray-50">
+              <td className="p-3 border border-gray-200">7.1 – 7.4</td>
+              <td className="p-3 border border-gray-200">Greener Homes Loan only (grant closed Feb 2024)</td>
+            </tr>
+            <tr>
+              <td className="p-3 border border-gray-200">7.5 – 8.9</td>
+              <td className="p-3 border border-gray-200">Qualifies for Efficiency NS + CleanHeat provincial rebates</td>
+            </tr>
+            <tr className="bg-gray-50">
+              <td className="p-3 border border-gray-200">9.0 and above</td>
+              <td className="p-3 border border-gray-200">Premium efficiency; highest-tier rebate tiers where applicable</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Ready to find out what rebates apply to your specific situation? Try the <a href="/tools/rebate-quiz">Rebate Eligibility Quiz</a>, compare <a href="/installers">rated heat pump installers near you</a>, or read our guide to <a href="/rebates">all current NS and Atlantic Canada rebate programs</a>.</p>
+    </div>
+  ),
   "heat-pump-winter-performance-atlantic": (
     <div className="prose prose-gray max-w-none">
       <p className="text-lg leading-relaxed text-gray-700 mb-6">

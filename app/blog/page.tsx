@@ -10,6 +10,16 @@ export const metadata: Metadata = {
 
 export const posts = [
   {
+    slug: "hspf2-rating-explained-ns-rebates",
+    title: "HSPF2 Explained: Why Your Heat Pump's Efficiency Rating Determines NS Rebate Eligibility",
+    excerpt:
+      "HSPF2 replaced the old HSPF standard in 2023 — and it's now the gating threshold for NS rebates worth up to $13,000. Here's what the numbers mean and how to check before you sign.",
+    date: "2026-06-03",
+    readTime: "7 min",
+    tag: "Heat Pumps",
+    tagColor: "bg-blue-100 text-blue-700",
+  },
+  {
     slug: "ohpa-program-2026-guide",
     title: "OHPA 2026: Is the Oil-to-Heat-Pump Grant Still Available?",
     excerpt:
