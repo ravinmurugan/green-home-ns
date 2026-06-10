@@ -39,6 +39,53 @@ const articleContent: Record<string, React.ReactNode> = {
       <p>Use our <a href="/tools/rebate-quiz">Rebate Eligibility Quiz</a> to find what&apos;s currently active for your situation. Program availability changes frequently — never rely on information more than 30 days old.</p>
     </div>
   ),
+  "hspf2-rating-explained-ns-rebates": (
+    <div className="prose prose-gray max-w-none">
+      <p className="text-lg leading-relaxed text-gray-700 mb-6">
+        When you start getting heat pump quotes in Nova Scotia, rebate application forms ask for the unit&apos;s &quot;HSPF2 rating.&quot; Most homeowners have never heard the term — and some contractors skip past it without explanation. But this single number can be the difference between qualifying for thousands of dollars in provincial rebates and getting nothing.
+      </p>
+
+      <h2>What Is HSPF2?</h2>
+      <p>HSPF2 stands for Heating Seasonal Performance Factor, 2nd edition. It measures how efficiently a heat pump converts electricity into heat over an entire heating season — expressed in BTU per watt-hour. A higher number means less electricity consumed per unit of heat delivered.</p>
+      <p>The &quot;2&quot; matters. In 2023, the Air Conditioning, Heating, and Refrigeration Institute (AHRI) updated its testing protocol to better reflect real-world conditions, including external ductwork losses. The new protocol produces lower numbers than the old HSPF test, so HSPF and HSPF2 values are <em>not</em> directly comparable.</p>
+
+      <h2>HSPF vs HSPF2 — Why the Numbers Don&apos;t Match</h2>
+      <p>An older Mitsubishi unit rated at HSPF 12 might show up as HSPF2 9.5 under the new standard. Same physical unit, different test. This trips up homeowners who look up an older review or spec sheet and see a number that doesn&apos;t match the current rebate form.</p>
+      <p>Rule of thumb: HSPF2 is roughly 15–25% lower than the equivalent HSPF rating for the same unit.</p>
+      <ul>
+        <li>Old HSPF 10 → approximately HSPF2 8.0–8.5</li>
+        <li>Old HSPF 12 → approximately HSPF2 9.5–10.0</li>
+      </ul>
+      <p>Always ask for the HSPF2 figure specifically, and cross-check it in the AHRI directory rather than trusting a sales brochure.</p>
+
+      <h2>What HSPF2 Do You Need for NS Rebates?</h2>
+      <p><a href="/rebates">Efficiency Nova Scotia rebate programs</a> require a minimum HSPF2 of 7.5 for most heat pump rebates, including the standard cold-climate unit rebate. Income-qualified programs (up to $10,000 through CleanHeat) maintain the same 7.5 floor but add additional eligibility criteria.</p>
+      <p>The practical risk isn&apos;t the threshold itself — most modern cold-climate mini-splits exceed 7.5 comfortably. The risks are:</p>
+      <ul>
+        <li>Buying a low-cost standard unit (not cold-climate rated) that comes in at HSPF2 6.5–7.2</li>
+        <li>Using a non-ENS-certified installer who can&apos;t submit rebate paperwork on your behalf</li>
+        <li>Relying on old HSPF specs that appear to qualify but don&apos;t convert correctly under HSPF2</li>
+      </ul>
+
+      <h2>How to Read a Spec Sheet</h2>
+      <p>When you receive a quote, ask for the AHRI certificate number. Look it up at ahridirectory.org and find the column labelled <strong>HSPF2 Region IV</strong> — Nova Scotia, New Brunswick, PEI, and Ontario all fall under AHRI Region IV (the coldest test zone). That is the number that appears on your rebate application.</p>
+      <p>Spec sheets sometimes list multiple region values. Always use Region IV for Atlantic Canada — it&apos;s the most conservative and the one rebate administrators verify.</p>
+
+      <h2>Models That Consistently Qualify (2026)</h2>
+      <p>Several cold-climate units regularly appear on approved lists for NS and Atlantic Canada programs:</p>
+      <ul>
+        <li><strong>Mitsubishi Hyper-Heat (H2i) series</strong> — HSPF2 typically 9.5–10.5 depending on capacity</li>
+        <li><strong>Fujitsu Halcyon XLTH series</strong> — HSPF2 typically 9.0–10.0</li>
+        <li><strong>Daikin Aurora / Fit series</strong> — HSPF2 typically 8.5–9.5</li>
+        <li><strong>LG LGRED° series</strong> — HSPF2 typically 8.5–9.5</li>
+      </ul>
+      <p>These are approximate ranges — ratings vary between the 9,000 BTU and 24,000 BTU versions of the same product line. Always verify the specific model and capacity in the AHRI directory before signing a contract.</p>
+
+      <h2>The Bottom Line</h2>
+      <p>HSPF2 is a gating criterion, not a complete quality measure. A unit that meets the 7.5 minimum qualifies for rebates — but if you&apos;re heating a home in Atlantic Canada, aim for HSPF2 9.0 or higher to maximize efficiency through a genuine Maritime winter.</p>
+      <p>Use our <a href="/tools/rebate-quiz">Rebate Eligibility Quiz</a> to confirm which programs your chosen unit qualifies for, browse our <a href="/heat-pumps">heat pump model database</a> for verified HSPF2 ratings, and check our <a href="/installers">installer ratings</a> to find ENS-certified contractors who handle rebate paperwork correctly.</p>
+    </div>
+  ),
   "heat-pump-winter-performance-atlantic": (
     <div className="prose prose-gray max-w-none">
       <p className="text-lg leading-relaxed text-gray-700 mb-6">

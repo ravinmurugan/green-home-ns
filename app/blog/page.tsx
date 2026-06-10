@@ -10,6 +10,16 @@ export const metadata: Metadata = {
 
 export const posts = [
   {
+    slug: "hspf2-rating-explained-ns-rebates",
+    title: "What Is HSPF2? The Rating That Unlocks NS Heat Pump Rebates",
+    excerpt:
+      "HSPF2 is the single number that gates rebate eligibility in Nova Scotia. Here's what it means, how it differs from the old HSPF, and the minimum score you need to qualify.",
+    date: "2026-06-10",
+    readTime: "6 min",
+    tag: "Heat Pumps",
+    tagColor: "bg-blue-100 text-blue-700",
+  },
+  {
     slug: "ohpa-program-2026-guide",
     title: "OHPA 2026: Is the Oil-to-Heat-Pump Grant Still Available?",
     excerpt:
