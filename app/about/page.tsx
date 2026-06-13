@@ -5,7 +5,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "About GreenHomeNS — Our Ratings Methodology & Independence Policy",
   description:
-    "How GreenHomeNS rates NS heat pump and solar installers. Independent research, no pay-to-play listings. Affiliates approached after ratings, never before.",
+    "How GreenHomeNS rates heat pump and solar installers across Atlantic Canada and Ontario. Independent research, no pay-to-play listings. Affiliates approached after ratings, never before.",
 };
 
 const scoreCategories = [
@@ -19,7 +19,7 @@ const scoreCategories = [
   {
     label: "Value for Money",
     weight: "20%",
-    desc: "Relative pricing compared to NS market average for equivalent system size and brand tier. Considers what's included: permits, rebate assistance, post-install support. Not a race to cheapest.",
+    desc: "Relative pricing compared to provincial market average for equivalent system size and brand tier. Considers what's included: permits, rebate assistance, post-install support. Not a race to cheapest.",
     icon: BarChart3,
     color: "text-green-600 bg-green-50",
   },
@@ -40,7 +40,7 @@ const scoreCategories = [
   {
     label: "Certifications",
     weight: "15%",
-    desc: "Verified against official lists: Efficiency NS approved, HRAI membership, NSESA certification, ECCC registration, Red Seal journeyman, MEQ/authorized dealer, BBB accreditation.",
+    desc: "Verified against official lists: Efficiency NS approved, NB Power approved, HRAI membership, NSESA certification, ECCC registration, Red Seal journeyman, MEQ/authorized dealer, BBB accreditation.",
     icon: Search,
     color: "text-indigo-600 bg-indigo-50",
   },
@@ -57,7 +57,7 @@ export default function AboutPage() {
         </div>
         <h1 className="text-3xl font-bold mb-4">Who We Are & How We Rate</h1>
         <p className="text-gray-600 text-lg leading-relaxed max-w-2xl">
-          GreenHomeNS is an independent research directory for Nova Scotia homeowners evaluating heat pump and solar installers. We publish ratings based on public data — not payments.
+          GreenHomeNS is an independent research directory for homeowners across Atlantic Canada and Ontario evaluating heat pump and solar installers. We publish ratings based on public data — not payments.
         </p>
       </div>
 
@@ -65,10 +65,10 @@ export default function AboutPage() {
       <section className="bg-green-50 border border-green-200 rounded-2xl p-6 mb-12">
         <h2 className="text-xl font-bold mb-3">Why We Built This</h2>
         <p className="text-gray-700 leading-relaxed mb-4">
-          Nova Scotia has one of the highest rates of oil heating in Canada — and one of the most confusing rebate landscapes. Homeowners told us the same story: they didn&apos;t know which installers were actually good, which rebate programs applied to them, or what order to do things in to avoid losing their grant.
+          Atlantic Canada has the highest rate of oil heating in Canada — and one of the most complex rebate landscapes. Homeowners across NS, NB, PEI, NL, and Ontario told us the same story: they didn&apos;t know which installers were actually good, which rebate programs applied to them, or what order to do things in to avoid losing their grant.
         </p>
         <p className="text-gray-700 leading-relaxed">
-          We spent hundreds of hours researching every certified NS installer — reading reviews, verifying certifications, comparing pricing signals, and cross-referencing complaints. The GreenHome Score is the result of that research, published openly so any NS homeowner can compare installers on equal terms.
+          We spent hundreds of hours researching certified installers across all 5 provinces — reading reviews, verifying certifications, comparing pricing signals, and cross-referencing complaints. The GreenHome Score is the result of that research, published openly so any homeowner can compare installers on equal terms.
         </p>
       </section>
 
@@ -84,7 +84,7 @@ export default function AboutPage() {
             },
             {
               title: "No pay-to-list model",
-              desc: "Installers cannot pay to appear in our directory. Inclusion is based solely on being Efficiency NS approved and operating in Nova Scotia.",
+              desc: "Installers cannot pay to appear in our directory. Inclusion is based solely on being provincially approved and operating in one of our 5 covered provinces.",
               icon: "02",
             },
             {
@@ -168,12 +168,15 @@ export default function AboutPage() {
             "HomeStars",
             "ThreeBestRated",
             "Efficiency NS Approved List",
+            "NB Power Approved Contractor List",
+            "Island Prosperity Fund Approved List",
             "HRAI Member Directory",
             "NSESA Registry",
             "ECCC Registration",
             "Mitsubishi MEQ/Diamond Dealer Lists",
             "NS Power Preferred Contractor List",
             "Consumer Choice Award Records",
+            "Enbridge HER+ Contractor List",
           ].map((source) => (
             <div key={source} className="flex items-center gap-2 text-sm text-gray-700">
               <CheckCircle2 className="w-3.5 h-3.5 text-green-600 shrink-0" />
@@ -201,42 +204,19 @@ export default function AboutPage() {
 
       {/* Contact */}
       <section className="border border-gray-200 rounded-2xl p-6">
-        <div className="flex items-center gap-3 mb-4">
+        <div className="flex items-center gap-3 mb-3">
           <div className="w-10 h-10 rounded-xl bg-green-50 text-green-600 flex items-center justify-center">
             <Mail className="w-5 h-5" />
           </div>
           <h2 className="text-xl font-bold">Contact Us</h2>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div>
-            <div className="text-sm font-semibold text-gray-700 mb-1">General enquiries</div>
-            <a href="mailto:info@greenhomens.com" className="text-green-700 hover:underline font-medium">
-              info@greenhomens.com
-            </a>
-            <p className="text-xs text-gray-600 mt-1">Response within 2 business days.</p>
-          </div>
-          <div>
-            <div className="text-sm font-semibold text-gray-700 mb-1">Installers — partnership enquiries</div>
-            <a href="mailto:info@greenhomens.com" className="text-green-700 hover:underline font-medium">
-              info@greenhomens.com
-            </a>
-            <p className="text-xs text-gray-600 mt-1">Note: ratings are set before any commercial discussion begins.</p>
-          </div>
-          <div>
-            <div className="text-sm font-semibold text-gray-700 mb-1">Corrections & updates</div>
-            <a href="mailto:info@greenhomens.com" className="text-green-700 hover:underline font-medium">
-              info@greenhomens.com
-            </a>
-            <p className="text-xs text-gray-600 mt-1">If your business information has changed, email us with documentation.</p>
-          </div>
-          <div>
-            <div className="text-sm font-semibold text-gray-700 mb-1">Press & media</div>
-            <a href="mailto:info@greenhomens.com" className="text-green-700 hover:underline font-medium">
-              info@greenhomens.com
-            </a>
-            <p className="text-xs text-gray-600 mt-1">Quote requests and interview enquiries welcome.</p>
-          </div>
-        </div>
+        <p className="text-sm text-gray-600 mb-3">
+          General enquiries, installer partnerships, corrections, and press —{" "}
+          <a href="mailto:info@greenhomens.com" className="text-green-700 hover:underline font-semibold">
+            info@greenhomens.com
+          </a>
+        </p>
+        <p className="text-xs text-gray-500">Response within 2 business days. Ratings are set before any commercial discussion begins.</p>
       </section>
     </main>
   );

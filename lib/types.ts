@@ -36,6 +36,8 @@ export interface Installer {
   priceRange: "$" | "$$" | "$$$";
   rebateAssistance: boolean;
   financing: boolean;
+  serviceArea?: string[];
+  emergency24hr?: boolean;
 }
 
 export interface RebateProgram {

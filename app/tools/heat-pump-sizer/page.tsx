@@ -36,7 +36,7 @@ const ceilingMultiplier: Record<string, number> = {
 
 function calcSizing(inputs: Inputs) {
   const { sqft, homeAge, insulation, ceilingHeight, numExteriorWalls } = inputs;
-  // NS baseline: 25 BTU/sqft (cold climate)
+  // Atlantic Canada baseline: 25 BTU/sqft (cold climate HDD 3,500–4,500)
   const baseBtu = sqft * 25;
   const wallFactor = 1 + (numExteriorWalls - 2) * 0.05;
   const rawBtu =
@@ -114,10 +114,10 @@ export default function HeatPumpSizerPage() {
       <div className="mb-8">
         <div className="flex items-center gap-2 text-blue-600 text-sm font-medium mb-3">
           <Thermometer className="w-4 h-4" />
-          NS Cold-Climate Sizing Tool
+          Atlantic Canada Cold-Climate Sizing Tool
         </div>
         <h1 className="text-3xl font-bold mb-2">Heat Pump Size Calculator</h1>
-        <p className="text-gray-600">NS-specific sizing based on cold climate (HDD 4,000+). Adjust your home details to get the right capacity.</p>
+        <p className="text-gray-600">Atlantic Canada cold-climate sizing (HDD 3,500–4,500). Adjust your home details to get the right capacity.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -175,7 +175,7 @@ export default function HeatPumpSizerPage() {
             <div className="grid grid-cols-3 gap-2">
               {([
                 { value: "poor", label: "Poor", sub: "Drafty, single-pane" },
-                { value: "average", label: "Average", sub: "Typical NS home" },
+                { value: "average", label: "Average", sub: "Typical Atlantic home" },
                 { value: "good", label: "Good", sub: "Well insulated" },
               ] as const).map((opt) => (
                 <button
@@ -314,7 +314,7 @@ export default function HeatPumpSizerPage() {
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex gap-2">
             <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
             <p className="text-xs text-gray-700">
-              This is an estimate. NS installers use Manual J load calculations for exact sizing. Always get a professional assessment before purchasing equipment.
+              This is an estimate. Certified installers use Manual J load calculations for exact sizing. Always get a professional assessment before purchasing equipment.
             </p>
           </div>
 
@@ -322,7 +322,7 @@ export default function HeatPumpSizerPage() {
             href="/installers?service=heat-pump"
             className="block w-full bg-blue-600 text-white font-semibold py-3 rounded-xl text-center text-sm hover:bg-blue-700 transition-colors"
           >
-            Find NS Heat Pump Installers →
+            Find Heat Pump Installers →
           </a>
         </div>
       </div>

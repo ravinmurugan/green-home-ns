@@ -3,6 +3,9 @@ import { Geist } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { CompareProvider } from "@/components/CompareContext";
+import CompareBar from "@/components/CompareBar";
+import { Analytics } from "@vercel/analytics/next";
 
 const geist = Geist({ subsets: ["latin"] });
 
@@ -17,9 +20,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="h-full antialiased">
       <body className={`${geist.className} flex flex-col min-h-screen bg-white text-gray-900`}>
-        <Header />
-        <div className="flex-1">{children}</div>
-        <Footer />
+        <CompareProvider>
+          <Header />
+          <div className="flex-1">{children}</div>
+          <Footer />
+          <CompareBar />
+        </CompareProvider>
+        <Analytics />
       </body>
     </html>
   );

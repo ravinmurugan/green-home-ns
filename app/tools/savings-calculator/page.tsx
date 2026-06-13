@@ -14,11 +14,11 @@ const provinceData: Record<string, {
   maxRebateHP: number;
   rebateNote: string;
 }> = {
-  NS:  { name: "Nova Scotia",        electricRate: 0.185, oilRate: 1.55, propaneRate: 1.20, maxRebateHP: 15000, rebateNote: "ENS $3K + Greener Homes $5K + OHPA up to $10K" },
-  NB:  { name: "New Brunswick",      electricRate: 0.138, oilRate: 1.52, propaneRate: 1.15, maxRebateHP: 7000,  rebateNote: "NB Power $2K + Greener Homes $5K" },
-  PEI: { name: "Prince Edward Is.",  electricRate: 0.172, oilRate: 1.58, propaneRate: 1.22, maxRebateHP: 7000,  rebateNote: "Island Prosperity $2K + Greener Homes $5K" },
-  NL:  { name: "Newfoundland",       electricRate: 0.148, oilRate: 1.60, propaneRate: 1.25, maxRebateHP: 7000,  rebateNote: "NL Incentive $2K + Greener Homes $5K" },
-  ON:  { name: "Ontario",            electricRate: 0.175, oilRate: 1.48, propaneRate: 1.10, maxRebateHP: 10000, rebateNote: "Enbridge HER+ $5K + Greener Homes $5K" },
+  NS:  { name: "Nova Scotia",        electricRate: 0.185, oilRate: 1.55, propaneRate: 1.20, maxRebateHP: 13000, rebateNote: "ENS $3K + CleanHeat up to $10K (income-qualified)" },
+  NB:  { name: "New Brunswick",      electricRate: 0.138, oilRate: 1.52, propaneRate: 1.15, maxRebateHP: 2000,  rebateNote: "NB Power Smart Saver $2K — verify at nbpower.com" },
+  PEI: { name: "Prince Edward Is.",  electricRate: 0.172, oilRate: 1.58, propaneRate: 1.22, maxRebateHP: 2000,  rebateNote: "Island Prosperity Fund $2K — verify at gov.pe.ca" },
+  NL:  { name: "Newfoundland",       electricRate: 0.148, oilRate: 1.60, propaneRate: 1.25, maxRebateHP: 2000,  rebateNote: "NL Heat Pump Incentive $2K — verify at nlhydro.com" },
+  ON:  { name: "Ontario",            electricRate: 0.175, oilRate: 1.48, propaneRate: 1.10, maxRebateHP: 5000,  rebateNote: "Enbridge HER+ $5K — verify at enbridgegas.com" },
 };
 
 // Energy content in MJ/litre ÷ 3.6 = kWh/litre, then × furnace efficiency

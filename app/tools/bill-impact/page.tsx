@@ -8,14 +8,25 @@ import { Zap, TrendingDown, Info } from "lucide-react";
 
 type HeatSource = "oil" | "baseboard" | "propane";
 
-// NS averages 2025-2026
-const NS_ELEC_RATE = 0.185; // $/kWh NS Power
-const OIL_PRICE = 1.55; // $/litre
-const PROPANE_PRICE = 1.20; // $/litre
-const BASEBOARD_RATE = 0.185;
-const HEAT_PUMP_COP = 2.8; // cold-climate COP average over NS season
+const provinceData: Record<string, {
+  name: string;
+  utility: string;
+  electricRate: number;
+  oilRate: number;
+  propaneRate: number;
+  avgOilSpend: number;
+  avgBaseboardSpend: number;
+  avgPropaneSpend: number;
+}> = {
+  NS:  { name: "Nova Scotia",       utility: "NS Power",         electricRate: 0.185, oilRate: 1.55, propaneRate: 1.20, avgOilSpend: 2800, avgBaseboardSpend: 2200, avgPropaneSpend: 2400 },
+  NB:  { name: "New Brunswick",     utility: "NB Power",         electricRate: 0.138, oilRate: 1.52, propaneRate: 1.15, avgOilSpend: 2600, avgBaseboardSpend: 1900, avgPropaneSpend: 2200 },
+  PEI: { name: "Prince Edward Is.", utility: "Maritime Electric", electricRate: 0.172, oilRate: 1.58, propaneRate: 1.22, avgOilSpend: 2700, avgBaseboardSpend: 2100, avgPropaneSpend: 2300 },
+  NL:  { name: "Newfoundland",      utility: "NL Power",         electricRate: 0.148, oilRate: 1.60, propaneRate: 1.25, avgOilSpend: 2900, avgBaseboardSpend: 2000, avgPropaneSpend: 2500 },
+  ON:  { name: "Ontario",           utility: "Local LDC",        electricRate: 0.175, oilRate: 1.48, propaneRate: 1.10, avgOilSpend: 2500, avgBaseboardSpend: 2100, avgPropaneSpend: 2200 },
+};
 
-// Seasonal distribution of heating demand (% of annual)
+const HEAT_PUMP_COP = 2.8;
+
 const MONTHS = [
   { month: "Jan", pct: 0.20 },
   { month: "Feb", pct: 0.17 },
@@ -31,37 +42,31 @@ const MONTHS = [
   { month: "Dec", pct: 0.14 },
 ];
 
-function calcBillImpact(source: HeatSource, annualSpend: number, baseNSPower: number) {
-  // Current annual heating cost
-  let annualHeatingCost = annualSpend;
+function calcBillImpact(source: HeatSource, annualSpend: number, baseElectric: number, province: string) {
+  const prov = provinceData[province];
+  const annualHeatingCost = annualSpend;
 
-  // Estimate heating kWh equivalent
   let heatingKwh: number;
   if (source === "oil") {
-    // ~38.6 kWh per litre oil, 85% furnace efficiency
-    const litres = annualSpend / OIL_PRICE;
-    heatingKwh = litres * 38.6 * 0.85;
+    const litres = annualSpend / prov.oilRate;
+    heatingKwh = litres * (38.6 / 3.6) * 0.85;
   } else if (source === "propane") {
-    const litres = annualSpend / PROPANE_PRICE;
-    heatingKwh = litres * 25.3 * 0.92;
+    const litres = annualSpend / prov.propaneRate;
+    heatingKwh = litres * (25.3 / 3.6) * 0.92;
   } else {
-    // baseboard: direct kWh
-    heatingKwh = annualSpend / BASEBOARD_RATE;
+    heatingKwh = annualSpend / prov.electricRate;
   }
 
-  // Heat pump equivalent kWh (COP 2.8)
   const heatPumpKwh = heatingKwh / HEAT_PUMP_COP;
-  const heatPumpHeatingCost = heatPumpKwh * NS_ELEC_RATE;
-
+  const heatPumpHeatingCost = heatPumpKwh * prov.electricRate;
   const annualSavings = annualHeatingCost - heatPumpHeatingCost;
 
-  // Monthly chart data
+  const sourceKey = source === "oil" ? "Oil heat" : source === "propane" ? "Propane heat" : "Baseboard";
+
   const monthlyData = MONTHS.map(({ month, pct }) => ({
     month,
-    [source === "oil" ? "Oil heat" : source === "propane" ? "Propane heat" : "Baseboard"]:
-      Math.round(annualHeatingCost * pct),
+    [sourceKey]: Math.round(annualHeatingCost * pct),
     "Heat pump": Math.round(heatPumpHeatingCost * pct),
-    "Base NS Power": Math.round(baseNSPower / 12),
   }));
 
   return {
@@ -71,9 +76,8 @@ function calcBillImpact(source: HeatSource, annualSpend: number, baseNSPower: nu
     monthlyAvgBefore: Math.round(annualHeatingCost / 12),
     monthlyAvgAfter: Math.round(heatPumpHeatingCost / 12),
     monthlyData,
-    heatPumpKwh: Math.round(heatPumpKwh),
-    heatingKwh: Math.round(heatingKwh),
     pctReduction: Math.round((annualSavings / annualHeatingCost) * 100),
+    sourceKey,
   };
 }
 
@@ -83,20 +87,17 @@ const sourceColors: Record<HeatSource, string> = {
   propane: "#8b5cf6",
 };
 
-const sourceBarColors: Record<HeatSource, string> = {
-  oil: "#fca5a5",
-  baseboard: "#fcd34d",
-  propane: "#c4b5fd",
-};
-
 export default function BillImpactPage() {
+  const [province, setProvince] = useState("NS");
   const [heatSource, setHeatSource] = useState<HeatSource>("oil");
   const [annualSpend, setAnnualSpend] = useState(2800);
-  const [baseNSPower, setBaseNSPower] = useState(120);
+  const [baseElectric, setBaseElectric] = useState(120);
 
-  const result = useMemo(() => calcBillImpact(heatSource, annualSpend, baseNSPower), [heatSource, annualSpend, baseNSPower]);
-
-  const sourceLabel = heatSource === "oil" ? "Oil heat" : heatSource === "propane" ? "Propane heat" : "Baseboard";
+  const prov = provinceData[province];
+  const result = useMemo(
+    () => calcBillImpact(heatSource, annualSpend, baseElectric, province),
+    [heatSource, annualSpend, baseElectric, province]
+  );
 
   const fmt = (n: number) => `$${Math.abs(n).toLocaleString()}`;
 
@@ -105,12 +106,35 @@ export default function BillImpactPage() {
       <div className="mb-8">
         <div className="flex items-center gap-2 text-blue-600 text-sm font-medium mb-3">
           <Zap className="w-4 h-4" />
-          NS Power Bill Impact Tool
+          Utility Bill Impact Tool
         </div>
-        <h1 className="text-3xl font-bold mb-2">How Will a Heat Pump Change My NS Power Bill?</h1>
-        <p className="text-gray-600">
-          The #1 fear: "My neighbour switched and their bill spiked." See the full picture — old heating cost + new bill.
+        <h1 className="text-3xl font-bold mb-2">How Will a Heat Pump Change My Utility Bill?</h1>
+        <p className="text-gray-600 mb-5">
+          See the full picture — old heating cost vs new heat pump cost by month. Select your province for accurate rates.
         </p>
+
+        {/* Province selector */}
+        <div className="flex flex-wrap gap-2">
+          {Object.entries(provinceData).map(([code, p]) => (
+            <button
+              key={code}
+              onClick={() => {
+                setProvince(code);
+                setAnnualSpend(heatSource === "oil" ? p.avgOilSpend : heatSource === "baseboard" ? p.avgBaseboardSpend : p.avgPropaneSpend);
+              }}
+              className={`px-4 py-2 rounded-full text-sm font-semibold border-2 transition-all ${
+                province === code
+                  ? "bg-blue-600 border-blue-600 text-white"
+                  : "border-gray-200 text-gray-600 hover:border-blue-300"
+              }`}
+            >
+              {code}
+            </button>
+          ))}
+        </div>
+        <div className="mt-2 text-xs text-gray-500">
+          {prov.name} — {prov.utility} ${prov.electricRate}/kWh · oil ${prov.oilRate}/L · propane ${prov.propaneRate}/L
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -120,13 +144,16 @@ export default function BillImpactPage() {
             <label className="font-semibold text-sm block mb-2">Current heat source</label>
             <div className="space-y-2">
               {([
-                { value: "oil", label: "🛢️ Heating Oil", avg: "Avg NS: $2,800/yr" },
-                { value: "baseboard", label: "⚡ Electric Baseboard", avg: "Avg NS: $2,200/yr" },
-                { value: "propane", label: "🔵 Propane", avg: "Avg NS: $2,400/yr" },
-              ] as const).map((opt) => (
+                { value: "oil" as HeatSource, label: "🛢️ Heating Oil", avg: `Avg ${province}: $${prov.avgOilSpend.toLocaleString()}/yr` },
+                { value: "baseboard" as HeatSource, label: "⚡ Electric Baseboard", avg: `Avg ${province}: $${prov.avgBaseboardSpend.toLocaleString()}/yr` },
+                { value: "propane" as HeatSource, label: "🔵 Propane", avg: `Avg ${province}: $${prov.avgPropaneSpend.toLocaleString()}/yr` },
+              ]).map((opt) => (
                 <button
                   key={opt.value}
-                  onClick={() => setHeatSource(opt.value)}
+                  onClick={() => {
+                    setHeatSource(opt.value);
+                    setAnnualSpend(opt.value === "oil" ? prov.avgOilSpend : opt.value === "baseboard" ? prov.avgBaseboardSpend : prov.avgPropaneSpend);
+                  }}
                   className={`w-full flex items-center justify-between p-3 border-2 rounded-xl text-sm transition-all ${
                     heatSource === opt.value
                       ? "border-blue-500 bg-blue-50"
@@ -160,25 +187,25 @@ export default function BillImpactPage() {
             </div>
             <p className="text-xs text-gray-600 mt-2">
               {heatSource === "oil"
-                ? `≈ ${Math.round(annualSpend / OIL_PRICE).toLocaleString()} litres at $${OIL_PRICE}/L`
+                ? `≈ ${Math.round(annualSpend / prov.oilRate).toLocaleString()} litres at $${prov.oilRate}/L`
                 : heatSource === "propane"
-                ? `≈ ${Math.round(annualSpend / PROPANE_PRICE).toLocaleString()} litres at $${PROPANE_PRICE}/L`
-                : `≈ ${Math.round(annualSpend / BASEBOARD_RATE).toLocaleString()} kWh at $0.185/kWh`}
+                ? `≈ ${Math.round(annualSpend / prov.propaneRate).toLocaleString()} litres at $${prov.propaneRate}/L`
+                : `≈ ${Math.round(annualSpend / prov.electricRate).toLocaleString()} kWh at $${prov.electricRate}/kWh`}
             </p>
           </div>
 
           <div>
             <div className="flex justify-between items-center mb-2">
-              <label className="font-semibold text-sm">Current monthly NS Power bill</label>
-              <span className="text-xl font-bold text-blue-600">${baseNSPower}</span>
+              <label className="font-semibold text-sm">Current monthly {prov.utility} bill</label>
+              <span className="text-xl font-bold text-blue-600">${baseElectric}</span>
             </div>
             <input
               type="range"
               min={60}
               max={400}
               step={10}
-              value={baseNSPower}
-              onChange={(e) => setBaseNSPower(Number(e.target.value))}
+              value={baseElectric}
+              onChange={(e) => setBaseElectric(Number(e.target.value))}
               className="w-full accent-blue-600"
             />
             <div className="flex justify-between text-xs text-gray-600 mt-1">
@@ -196,7 +223,7 @@ export default function BillImpactPage() {
             <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-center">
               <div className="text-xs text-gray-600 mb-1">Current heating/yr</div>
               <div className="text-2xl font-bold text-red-600">{fmt(result.annualHeatingCost)}</div>
-              <div className="text-xs text-gray-600">{sourceLabel}</div>
+              <div className="text-xs text-gray-600">{result.sourceKey}</div>
             </div>
             <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-center">
               <div className="text-xs text-gray-600 mb-1">Heat pump cost/yr</div>
@@ -213,7 +240,9 @@ export default function BillImpactPage() {
           {/* Monthly comparison chart */}
           <div className="bg-white border border-gray-200 rounded-2xl p-5">
             <div className="font-semibold text-gray-700 mb-1">Monthly heating cost — before vs after</div>
-            <div className="text-xs text-gray-600 mb-4">Heating cost only. Your base NS Power bill (${ baseNSPower}/mo) is separate and stays.</div>
+            <div className="text-xs text-gray-600 mb-4">
+              Heating cost only. Your base {prov.utility} bill (${baseElectric}/mo) is separate and stays.
+            </div>
             <ResponsiveContainer width="100%" height={220}>
               <BarChart data={result.monthlyData} margin={{ top: 5, right: 5, left: -15, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
@@ -221,7 +250,7 @@ export default function BillImpactPage() {
                 <YAxis tick={{ fontSize: 11 }} tickFormatter={(v) => `$${v}`} />
                 <Tooltip formatter={(v) => [`$${v}`, ""]} />
                 <Legend wrapperStyle={{ fontSize: 12 }} />
-                <Bar dataKey={sourceLabel} fill={sourceColors[heatSource]} radius={[3, 3, 0, 0]} />
+                <Bar dataKey={result.sourceKey} fill={sourceColors[heatSource]} radius={[3, 3, 0, 0]} />
                 <Bar dataKey="Heat pump" fill="#22c55e" radius={[3, 3, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
@@ -235,16 +264,16 @@ export default function BillImpactPage() {
                 <div className="text-xs font-bold text-gray-600 mb-3 uppercase tracking-wide">Before heat pump</div>
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-700">Base NS Power</span>
-                    <span className="font-semibold">${baseNSPower}</span>
+                    <span className="text-gray-700">Base {prov.utility}</span>
+                    <span className="font-semibold">${baseElectric}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-700">{sourceLabel} (avg/mo)</span>
+                    <span className="text-gray-700">{result.sourceKey} (avg/mo)</span>
                     <span className="font-semibold text-red-600">{fmt(result.monthlyAvgBefore)}</span>
                   </div>
                   <div className="border-t border-gray-200 pt-2 flex justify-between text-sm font-bold">
                     <span>Total avg/mo</span>
-                    <span>${(baseNSPower + result.monthlyAvgBefore).toLocaleString()}</span>
+                    <span>${(baseElectric + result.monthlyAvgBefore).toLocaleString()}</span>
                   </div>
                 </div>
               </div>
@@ -252,8 +281,8 @@ export default function BillImpactPage() {
                 <div className="text-xs font-bold text-gray-600 mb-3 uppercase tracking-wide">After heat pump</div>
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-700">Base NS Power</span>
-                    <span className="font-semibold">${baseNSPower}</span>
+                    <span className="text-gray-700">Base {prov.utility}</span>
+                    <span className="font-semibold">${baseElectric}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-700">Heat pump (avg/mo)</span>
@@ -261,7 +290,7 @@ export default function BillImpactPage() {
                   </div>
                   <div className="border-t border-gray-200 pt-2 flex justify-between text-sm font-bold">
                     <span>Total avg/mo</span>
-                    <span className="text-green-600">${(baseNSPower + result.monthlyAvgAfter).toLocaleString()}</span>
+                    <span className="text-green-600">${(baseElectric + result.monthlyAvgAfter).toLocaleString()}</span>
                   </div>
                 </div>
               </div>
@@ -269,7 +298,7 @@ export default function BillImpactPage() {
             <div className="mt-4 bg-green-50 border border-green-200 rounded-xl p-3 flex items-center gap-3">
               <TrendingDown className="w-5 h-5 text-green-600 shrink-0" />
               <div className="text-sm">
-                <strong className="text-green-700">Monthly bill drops by ~${Math.round((result.monthlyAvgBefore - result.monthlyAvgAfter))}</strong>
+                <strong className="text-green-700">Monthly bill drops by ~${Math.round(result.monthlyAvgBefore - result.monthlyAvgAfter)}</strong>
                 <span className="text-gray-700"> on average. Peak winter months higher — summer months near-zero heating cost.</span>
               </div>
             </div>
@@ -278,7 +307,7 @@ export default function BillImpactPage() {
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex gap-2">
             <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
             <p className="text-xs text-gray-700">
-              Uses NS avg rates: electricity $0.185/kWh, oil $1.55/L, propane $1.20/L. Heat pump COP 2.8 (cold-climate average over NS heating season). Actual savings vary with home insulation, system sizing, and usage.
+              Using {prov.name} rates: electricity ${prov.electricRate}/kWh, oil ${prov.oilRate}/L, propane ${prov.propaneRate}/L. Heat pump COP 2.8 (cold-climate average). Actual savings vary with home insulation, system sizing, and usage.
             </p>
           </div>
         </div>

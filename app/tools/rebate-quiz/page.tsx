@@ -67,7 +67,7 @@ function calcPrograms(answers: Answers): Program[] {
       programs.push({ name: "Heating Assistance Rebate Program", provider: "Nova Scotia Government", amount: 1000, color: "border-amber-500 bg-amber-50", badge: "For low-income households", note: "Annual rebate on heating costs. Renters: ask landlord — heat pump retrofits may qualify separately.", applyUrl: "https://novascotia.ca/heating-assistance", applyLabel: "Apply at novascotia.ca" });
     }
     if (ownership === "own") {
-      programs.push({ name: "Canada Greener Homes Grant — Heat Pump", provider: "Government of Canada", amount: 5000, color: "border-red-400 bg-red-50", badge: "All Canadian homeowners", note: "Requires pre + post EnerGuide assessment. Stacks with ENS rebate. Up to $600 assessment cost covered.", applyUrl: "https://www.canada.ca/en/natural-resources-canada/news/2021/05/canada-greener-homes-grant.html", applyLabel: "Apply at canada.ca" });
+      programs.push({ name: "Canada Greener Homes Grant — CLOSED", provider: "Government of Canada", amount: 0, color: "border-gray-300 bg-gray-50", badge: "⚠️ Closed Feb 2024", note: "This program is no longer accepting applications. Check canada.ca for any replacement federal heat pump programs.", applyUrl: "https://www.canada.ca/en/natural-resources-canada/news/2021/05/canada-greener-homes-grant.html", applyLabel: "Check canada.ca for updates" });
     }
   }
 
@@ -75,7 +75,7 @@ function calcPrograms(answers: Answers): Program[] {
   if (province === "NB") {
     if (ownership === "own") {
       programs.push({ name: "NB Power Smart Saver Heat Pump Rebate", provider: "NB Power", amount: 2000, color: "border-blue-500 bg-blue-50", badge: "NB Power customers", note: "Register at nbpower.com BEFORE installation. Must use NB Power participating installer.", applyUrl: "https://www.nbpower.com/en/save-energy/residential/smart-saver/", applyLabel: "Register at nbpower.com" });
-      programs.push({ name: "Canada Greener Homes Grant — Heat Pump", provider: "Government of Canada", amount: 5000, color: "border-red-400 bg-red-50", badge: "All Canadian homeowners", note: "Pre + post EnerGuide assessments required. Up to $600 assessment cost covered.", applyUrl: "https://www.canada.ca/en/natural-resources-canada/news/2021/05/canada-greener-homes-grant.html", applyLabel: "Apply at canada.ca" });
+      programs.push({ name: "Canada Greener Homes Grant — CLOSED", provider: "Government of Canada", amount: 0, color: "border-gray-300 bg-gray-50", badge: "⚠️ Closed Feb 2024", note: "This program is no longer accepting applications. Check canada.ca for replacement federal programs.", applyUrl: "https://www.canada.ca/en/natural-resources-canada/news/2021/05/canada-greener-homes-grant.html", applyLabel: "Check canada.ca for updates" });
     }
     if (ownership === "rent" || income === "under40") {
       programs.push({ name: "NB Power Low Income Program", provider: "NB Power", amount: 1500, color: "border-amber-500 bg-amber-50", badge: "Low-income households", note: "Qualifying households may receive enhanced support. Contact NB Power directly.", applyUrl: "https://www.nbpower.com/en/save-energy/residential/", applyLabel: "Check at nbpower.com" });
@@ -86,7 +86,7 @@ function calcPrograms(answers: Answers): Program[] {
   if (province === "PEI") {
     if (ownership === "own") {
       programs.push({ name: "Island Prosperity Fund — Heat Pump Rebate", provider: "Province of PEI", amount: 2000, color: "border-blue-500 bg-blue-50", badge: "PEI homeowners", note: "Apply at princeedwardisland.ca before installation. Requires certified installer.", applyUrl: "https://www.princeedwardisland.ca/en/topic/energy-efficiency", applyLabel: "Apply at princeedwardisland.ca" });
-      programs.push({ name: "Canada Greener Homes Grant — Heat Pump", provider: "Government of Canada", amount: 5000, color: "border-red-400 bg-red-50", badge: "All Canadian homeowners", note: "Pre + post EnerGuide assessments required. Stacks with Island Prosperity Fund.", applyUrl: "https://www.canada.ca/en/natural-resources-canada/news/2021/05/canada-greener-homes-grant.html", applyLabel: "Apply at canada.ca" });
+      programs.push({ name: "Canada Greener Homes Grant — CLOSED", provider: "Government of Canada", amount: 0, color: "border-gray-300 bg-gray-50", badge: "⚠️ Closed Feb 2024", note: "This program is no longer accepting applications. Check canada.ca for replacement federal programs.", applyUrl: "https://www.canada.ca/en/natural-resources-canada/news/2021/05/canada-greener-homes-grant.html", applyLabel: "Check canada.ca for updates" });
     }
     if (income === "under40") {
       programs.push({ name: "PEI Energy Efficiency Assistance", provider: "Province of PEI", amount: 1000, color: "border-amber-500 bg-amber-50", badge: "Low-income households", note: "Additional support for qualifying households. Contact Office of Energy Efficiency.", applyUrl: "https://www.princeedwardisland.ca/en/topic/energy-efficiency", applyLabel: "Check at princeedwardisland.ca" });
@@ -97,7 +97,7 @@ function calcPrograms(answers: Answers): Program[] {
   if (province === "NL") {
     if (ownership === "own") {
       programs.push({ name: "NL Heat Pump Incentive Program", provider: "Newfoundland Power / NL Hydro", amount: 2000, color: "border-blue-500 bg-blue-50", badge: "NL homeowners", note: "Register with Newfoundland Power or NL Hydro before installation. Cold-climate unit required.", applyUrl: "https://www.newfoundlandpower.com/residential/rebates-and-programs", applyLabel: "Register at newfoundlandpower.com" });
-      programs.push({ name: "Canada Greener Homes Grant — Heat Pump", provider: "Government of Canada", amount: 5000, color: "border-red-400 bg-red-50", badge: "All Canadian homeowners", note: "Pre + post EnerGuide assessments required. Up to $600 assessment cost covered.", applyUrl: "https://www.canada.ca/en/natural-resources-canada/news/2021/05/canada-greener-homes-grant.html", applyLabel: "Apply at canada.ca" });
+      programs.push({ name: "Canada Greener Homes Grant — CLOSED", provider: "Government of Canada", amount: 0, color: "border-gray-300 bg-gray-50", badge: "⚠️ Closed Feb 2024", note: "This program is no longer accepting applications. Check canada.ca for replacement federal programs.", applyUrl: "https://www.canada.ca/en/natural-resources-canada/news/2021/05/canada-greener-homes-grant.html", applyLabel: "Check canada.ca for updates" });
     }
   }
 
@@ -105,7 +105,7 @@ function calcPrograms(answers: Answers): Program[] {
   if (province === "ON") {
     if (ownership === "own") {
       programs.push({ name: "Enbridge Home Efficiency Rebate Plus (HER+)", provider: "Enbridge Gas", amount: 5000, color: "border-blue-500 bg-blue-50", badge: "Enbridge Gas customers", note: "For Enbridge Gas customers. Apply through Enbridge portal before installation. Check for local utility programs if not Enbridge.", applyUrl: "https://www.enbridgegas.com/residential/accountservices/homeefficiencyrebate", applyLabel: "Apply at enbridgegas.com" });
-      programs.push({ name: "Canada Greener Homes Grant — Heat Pump", provider: "Government of Canada", amount: 5000, color: "border-red-400 bg-red-50", badge: "All Canadian homeowners", note: "Pre + post EnerGuide assessments required. Stacks with Enbridge HER+.", applyUrl: "https://www.canada.ca/en/natural-resources-canada/news/2021/05/canada-greener-homes-grant.html", applyLabel: "Apply at canada.ca" });
+      programs.push({ name: "Canada Greener Homes Grant — CLOSED", provider: "Government of Canada", amount: 0, color: "border-gray-300 bg-gray-50", badge: "⚠️ Closed Feb 2024", note: "This program is no longer accepting applications. Check canada.ca for replacement federal programs.", applyUrl: "https://www.canada.ca/en/natural-resources-canada/news/2021/05/canada-greener-homes-grant.html", applyLabel: "Check canada.ca for updates" });
     }
     if (income === "under40" || income === "40to75") {
       programs.push({ name: "Ontario Affordability / LEAP Program", provider: "Ontario Energy Board", amount: 1000, color: "border-amber-500 bg-amber-50", badge: "Low-income households", note: "LEAP (Low-income Energy Assistance Program) helps with energy costs. Contact your local utility for referral.", applyUrl: "https://www.oeb.ca/consumer-protection-and-privacy/getting-help-your-energy-bills/low-income-energy-assistance-program", applyLabel: "Check at oeb.ca" });
@@ -125,28 +125,25 @@ function getApplicationRoadmap(answers: Answers): RoadmapStep[] {
   if (province === "NS") {
     if (isOilNS && incomeQualified) {
       return [
-        { label: "Verify OHPA income eligibility", detail: "Go to canada.ca/heat-pump-grant — confirm your household income qualifies before taking any action.", critical: true },
-        { label: "Apply for OHPA pre-approval", detail: "Submit your OHPA application and receive pre-approval BEFORE hiring any installer or purchasing equipment.", critical: true },
-        { label: "Book a pre-retrofit EnerGuide assessment", detail: "Required for the federal Greener Homes grant. Cost is covered (up to $600). Book at nrcan.gc.ca.", critical: true },
-        { label: "Get 3 quotes from ENS-approved installers only", detail: "Only Efficiency NS approved contractors qualify you for the ENS rebate. Find them at our installer directory.", critical: true },
+        { label: "Verify OHPA is still active at canada.ca", detail: "Federal programs change. Confirm the Oil to Heat Pump Affordability program is accepting applications at canada.ca before taking any action.", critical: true },
+        { label: "Apply for OHPA pre-approval FIRST", detail: "Submit your OHPA application and receive pre-approval BEFORE hiring any installer or purchasing equipment. No retroactive approval.", critical: true },
+        { label: "Get 3 quotes from ENS-approved installers only", detail: "Only Efficiency NS approved contractors qualify you for the ENS rebate ($3,000). Find rated installers in our directory.", critical: true },
         { label: "Select a cold-climate unit (HSPF2 ≥ 7.5)", detail: "Required for all NS rebate programs. Ask for the AHRI certificate and confirm HSPF2 rating in writing before signing." },
-        { label: "Installation + electrical upgrade (if needed)", detail: "Typical install: 1–3 days. Panel upgrade may add 1–2 days. Installer pulls all permits." },
-        { label: "Book your post-retrofit EnerGuide assessment", detail: "Required to claim the federal Greener Homes grant. Book with the same energy advisor from step 3." },
-        { label: "Your installer submits the ENS rebate automatically", detail: "Efficiency NS rebate (up to $3,000) is submitted by your installer post-installation. You don't apply separately." },
-        { label: "Submit federal OHPA + Greener Homes claim", detail: "Use your pre and post EnerGuide reports to submit your federal claim at canada.ca. Rebate arrives by cheque." },
-        { label: "Wait for rebates to arrive", detail: "ENS rebate: 4–8 weeks. Federal OHPA/Greener Homes: 6–12 weeks by cheque." },
+        { label: "Installation + electrical upgrade if needed", detail: "Typical install: 1–3 days. Panel upgrade may add 1–2 days. Installer pulls all permits." },
+        { label: "Installer submits ENS rebate on your behalf", detail: "Efficiency NS rebate (up to $3,000) is submitted by your installer post-installation. You don't apply separately." },
+        { label: "Submit your OHPA federal claim at canada.ca", detail: "Submit with proof of installation and installer receipts. Federal rebate arrives by cheque in 6–12 weeks." },
+        { label: "Check canada.ca for any additional active federal programs", detail: "Federal landscape changes frequently. The Greener Homes Grant closed Feb 2024 — verify whether any replacement program is now active." },
+        { label: "Wait for rebates", detail: "ENS: 4–8 weeks. Federal OHPA: 6–12 weeks by cheque." },
       ];
     }
     if (ownership === "own") {
       return [
-        { label: "Book a pre-retrofit EnerGuide assessment", detail: "Required for the Canada Greener Homes Grant. Book at nrcan.gc.ca. Cost up to $600 covered by the grant.", critical: true },
         { label: "Get quotes from ENS-approved installers only", detail: "Only ENS-approved contractors qualify you for the provincial rebate. Non-approved installer = lose $3,000.", critical: true },
         { label: "Select a cold-climate unit (HSPF2 ≥ 7.5)", detail: "Required for the ENS rebate. Confirm HSPF2 rating in your quote in writing before signing." },
         { label: "Installation day (1–3 days)", detail: "Installer pulls electrical permits. Mini-splits typically 1 day; central ducted 2–3 days." },
-        { label: "Book your post-retrofit EnerGuide assessment", detail: "Required to unlock the federal Greener Homes grant ($5,000). Same energy advisor as step 1." },
-        { label: "ENS rebate submitted by your installer", detail: "Up to $3,000 submitted automatically by your installer. You don't apply separately for the ENS rebate." },
-        { label: "Submit your federal Greener Homes claim", detail: "Use pre + post EnerGuide reports to submit at canada.ca. Federal $5,000 rebate arrives by cheque." },
-        { label: "Wait for rebates", detail: "ENS: 4–8 weeks. Federal Greener Homes: 6–12 weeks by cheque to your address." },
+        { label: "ENS rebate submitted by your installer", detail: "Up to $3,000 submitted automatically by your installer post-install. You don't apply separately." },
+        { label: "Check canada.ca for any active federal heat pump programs", detail: "The Greener Homes Grant closed Feb 2024. Verify whether any federal replacement program is accepting applications." },
+        { label: "Wait for ENS rebate", detail: "Efficiency NS rebate: 4–8 weeks by direct deposit or cheque." },
       ];
     }
   }
@@ -154,52 +151,48 @@ function getApplicationRoadmap(answers: Answers): RoadmapStep[] {
   if (province === "NB") {
     return [
       { label: "Register with NB Power Smart Saver BEFORE any work", detail: "Go to nbpower.com/smartsaver and register before hiring a contractor. Retroactive claims are NOT accepted.", critical: true },
-      { label: "Book a pre-retrofit EnerGuide assessment", detail: "Required for the federal Greener Homes grant. Book at nrcan.gc.ca — cost covered up to $600.", critical: true },
-      { label: "Get quotes from NB Power participating installers", detail: "Only installers listed in the NB Power program qualify for the Smart Saver rebate. Ask to confirm before signing." },
+      { label: "Get quotes from NB Power participating installers only", detail: "Only installers listed in the NB Power program qualify for the Smart Saver rebate. Confirm before signing.", critical: true },
       { label: "Select a cold-climate heat pump (HSPF2 ≥ 7.5)", detail: "Required for maximum rebate eligibility. Confirm rating in your quote in writing." },
       { label: "Installation (1–3 days)", detail: "Your installer pulls all required permits. NB requires electrical inspection post-install." },
       { label: "NB Power rebate submitted through installer or portal", detail: "Up to $2,000. Your installer may handle this or you submit at nbpower.com/smartsaver." },
-      { label: "Book post-retrofit EnerGuide assessment", detail: "Required to claim the $5,000 federal Greener Homes grant." },
-      { label: "Submit federal Greener Homes claim", detail: "Use pre + post reports at canada.ca. Federal rebate arrives by cheque in 6–12 weeks." },
+      { label: "Check canada.ca for any active federal programs", detail: "The Greener Homes Grant closed Feb 2024. Verify whether any federal replacement is now accepting applications." },
+      { label: "Wait for rebate", detail: "NB Power Smart Saver: 4–8 weeks." },
     ];
   }
 
   if (province === "PEI") {
     return [
-      { label: "Apply to Island Prosperity Fund before installation", detail: "Visit princeedwardisland.ca/energy and submit your application before any work begins.", critical: true },
-      { label: "Book a pre-retrofit EnerGuide assessment", detail: "Required for the federal Greener Homes grant. Cost up to $600 covered. Book at nrcan.gc.ca.", critical: true },
-      { label: "Get quotes from certified PEI installers", detail: "Ask each installer to confirm they are approved under the Island Prosperity Fund program." },
+      { label: "Apply to Island Prosperity Fund BEFORE installation", detail: "Visit princeedwardisland.ca/energy and submit your application before any work begins. Retroactive not accepted.", critical: true },
+      { label: "Get quotes from certified PEI installers only", detail: "Ask each installer to confirm they are approved under the Island Prosperity Fund program.", critical: true },
       { label: "Select approved cold-climate equipment", detail: "Confirm equipment is on the approved product list for the Island Prosperity Fund before signing." },
-      { label: "Installation (1–3 days)", detail: "Installer pulls permits. Maritime Electric requires interconnection agreement for net-metered solar." },
-      { label: "Book post-retrofit EnerGuide assessment", detail: "Required for the federal $5,000 Greener Homes grant." },
-      { label: "Submit provincial + federal claims", detail: "Provincial Island Prosperity Fund + federal Greener Homes. Submit separately through each program portal." },
-      { label: "Wait for rebates", detail: "Provincial: 6–10 weeks. Federal Greener Homes: 6–12 weeks by cheque." },
+      { label: "Installation (1–3 days)", detail: "Installer pulls permits. Maritime Electric may require notification for electrical changes." },
+      { label: "Submit Island Prosperity Fund claim", detail: "Through princeedwardisland.ca/energy. Installer may assist with paperwork." },
+      { label: "Check canada.ca for any active federal programs", detail: "The Greener Homes Grant closed Feb 2024. Verify whether any federal replacement is now active." },
+      { label: "Wait for provincial rebate", detail: "Island Prosperity Fund: 6–10 weeks." },
     ];
   }
 
   if (province === "NL") {
     return [
-      { label: "Register for NL Heat Pump Incentive before installation", detail: "Register at newfoundlandpower.com or nlhydro.com depending on your utility. Must be pre-approved.", critical: true },
-      { label: "Book a pre-retrofit EnerGuide assessment", detail: "Required for the federal Greener Homes grant. Book at nrcan.gc.ca — cost up to $600 covered.", critical: true },
-      { label: "Get quotes from certified NL installers", detail: "Confirm the installer is registered under the provincial incentive program before signing any quote." },
-      { label: "Select a cold-climate heat pump (HSPF2 ≥ 7.5)", detail: "Required for the NL incentive program and federal grant. Get the HSPF2 rating in writing." },
-      { label: "Installation (1–3 days)", detail: "Installer handles permits and utility interconnection application." },
-      { label: "Book post-retrofit EnerGuide assessment", detail: "Required to unlock the $5,000 federal Greener Homes grant." },
-      { label: "Submit NL incentive + federal claims", detail: "NL: through your utility portal. Federal: canada.ca using pre + post EnerGuide reports." },
-      { label: "Wait for rebates", detail: "NL incentive: 6–10 weeks. Federal Greener Homes: 6–12 weeks by cheque." },
+      { label: "Register for NL Heat Pump Incentive BEFORE installation", detail: "Register at newfoundlandpower.com or nlhydro.com depending on your utility. Must be pre-approved.", critical: true },
+      { label: "Get quotes from certified NL installers only", detail: "Confirm the installer is registered under the provincial incentive program before signing any quote.", critical: true },
+      { label: "Select a cold-climate heat pump (HSPF2 ≥ 7.5)", detail: "Required for the NL incentive program. Get the HSPF2 rating in writing from your installer." },
+      { label: "Installation (1–3 days)", detail: "Installer handles permits and any utility notification requirements." },
+      { label: "Submit NL incentive through your utility portal", detail: "Newfoundland Power or NL Hydro — through their online rebate portal with proof of install." },
+      { label: "Check canada.ca for any active federal programs", detail: "The Greener Homes Grant closed Feb 2024. Verify whether any federal replacement is now accepting applications." },
+      { label: "Wait for rebate", detail: "NL utility incentive: 6–10 weeks." },
     ];
   }
 
   if (province === "ON") {
     return [
-      { label: "Apply to Enbridge HER+ portal before installation", detail: "If you're an Enbridge Gas customer, apply at enbridgegas.com/her BEFORE any work. Retroactive not accepted.", critical: true },
-      { label: "Book a pre-retrofit EnerGuide assessment", detail: "Required for the federal Greener Homes grant. Book at nrcan.gc.ca — cost up to $600 covered.", critical: true },
-      { label: "Get quotes from Enbridge-approved installers", detail: "Enbridge HER+ requires approved contractors. Check the Enbridge installer list before signing any quote." },
-      { label: "Select a cold-climate heat pump (HSPF2 ≥ 7.5)", detail: "Required for Enbridge HER+ and the federal grant. Confirm HSPF2 rating in writing." },
-      { label: "Installation (1–3 days)", detail: "Installer handles all permits. In ON, ESA electrical inspection is required after installation." },
-      { label: "Book post-retrofit EnerGuide assessment", detail: "Required to unlock the $5,000 federal Greener Homes grant." },
-      { label: "Submit Enbridge HER+ claim", detail: "Through the Enbridge portal with proof of install. Typically processed 4–8 weeks." },
-      { label: "Submit federal Greener Homes claim", detail: "At canada.ca using pre + post EnerGuide reports. Rebate arrives by cheque in 6–12 weeks." },
+      { label: "Apply to Enbridge HER+ portal BEFORE installation", detail: "If you're an Enbridge Gas customer, apply at enbridgegas.com/her BEFORE any work. Retroactive not accepted.", critical: true },
+      { label: "Get quotes from Enbridge-approved installers only", detail: "Enbridge HER+ requires approved contractors. Check the Enbridge installer list before signing any quote.", critical: true },
+      { label: "Select a cold-climate heat pump (HSPF2 ≥ 7.5)", detail: "Required for Enbridge HER+. Confirm HSPF2 rating in writing before signing." },
+      { label: "Installation (1–3 days)", detail: "Installer handles all permits. ESA electrical inspection required post-install in Ontario." },
+      { label: "Submit Enbridge HER+ claim", detail: "Through the Enbridge portal with proof of installation. Processed in 4–8 weeks." },
+      { label: "Check canada.ca for any active federal programs", detail: "The Greener Homes Grant closed Feb 2024. Verify whether any federal replacement is now accepting applications." },
+      { label: "Wait for rebate", detail: "Enbridge HER+: 4–8 weeks. Any federal program: timing varies — check at canada.ca." },
     ];
   }
 
@@ -278,7 +271,7 @@ export default function RebateQuizPage() {
             <p className="text-sm text-gray-600 mb-6">Rebate programs and amounts vary significantly by province.</p>
             <div className="grid grid-cols-1 gap-3">
               {(["NS", "NB", "PEI", "NL", "ON"] as Province[]).map((prov) => {
-                const maxRebates: Record<Province, string> = { NS: "Up to $15,000", NB: "Up to $7,000", PEI: "Up to $7,000", NL: "Up to $7,000", ON: "Up to $10,000" };
+                const maxRebates: Record<Province, string> = { NS: "Up to $13,000", NB: "Up to $7,000", PEI: "Up to $7,000", NL: "Up to $7,000", ON: "Up to $10,000" };
                 return (
                   <button
                     key={prov}

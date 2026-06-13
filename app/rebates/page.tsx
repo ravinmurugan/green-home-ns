@@ -44,35 +44,35 @@ const PROVINCE_FULL: Record<string, string> = {
 };
 
 const PROVINCE_STATS: Record<string, { provincial: number; federal: number; total: number }> = {
-  NS:  { provincial: 3000,  federal: 5000, total: 15000 },
-  NB:  { provincial: 2000,  federal: 5000, total: 7000  },
-  PEI: { provincial: 2000,  federal: 5000, total: 7000  },
-  NL:  { provincial: 2000,  federal: 5000, total: 7000  },
-  ON:  { provincial: 5000,  federal: 5000, total: 10000 },
+  NS:  { provincial: 3000,  federal: 0, total: 13000 },
+  NB:  { provincial: 2000,  federal: 0, total: 2000  },
+  PEI: { provincial: 2000,  federal: 0, total: 2000  },
+  NL:  { provincial: 2000,  federal: 0, total: 2000  },
+  ON:  { provincial: 5000,  federal: 0, total: 5000  },
 };
 
 const NS_STACKING_STEPS = [
   { step: 1, label: "Efficiency NS Rebate", amount: "$3,000", color: "bg-blue-500", who: "Provincial" },
-  { step: 2, label: "Canada Greener Homes", amount: "$5,000", color: "bg-red-500", who: "Federal" },
-  { step: 3, label: "CleanHeat (income-qualified)", amount: "+$7,000", color: "bg-green-500", who: "Provincial+" },
+  { step: 2, label: "CleanHeat (income-qualified)", amount: "+$10,000", color: "bg-green-500", who: "Provincial+" },
+  { step: 3, label: "Greener Homes Grant", amount: "CLOSED", color: "bg-gray-400", who: "Federal ⚠️" },
 ];
 
 const PROVINCE_STACKING: Record<string, Array<{ step: number; label: string; amount: string; color: string; who: string }>> = {
   NB: [
     { step: 1, label: "NB Power Smart Saver", amount: "$2,000", color: "bg-blue-500", who: "Provincial" },
-    { step: 2, label: "Canada Greener Homes", amount: "$5,000", color: "bg-red-500", who: "Federal" },
+    { step: 2, label: "Greener Homes Grant", amount: "CLOSED", color: "bg-gray-400", who: "Federal ⚠️" },
   ],
   PEI: [
     { step: 1, label: "Island Prosperity Fund", amount: "$2,000", color: "bg-blue-500", who: "Provincial" },
-    { step: 2, label: "Canada Greener Homes", amount: "$5,000", color: "bg-red-500", who: "Federal" },
+    { step: 2, label: "Greener Homes Grant", amount: "CLOSED", color: "bg-gray-400", who: "Federal ⚠️" },
   ],
   NL: [
     { step: 1, label: "NL Heat Pump Incentive", amount: "$2,000", color: "bg-blue-500", who: "Provincial" },
-    { step: 2, label: "Canada Greener Homes", amount: "$5,000", color: "bg-red-500", who: "Federal" },
+    { step: 2, label: "Greener Homes Grant", amount: "CLOSED", color: "bg-gray-400", who: "Federal ⚠️" },
   ],
   ON: [
     { step: 1, label: "Enbridge HER+", amount: "$5,000", color: "bg-amber-500", who: "Utility" },
-    { step: 2, label: "Canada Greener Homes", amount: "$5,000", color: "bg-red-500", who: "Federal" },
+    { step: 2, label: "Greener Homes Grant", amount: "CLOSED", color: "bg-gray-400", who: "Federal ⚠️" },
   ],
 };
 
@@ -244,9 +244,9 @@ function StackedBarChart() {
 
 function NSStackingChart() {
   const nsSteps = [
-    { name: "Step 1: ENS Rebate",        value: 3000, fill: "#3b82f6" },
-    { name: "Step 2: Greener Homes",      value: 5000, fill: "#ef4444" },
-    { name: "Step 3: CleanHeat (income)", value: 7000, fill: "#22c55e" },
+    { name: "Step 1: ENS Rebate",          value: 3000, fill: "#3b82f6" },
+    { name: "Step 2: CleanHeat (income)",   value: 10000, fill: "#22c55e" },
+    { name: "Greener Homes (CLOSED ⚠️)",   value: 0, fill: "#9ca3af" },
   ];
   return (
     <div className="bg-white border border-gray-200 rounded-xl p-6">
@@ -363,7 +363,7 @@ function StackingGuide({ province }: { province: string }) {
         ))}
       </div>
       <p className="text-xs text-gray-400 mt-4">
-        Complete the pre-retrofit home energy assessment before installation to be eligible for the federal grant.
+        ⚠️ Canada Greener Homes Grant closed Feb 2024. Provincial programs remain active. Verify any new federal programs at canada.ca before applying.
       </p>
     </div>
   );
@@ -391,7 +391,7 @@ export default function RebatesPage() {
         </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-3">Green Energy Rebate Guide</h1>
         <p className="text-gray-500 text-lg max-w-2xl">
-          NS, NB, PEI, NL &amp; Ontario — 2026 Programs. Stack provincial and federal grants for up to $15,000 back on your heat pump or solar install.
+          NS, NB, PEI, NL &amp; Ontario — 2026 Programs. Provincial programs active. Federal Greener Homes Grant closed Feb 2024 — verify replacement programs at canada.ca.
         </p>
       </div>
 
@@ -433,9 +433,9 @@ export default function RebatesPage() {
               icon={<Zap className="w-3.5 h-3.5" />}
             />
             <StatCard
-              label="Federal Max"
-              value={`$${stats.federal.toLocaleString()}`}
-              sub="Canada Greener Homes"
+              label="Federal Grant"
+              value="CLOSED"
+              sub="Greener Homes closed Feb 2024"
               icon={<DollarSign className="w-3.5 h-3.5" />}
             />
             <StatCard

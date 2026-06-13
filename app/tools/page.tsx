@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { Calculator, TrendingDown, Sun, DollarSign, Zap, Thermometer, ListChecks } from "lucide-react";
+import { Calculator, TrendingDown, Sun, DollarSign, Zap, Thermometer, ListChecks, Leaf } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Free NS Green Energy Tools — GreenHomeNS",
+  title: "Free Green Energy Tools — Atlantic Canada & Ontario | GreenHomeNS",
   description:
-    "Free calculators and tools for NS homeowners: rebate eligibility quiz, heat pump sizer, savings calculator, rebate sequencing guide, and NS Power bill impact estimator.",
+    "Free calculators and tools for homeowners across Atlantic Canada and Ontario: rebate eligibility quiz, heat pump sizer, savings calculator, rebate sequencing guide, and utility bill impact estimator.",
 };
 
 const tools = [
@@ -13,7 +13,7 @@ const tools = [
     href: "/tools/rebate-quiz",
     icon: DollarSign,
     title: "Rebate Eligibility Quiz",
-    desc: "Answer 4 questions — find out exactly which NS programs you qualify for and your maximum rebate amount.",
+    desc: "Answer 5 questions — find out exactly which programs you qualify for in your province and your maximum rebate amount.",
     cta: "Check Eligibility",
     badge: "Most Popular",
     color: "bg-green-600",
@@ -24,7 +24,7 @@ const tools = [
     href: "/tools/rebate-guide",
     icon: ListChecks,
     title: "Rebate Sequencing Wizard",
-    desc: "The #1 mistake NS homeowners make is doing steps in the wrong order. Get your exact sequence to avoid losing your rebate.",
+    desc: "The #1 mistake homeowners make is doing steps in the wrong order. Get your exact province-specific sequence to avoid losing your rebate.",
     cta: "Get My Sequence",
     badge: "Avoid Costly Mistakes",
     color: "bg-purple-600",
@@ -35,9 +35,9 @@ const tools = [
     href: "/tools/heat-pump-sizer",
     icon: Thermometer,
     title: "Heat Pump Size Calculator",
-    desc: "NS cold-climate sizing based on your home's square footage, age, insulation, and ceiling height. Get the right tonnage.",
+    desc: "Atlantic Canada cold-climate sizing based on your home's square footage, age, insulation, and ceiling height. Get the right tonnage.",
     cta: "Calculate Size",
-    badge: "NS Cold-Climate Specific",
+    badge: "Cold-Climate Sizing",
     color: "bg-blue-600",
     cardBg: "bg-white border-2 border-blue-300 hover:border-blue-500 hover:shadow-lg",
     iconBg: "bg-blue-100 text-blue-600",
@@ -45,8 +45,8 @@ const tools = [
   {
     href: "/tools/bill-impact",
     icon: Zap,
-    title: "NS Power Bill Impact",
-    desc: "See exactly how your monthly NS Power bill changes after switching from oil, baseboard, or propane to a heat pump.",
+    title: "Utility Bill Impact",
+    desc: "See exactly how your monthly utility bill changes after switching from oil, baseboard, or propane to a heat pump. Select your province.",
     cta: "See Bill Change",
     badge: "Monthly breakdown",
     color: "bg-amber-600",
@@ -57,7 +57,7 @@ const tools = [
     href: "/tools/savings-calculator",
     icon: TrendingDown,
     title: "Oil vs Heat Pump Savings",
-    desc: "Enter your actual fuel usage and see annual savings, payback period, and a 20-year cumulative cost chart.",
+    desc: "Enter your actual fuel usage and see annual savings, payback period, and a 20-year cumulative cost chart. Province-specific rates.",
     cta: "Calculate Savings",
     badge: "20-yr projection",
     color: "bg-sky-600",
@@ -68,12 +68,23 @@ const tools = [
     href: "/tools/payback-calculator",
     icon: Sun,
     title: "Solar Payback Calculator",
-    desc: "NS Power net metering at $0.185/kWh. Enter your system size and see your payback period and 25-year return.",
+    desc: "Province-specific net metering rates and sun hours. Enter your system size and see your payback period and 25-year return.",
     cta: "Calculate Solar ROI",
-    badge: "NS net metering",
+    badge: "5 provinces",
     color: "bg-amber-500",
     cardBg: "bg-white border-2 border-amber-200 hover:border-amber-400 hover:shadow-lg",
     iconBg: "bg-amber-50 text-amber-600",
+  },
+  {
+    href: "/tools/carbon-calculator",
+    icon: Leaf,
+    title: "CO₂ Savings Calculator",
+    desc: "See exactly how many tonnes of carbon a heat pump saves in your province. NL and ON grids are near-zero — NS is coal-heavy. The difference is dramatic.",
+    cta: "Calculate Carbon Impact",
+    badge: "Environmental impact",
+    color: "bg-emerald-600",
+    cardBg: "bg-white border-2 border-emerald-200 hover:border-emerald-500 hover:shadow-lg",
+    iconBg: "bg-emerald-50 text-emerald-600",
   },
 ];
 
@@ -82,9 +93,9 @@ export default function ToolsPage() {
     <main className="max-w-5xl mx-auto px-4 py-12">
       <div className="mb-10 text-center">
         <Calculator className="w-10 h-10 text-green-600 mx-auto mb-4" />
-        <h1 className="text-3xl font-bold mb-2">Free NS Green Energy Tools</h1>
+        <h1 className="text-3xl font-bold mb-2">Free Green Energy Tools</h1>
         <p className="text-gray-600 max-w-xl mx-auto">
-          NS-specific numbers. No email required. Use them before talking to any installer.
+          Province-specific numbers for NS, NB, PEI, NL, and Ontario. No email required. Use them before talking to any installer.
         </p>
       </div>
 
@@ -100,7 +111,7 @@ export default function ToolsPage() {
             </span>
             <h2 className="text-2xl font-bold mb-2">Which Rebates Do You Qualify For?</h2>
             <p className="text-green-100 text-sm leading-relaxed mb-4">
-              OHPA, Efficiency NS, Moderate Income Rebate — the programs overlap and confuse everyone. 4 questions, instant result. Know your max amount before calling any installer.
+              OHPA, Efficiency NS, NB Power Smart Saver, Island Prosperity, Enbridge HER+ — programs overlap and vary by province. 5 questions, instant result. Know your max amount before calling any installer.
             </p>
             <span className="bg-white text-green-700 font-semibold px-5 py-2 rounded-lg text-sm inline-block group-hover:bg-green-50 transition-colors">
               Check Eligibility →
@@ -130,9 +141,9 @@ export default function ToolsPage() {
 
       <div className="mt-10 bg-gray-50 border border-gray-200 rounded-2xl p-6 text-center">
         <p className="text-sm text-gray-600 mb-3">
-          Tools use NS-specific averages: electricity $0.185/kWh, heating oil $1.55/L, NS Power net metering at 1:1 retail rate. Cold-climate heat pump COP 2.8.
+          Province-specific rates used in each tool — select your province inside each calculator. Cold-climate heat pump COP 2.8 (seasonal average).
         </p>
-        <p className="text-xs text-gray-600">Not financial advice. Verify rebate eligibility at efficiencyns.ca before making any decisions.</p>
+        <p className="text-xs text-gray-600">Not financial advice. Verify rebate eligibility with your provincial program before making any decisions.</p>
       </div>
     </main>
   );

@@ -85,16 +85,13 @@ export const rebatePrograms: RebateProgram[] = [
     services: ["heat-pump"],
     maxAmount: 5000,
     description:
-      "The federal Canada Greener Homes Grant provides up to $5,000 for cold-climate air-source heat pumps and up to $5,000 for ground-source heat pumps. Requires a pre-install EnerGuide home energy assessment (grant covers up to $600 of assessment cost). Application through Natural Resources Canada.",
+      "⚠️ CLOSED — The Canada Greener Homes Grant closed to new applicants on February 12, 2024. No new applications are being accepted. Check canada.ca for any replacement federal programs that may have launched. Provincial programs (Efficiency NS, NB Power Smart Saver, etc.) remain active.",
     eligibility: [
-      "Canadian homeowner, primary residence",
-      "Pre-retrofit EnerGuide energy evaluation required",
-      "ENERGY STAR certified or equivalent heat pump",
-      "Post-retrofit evaluation required to claim grant",
-      "Maximum one grant per home",
+      "Program closed February 12, 2024 — no new applications accepted",
+      "Check canada.ca/greener-homes for replacement programs",
     ],
     url: "https://www.canada.ca/en/natural-resources-canada/news/2021/05/canada-greener-homes-grant.html",
-    active: true,
+    active: false,
   },
   {
     id: "federal-greener-homes-solar",
@@ -104,16 +101,13 @@ export const rebatePrograms: RebateProgram[] = [
     services: ["solar"],
     maxAmount: 5000,
     description:
-      "Up to $5,000 for residential solar photovoltaic systems under the Canada Greener Homes Grant. System must be grid-tied (not off-grid). Requires pre and post EnerGuide evaluations. Can be combined with provincial net metering programs for maximum savings.",
+      "⚠️ CLOSED — The Canada Greener Homes Grant (solar PV) closed to new applicants on February 12, 2024. No new applications are being accepted. Provincial net metering programs remain active. Check canada.ca for any replacement federal solar programs.",
     eligibility: [
-      "Canadian homeowner, primary residence",
-      "Grid-tied solar PV system only (not off-grid)",
-      "Pre and post EnerGuide home energy evaluations",
-      "System installed by qualified electrician",
-      "Maximum one grant per home",
+      "Program closed February 12, 2024 — no new applications accepted",
+      "Check canada.ca for replacement federal programs",
     ],
     url: "https://www.canada.ca/en/natural-resources-canada/news/2021/05/canada-greener-homes-grant.html",
-    active: true,
+    active: false,
   },
 
   // ── New Brunswick ─────────────────────────────────────────────────────────
@@ -213,8 +207,8 @@ export function getRebatesByProvince(province: string): RebateProgram[] {
 }
 
 export const totalMaxRebate = {
-  heatPump: 8000,  // ENS $3,000 + federal $5,000
-  solar: 5000,     // federal $5,000 (net metering is ongoing savings, not upfront)
+  heatPump: 13000, // ENS $3,000 + CleanHeat up to $10,000 (NS income-qualified)
+  solar: 0,        // No active federal upfront grant — net metering savings ongoing
   both: 13000,
 };
 
@@ -228,9 +222,9 @@ export interface ProvinceComparisonRow {
 }
 
 export const provinceComparison: ProvinceComparisonRow[] = [
-  { province: "NS",  heatPumpProvincial: 3000, heatPumpFederal: 5000, incomeBonus: 7000, solarFederal: 5000, totalMax: 15000 },
-  { province: "NB",  heatPumpProvincial: 2000, heatPumpFederal: 5000, incomeBonus: 0,    solarFederal: 5000, totalMax: 7000  },
-  { province: "PEI", heatPumpProvincial: 2000, heatPumpFederal: 5000, incomeBonus: 0,    solarFederal: 5000, totalMax: 7000  },
-  { province: "NL",  heatPumpProvincial: 2000, heatPumpFederal: 5000, incomeBonus: 0,    solarFederal: 5000, totalMax: 7000  },
-  { province: "ON",  heatPumpProvincial: 5000, heatPumpFederal: 5000, incomeBonus: 0,    solarFederal: 5000, totalMax: 10000 },
+  { province: "NS",  heatPumpProvincial: 3000, heatPumpFederal: 0, incomeBonus: 10000, solarFederal: 0, totalMax: 13000 },
+  { province: "NB",  heatPumpProvincial: 2000, heatPumpFederal: 0, incomeBonus: 0,     solarFederal: 0, totalMax: 2000  },
+  { province: "PEI", heatPumpProvincial: 2000, heatPumpFederal: 0, incomeBonus: 0,     solarFederal: 0, totalMax: 2000  },
+  { province: "NL",  heatPumpProvincial: 2000, heatPumpFederal: 0, incomeBonus: 0,     solarFederal: 0, totalMax: 2000  },
+  { province: "ON",  heatPumpProvincial: 5000, heatPumpFederal: 0, incomeBonus: 0,     solarFederal: 0, totalMax: 5000  },
 ];

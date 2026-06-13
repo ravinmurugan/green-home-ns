@@ -3,7 +3,7 @@ import { Thermometer, CheckCircle2, ArrowRight, DollarSign } from "lucide-react"
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Heat Pumps in Atlantic Canada — Complete Guide 2026 | GreenHomeNS",
+  title: "Heat Pumps Atlantic Canada — Guide 2026 | GreenHomeNS",
   description:
     "Everything Atlantic Canadian homeowners need to know about heat pumps: types, costs, rebates up to $15,000, and how to choose a cold-climate installer. Updated 2026.",
 };
@@ -37,8 +37,8 @@ const heatPumpTypes = [
     name: "Ground-Source (Geothermal)",
     bestFor: "Large properties, maximum efficiency",
     cost: "$20,000 – $40,000",
-    rebate: "Up to $5,000 federal",
-    pros: ["Highest long-term efficiency", "Stable performance regardless of air temp", "25+ year lifespan", "Qualifies for max federal rebate"],
+    rebate: "Check canada.ca",
+    pros: ["Highest long-term efficiency", "Stable performance regardless of air temp", "25+ year lifespan", "May qualify for provincial rebates"],
     rating: "premium" as const,
   },
 ];
@@ -71,8 +71,8 @@ export default function HeatPumpsPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
             { stat: "60%+", label: "of Atlantic Canada homes still heat with oil — highest in Canada" },
-            { stat: "Up to $15,000", label: "in stacked provincial + federal rebates available" },
-            { stat: "$10,000", label: "federal OHPA grant for eligible oil-to-heat-pump switches" },
+            { stat: "Up to $13,000", label: "NS provincial rebates (ENS $3K + CleanHeat up to $10K income-qualified)" },
+            { stat: "Federal", label: "Greener Homes Grant CLOSED Feb 2024 — verify replacement at canada.ca" },
             { stat: "4–7 yrs", label: "typical payback period replacing oil with a cold-climate heat pump" },
           ].map((item) => (
             <div key={item.label} className="bg-white rounded-xl p-4 border border-blue-100">
@@ -120,11 +120,11 @@ export default function HeatPumpsPage() {
         <h2 className="text-2xl font-bold mb-6">How to Get a Heat Pump Installed</h2>
         <div className="space-y-4">
           {[
-            { step: "1", title: "Book a free EnerGuide assessment", desc: "Required before claiming the federal Greener Homes Grant. Takes 2–3 hours. Cost covered by grant (up to $600)." },
+            { step: "1", title: "Check current rebate programs", desc: "Federal Greener Homes Grant closed Feb 2024. Visit canada.ca and your provincial program page before signing anything — programs change." },
             { step: "2", title: "Get 3 quotes from provincially-approved installers", desc: "Only provincially approved contractors qualify you for rebates. Use our directory to find rated installers in your province." },
             { step: "3", title: "Choose your installer and equipment", desc: "Cold-climate units (HSPF2 ≥ 7.5) qualify for the maximum rebates. Confirm program eligibility with your installer before signing." },
             { step: "4", title: "Installation day (1–3 days)", desc: "Mini-splits typically take 1 day. Central systems 2–3 days. Installer applies for ENS rebate on your behalf post-install." },
-            { step: "5", title: "Post-install EnerGuide assessment + claim", desc: "Required for federal grant. Your installer guides you through the claim. Federal rebate arrives by cheque 6–12 weeks later." },
+            { step: "5", title: "Submit provincial rebate claim", desc: "Installer applies for ENS or provincial rebate on your behalf post-install. Provincial rebates typically arrive in 4–8 weeks." },
           ].map((s) => (
             <div key={s.step} className="flex gap-4 p-4 border border-gray-200 rounded-xl">
               <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm shrink-0">{s.step}</div>

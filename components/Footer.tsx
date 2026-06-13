@@ -1,5 +1,23 @@
 import Link from "next/link";
-import { Leaf } from "lucide-react";
+import { Leaf, X } from "lucide-react";
+
+function FacebookIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+    </svg>
+  );
+}
+
+function InstagramIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </svg>
+  );
+}
 
 export default function Footer() {
   return (
@@ -43,9 +61,26 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="border-t border-gray-200 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-gray-600">
+        <div className="border-t border-gray-200 pt-4 mb-4 text-xs text-gray-500 flex items-center gap-2">
+          <span className="inline-block w-2 h-2 rounded-full bg-green-400"></span>
+          Rebate data verified weekly by automated agent · Last checked May 2026 · Always confirm program status at your provincial program website before applying
+        </div>
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-gray-600">
           <span>© {new Date().getFullYear()} GreenHomeNS.com — Independent. Not affiliated with any installer, utility, or government program.</span>
-          <Link href="/affiliate-disclosure" className="hover:text-gray-900">Affiliate Disclosure</Link>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
+              <a href="#" aria-label="Facebook" className="text-gray-400 hover:text-gray-700 transition-colors">
+                <FacebookIcon />
+              </a>
+              <a href="#" aria-label="Instagram" className="text-gray-400 hover:text-gray-700 transition-colors">
+                <InstagramIcon />
+              </a>
+              <a href="#" aria-label="X (Twitter)" className="text-gray-400 hover:text-gray-700 transition-colors">
+                <X className="w-4 h-4" />
+              </a>
+            </div>
+            <Link href="/affiliate-disclosure" className="hover:text-gray-900">Affiliate Disclosure</Link>
+          </div>
         </div>
       </div>
     </footer>
