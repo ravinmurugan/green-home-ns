@@ -57,21 +57,21 @@ export const rebatePrograms: RebateProgram[] = [
   },
   {
     id: "ns-power-net-metering",
-    name: "NS Power Net Metering Program",
+    name: "NS Power Net Metering (Self-Generating Option)",
     provider: "ns-power",
     provinces: ["NS"],
     services: ["solar"],
     maxAmount: 0,
     description:
-      "Nova Scotia Power's net metering program credits residential solar customers at the retail electricity rate for excess power fed back to the grid. Credits roll over monthly and are settled annually. No upfront payment from NS Power — savings appear as bill credits. Reduces effective payback period significantly.",
+      "Nova Scotia Power's residential net metering is offered through its Self-Generating Option. Excess solar power fed to the grid earns bill credits at the retail rate (~18.5¢/kWh — among the best in Canada), with credits rolling over up to 12 months. No upfront payment — savings appear as ongoing bill credits, significantly shortening solar payback. With the SolarHomes rebate and federal grants now closed, net metering is the primary solar incentive in NS.",
     eligibility: [
       "Nova Scotia Power residential customer",
-      "Grid-tied solar system ≤ 100 kW (residential typically 5–15 kW)",
+      "Renewable generator ≤ 27 kW under the Self-Generating Option (residential typically 5–15 kW)",
       "NS Power interconnection agreement required",
       "Bi-directional meter installed by NS Power (at no charge)",
       "System must meet NS Power technical standards",
     ],
-    url: "https://www.nspower.ca/for-home/green-energy/net-metering",
+    url: "https://www.nspower.ca/your-home/save-money-energy/make-own-energy/self-generating-option",
     active: true,
   },
 
@@ -112,21 +112,21 @@ export const rebatePrograms: RebateProgram[] = [
   // ── New Brunswick ─────────────────────────────────────────────────────────
   {
     id: "nb-power-heat-pump",
-    name: "NB Power Smart Saver Heat Pump Rebate",
+    name: "SaveEnergyNB Heat Pump Rebate (NB Power)",
     provider: "nb-power",
     provinces: ["NB"],
     services: ["heat-pump"],
     maxAmount: 2000,
     description:
-      "NB Power's Smart Saver program offers up to $2,000 in rebates for eligible cold-climate heat pump installations in New Brunswick homes. Rebate covers both mini-split and central ducted systems installed by NB Power registered contractors. Application is processed directly through your installer.",
+      "NB Power's heat pump rebates are now delivered through SaveEnergyNB. The Total Home Energy Savings stream offers up to $2,000 for eligible cold-climate heat pumps, while income-qualified households can access the Enhanced Energy Savings program for up to $15,000 in advance funding or free upgrades. Rebates cover mini-split and central ducted systems installed by registered contractors.",
     eligibility: [
       "New Brunswick homeowner, primary or secondary residence",
       "NB Power electricity customer",
-      "Installed by NB Power registered Smart Saver contractor",
+      "Installed by a SaveEnergyNB registered contractor",
       "Cold-climate heat pump meeting minimum efficiency requirements",
-      "Cannot be combined with other NB Power rebates for the same unit",
+      "Income-qualified households may qualify for Enhanced Energy Savings (up to $15,000)",
     ],
-    url: "https://www.nbpower.com/en/save-energy/for-your-home/rebates-and-programs/",
+    url: "https://www.saveenergynb.ca/for-home/enhanced-energy-savings-program/",
     active: true,
   },
 
@@ -154,44 +154,41 @@ export const rebatePrograms: RebateProgram[] = [
   // ── Newfoundland ──────────────────────────────────────────────────────────
   {
     id: "nl-heat-pump",
-    name: "Newfoundland & Labrador Heat Pump Incentive",
+    name: "takeCHARGE Oil to Electric Incentive (NL)",
     provider: "nl-crown",
     provinces: ["NL"],
     services: ["heat-pump"],
-    maxAmount: 2000,
+    maxAmount: 9000,
     description:
-      "The NL provincial heat pump incentive program provides up to $2,000 for homeowners in Newfoundland and Labrador installing cold-climate air-source heat pumps. Program is delivered in partnership with Newfoundland Power and NL Hydro to support the province's clean energy transition.",
+      "Newfoundland & Labrador's takeCHARGE Oil to Electric program helps homeowners replace oil or propane heating with electric heat pumps. The general stream provides up to $9,000, while income-qualified households can receive up to $22,000 — covering equipment, installation, and electrical panel upgrades where needed. Applies to mini-split, multi-split, and central heat pumps. Delivered by Newfoundland Power and NL Hydro.",
     eligibility: [
-      "Newfoundland & Labrador homeowner",
-      "Primary or secondary residence",
-      "Cold-climate heat pump with minimum HSPF2 ≥ 7.5",
-      "Installation by certified provincial contractor",
-      "Must be connected to NL Hydro or Newfoundland Power grid",
+      "Newfoundland & Labrador homeowner replacing oil or propane heating",
+      "Primary residence connected to NL Hydro or Newfoundland Power grid",
+      "Cold-climate heat pump installed by a participating contractor",
+      "General stream up to $9,000; income-qualified up to $22,000",
+      "Applications typically processed in 6–8 weeks",
     ],
-    url: "https://www.gov.nl.ca/exec/oee/residential/",
+    url: "https://takechargenl.ca/oiltoelectric/",
     active: true,
   },
 
   // ── Ontario ───────────────────────────────────────────────────────────────
   {
     id: "enbridge-her-plus",
-    name: "Enbridge Home Efficiency Rebate Plus",
+    name: "Enbridge Home Efficiency Rebate Plus (closed — see HRS)",
     provider: "enbridge",
     provinces: ["ON"],
     services: ["heat-pump"],
     maxAmount: 5000,
     description:
-      "Enbridge Gas's Home Efficiency Rebate Plus (HER+) program offers up to $5,000 for qualifying heat pump installations in Ontario homes. The program is co-funded by the federal government and available to Enbridge natural gas customers switching to cold-climate heat pumps. Includes coverage for insulation and air sealing upgrades.",
+      "⚠️ CLOSED — Enbridge Gas's Home Efficiency Rebate Plus (HER+) stopped accepting applications after December 31, 2025 (post-retrofit assessments were due December 1, 2025). Ontario's active replacement is the government-backed Home Renovation Savings (HRS) program, administered through Enbridge Gas, which offers heat pump and home-upgrade rebates. Visit homerenovationsavings.ca or enbridgegas.com for current offers.",
     eligibility: [
-      "Ontario homeowner who is an Enbridge Gas natural gas customer",
-      "Primary residence",
-      "Pre-retrofit home energy assessment required",
-      "Cold-climate heat pump replacing or supplementing gas heating",
-      "Must use an HER+ registered contractor",
-      "Post-retrofit assessment required to confirm savings",
+      "HER+ closed to new applications after December 31, 2025",
+      "Replacement: Home Renovation Savings (HRS) program — homerenovationsavings.ca",
+      "HRS covers heat pumps, insulation, and air sealing for Ontario homeowners",
     ],
-    url: "https://www.enbridgegas.com/home-efficiency-rebate",
-    active: true,
+    url: "https://www.enbridgegas.com/ontario/rebates-energy-conservation/home-efficiency-rebate-plus",
+    active: false,
   },
 ];
 
