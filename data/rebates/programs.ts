@@ -10,15 +10,14 @@ export const rebatePrograms: RebateProgram[] = [
     services: ["heat-pump"],
     maxAmount: 3000,
     description:
-      "Efficiency Nova Scotia offers rebates of up to $3,000 for cold-climate heat pump installations in NS homes. Mini-split systems receive up to $2,000; central ducted heat pump systems up to $3,000. Installer must be Efficiency NS approved. Application submitted by installer post-install.",
+      "⚠️ CLOSED as of December 31, 2025. The Home Heating System Rebates program is no longer accepting applications. Homeowners may still qualify for the Oil to Heat Pump Affordability Program (OHPA) — see below — or the Moderate Income Rebates program. Confirm current offerings at efficiencyns.ca.",
     eligibility: [
-      "Nova Scotia homeowner (primary or secondary residence)",
-      "Install performed by Efficiency NS approved contractor",
-      "Cold-climate rated unit (minimum HSPF2 ≥ 7.5 for mini-split)",
-      "Home must have existing heating system being supplemented or replaced",
+      "Program closed December 31, 2025 — no new applications accepted",
+      "See Oil to Heat Pump Affordability Program (OHPA) for current federal+provincial support",
+      "Moderate Income Rebates program may be available for qualifying households",
     ],
-    url: "https://www.efficiencyns.ca/residential/heating-cooling/heat-pumps/",
-    active: true,
+    url: "https://www.efficiencyns.ca/programs-rebates/home-heating-system-rebates",
+    active: false,
   },
   {
     id: "efficiency-ns-oil-to-heat-pump",
@@ -207,7 +206,7 @@ export function getRebatesByProvince(province: string): RebateProgram[] {
 }
 
 export const totalMaxRebate = {
-  heatPump: 13000, // ENS $3,000 + CleanHeat up to $10,000 (NS income-qualified)
+  heatPump: 13000, // ENS CleanHeat up to $10,000 (income-qualified) stacked; standard $3,000 closed Dec 2025
   solar: 0,        // No active federal upfront grant — net metering savings ongoing
   both: 13000,
 };
