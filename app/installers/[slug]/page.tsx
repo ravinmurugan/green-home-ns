@@ -6,6 +6,9 @@ import {
 } from "lucide-react";
 import { allInstallers, getInstallerBySlug } from "@/data/installers/index";
 import ScoreRadarChart from "@/components/ScoreRadarChart";
+import { JsonLd } from "@/components/JsonLd";
+import { localBusinessSchema, breadcrumbSchema } from "@/lib/schema";
+import InstallerLeadForm from "@/components/InstallerLeadForm";
 import type { Metadata } from "next";
 import { Installer } from "@/lib/types";
 
@@ -71,6 +74,14 @@ export default async function InstallerPage({ params }: { params: Promise<{ slug
 
   return (
     <main>
+      <JsonLd data={localBusinessSchema(installer)} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", url: "https://greenhomens.com" },
+          { name: "Installers", url: "https://greenhomens.com/installers" },
+          { name: installer.name, url: `https://greenhomens.com/installers/${installer.slug}` },
+        ])}
+      />
       {/* Header */}
       <section className="border-b border-gray-200 bg-white">
         <div className="max-w-5xl mx-auto px-4 py-8">
@@ -309,6 +320,9 @@ export default async function InstallerPage({ params }: { params: Promise<{ slug
               ))}
             </div>
           </div>
+
+          {/* Lead capture */}
+          <InstallerLeadForm installerSlug={installer.slug} installerName={installer.name} />
         </div>
       </div>
     </main>

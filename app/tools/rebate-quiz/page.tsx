@@ -5,6 +5,7 @@ import {
   CheckCircle2, ChevronRight, DollarSign, AlertCircle, ArrowLeft,
   Flame, Zap, Droplets, Thermometer, Home, Key, Gauge, MapPin, ExternalLink, RotateCcw,
 } from "lucide-react";
+import EmailCapture from "@/components/EmailCapture";
 
 type Province = "NS" | "NB" | "PEI" | "NL" | "ON";
 type Step = "province" | "heat-source" | "ownership" | "income" | "oil-usage" | "result";
@@ -467,6 +468,17 @@ export default function RebateQuizPage() {
                       </a>
                     </div>
                   ))}
+                </div>
+
+                {/* Email capture */}
+                <div className="mb-6">
+                  <EmailCapture
+                    source="rebate-quiz-results"
+                    variant="band"
+                    heading="Want these rebate amounts + deadlines emailed to you?"
+                    sub="We'll also alert you when programs change."
+                    cta="Email My Results"
+                  />
                 </div>
 
                 {/* Disclaimer */}

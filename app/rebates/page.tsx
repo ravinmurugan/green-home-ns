@@ -21,6 +21,43 @@ import {
   type ProvinceComparisonRow,
 } from "@/data/rebates/programs";
 import type { RebateProgram } from "@/lib/types";
+import { JsonLd } from "@/components/JsonLd";
+import { faqSchema } from "@/lib/schema";
+
+// ── FAQ (rendered as JSON-LD for AI search + rich results) ────────────────────
+
+const rebateFaqs = [
+  {
+    question: "What heat pump rebates are available in Nova Scotia in 2026?",
+    answer:
+      "Efficiency Nova Scotia offers up to $3,000 for a cold-climate heat pump. Income-qualified households can add up to $10,000 through the CleanHeat program, stacking to a maximum of about $13,000. The federal Canada Greener Homes Grant closed to new applicants on February 12, 2024.",
+  },
+  {
+    question: "Which province has the highest heat pump rebates?",
+    answer:
+      "Nova Scotia has the highest maximum at about $13,000 ($3,000 from Efficiency NS plus up to $10,000 from CleanHeat for income-qualified households). Ontario offers up to $5,000 via Enbridge HER+, while New Brunswick, PEI, and Newfoundland each cap their provincial heat pump rebate at $2,000.",
+  },
+  {
+    question: "Is the Canada Greener Homes Grant still available?",
+    answer:
+      "No. The federal Canada Greener Homes Grant closed to new applicants on February 12, 2024, for both heat pumps and solar. No new applications are being accepted. Provincial programs remain active. Verify any replacement federal program at canada.ca before applying.",
+  },
+  {
+    question: "Can I stack provincial and federal rebates?",
+    answer:
+      "Provincial rebates can often be combined with income-qualified programs — in Nova Scotia, Efficiency NS's $3,000 stacks with CleanHeat up to $10,000. Because the federal Greener Homes Grant is currently closed, there is no federal layer to add right now. Apply provincial first, then income-qualified programs in order.",
+  },
+  {
+    question: "What is the CleanHeat program?",
+    answer:
+      "CleanHeat provides enhanced support of up to $10,000 for lower-income Nova Scotia households switching from oil, propane, or electric baseboard to clean electric heat. No-cost installation may be available for those meeting income thresholds, with priority for households spending more than 10% of income on energy.",
+  },
+  {
+    question: "Are there solar rebates in Nova Scotia?",
+    answer:
+      "There is no active upfront solar grant, but NS Power's net metering program credits residential solar customers at the full retail electricity rate (about $0.185/kWh) for power exported to the grid. Credits roll monthly and settle annually, significantly shortening the payback period.",
+  },
+];
 
 // ── Constants ────────────────────────────────────────────────────────────────
 
@@ -382,6 +419,7 @@ export default function RebatesPage() {
 
   return (
     <main className="max-w-5xl mx-auto px-4 py-12">
+      <JsonLd data={faqSchema(rebateFaqs)} />
 
       {/* ── Hero ── */}
       <div className="mb-8">

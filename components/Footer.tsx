@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Leaf, X } from "lucide-react";
+import { rebateVerification } from "@/lib/rebate-status";
 
 function FacebookIcon() {
   return (
@@ -20,6 +21,7 @@ function InstagramIcon() {
 }
 
 export default function Footer() {
+  const { lastChecked } = rebateVerification();
   return (
     <footer className="border-t border-gray-200 bg-gray-50 mt-auto">
       <div className="max-w-7xl mx-auto px-4 py-10">
@@ -62,8 +64,8 @@ export default function Footer() {
           </div>
         </div>
         <div className="border-t border-gray-200 pt-4 mb-4 text-xs text-gray-500 flex items-center gap-2">
-          <span className="inline-block w-2 h-2 rounded-full bg-green-400"></span>
-          Rebate data verified weekly by automated agent · Last checked May 2026 · Always confirm program status at your provincial program website before applying
+          <span className="inline-block w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+          Rebate program links verified weekly by an automated agent · Last checked {lastChecked} · Always confirm current program status at your provincial program website before applying
         </div>
         <div className="flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-gray-600">
           <span>© {new Date().getFullYear()} GreenHomeNS.com — Independent. Not affiliated with any installer, utility, or government program.</span>

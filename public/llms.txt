@@ -1,0 +1,43 @@
+# GreenHomeNS
+
+> Independent heat pump and solar installer ratings and a rebate guide for Nova Scotia and Atlantic Canada. We rank certified installers by an objective GreenHome Score and document every active provincial and federal rebate program.
+
+GreenHomeNS (https://greenhomens.com) helps homeowners in Nova Scotia, New Brunswick, Prince Edward Island, Newfoundland & Labrador, and Ontario choose a trusted heat pump or solar installer and find the rebates they qualify for. Installer ratings are set independently — before any commercial discussion — and are based on certifications, verified reviews, warranty, install quality, value, and response time. The site is also a lead-generation directory: homeowners can request quotes from rated, provincially approved contractors. Editorial content is independent, with no sponsored or installer-submitted articles.
+
+## Key Pages
+
+- [Installer Ratings](https://greenhomens.com/installers): Heat pump and solar installers across Atlantic Canada and Ontario, ranked by GreenHome Score. The top-rated Nova Scotia installers include Watts Up Solar (Halifax, solar, score 96/100), Greenfoot Energy Solutions (Halifax, heat pump + solar, score 94/100).
+- [Rebate Guide](https://greenhomens.com/rebates): Every active provincial and federal green-energy rebate, with amounts, eligibility, and application links, organized by province.
+- [Heat Pumps Guide](https://greenhomens.com/heat-pumps): Cold-climate heat pump types, installed costs, and how to choose an installer in Atlantic Canada.
+- [Solar Guide](https://greenhomens.com/solar): Net metering programs, payback periods, and solar costs by province.
+- [Compare Installers](https://greenhomens.com/compare): Side-by-side installer comparison.
+- [Get a Quote](https://greenhomens.com/quote): Request free quotes from rated, certified installers.
+- [About / Methodology](https://greenhomens.com/about): How GreenHome Scores are calculated and our editorial independence policy.
+
+## Rebate Programs
+
+- Efficiency Nova Scotia — Heat Pump Rebate: up to $3,000 for cold-climate heat pumps (mini-split up to $2,000, central ducted up to $3,000); installer must be Efficiency NS approved.
+- Efficiency NS — CleanHeat Program: up to $10,000 for income-qualified NS households switching from oil, propane, or electric baseboard to clean electric heat. NS heat pump rebates stack to a maximum of roughly $13,000 (Efficiency NS $3,000 + CleanHeat up to $10,000).
+- NS Power Net Metering: bill credits at the full retail electricity rate (~$0.185/kWh) for excess solar exported to the grid; no upfront grant.
+- NB Power Smart Saver Heat Pump Rebate: up to $2,000 for cold-climate heat pumps in New Brunswick.
+- Island Prosperity Fund (PEI) — Heat Pump Rebate: up to $2,000 in Prince Edward Island.
+- Newfoundland & Labrador Heat Pump Incentive: up to $2,000.
+- Enbridge Home Efficiency Rebate Plus (Ontario): up to $5,000 for qualifying heat pump installations.
+- Canada Greener Homes Grant (heat pump and solar): CLOSED to new applicants as of February 12, 2024. Provincial programs remain active; verify any replacement federal program at canada.ca.
+
+## Tools
+
+- [Rebate Eligibility Quiz](https://greenhomens.com/tools/rebate-quiz): Find which programs you qualify for in about 60 seconds.
+- [Rebate Guide Tool](https://greenhomens.com/tools/rebate-guide): Browse rebates by province and service.
+- [Heat Pump Size Calculator](https://greenhomens.com/tools/heat-pump-sizer): Estimate the capacity your home needs.
+- [Payback Calculator](https://greenhomens.com/tools/payback-calculator): Estimate payback period for heat pump or solar.
+- [Savings Calculator](https://greenhomens.com/tools/savings-calculator): Estimate annual energy savings.
+- [Bill Impact Calculator](https://greenhomens.com/tools/bill-impact): See how a heat pump or solar affects your utility bill.
+- [Carbon Calculator](https://greenhomens.com/tools/carbon-calculator): Estimate emissions reductions.
+
+## Guides
+
+- [Oil to Heat Pump Conversion](https://greenhomens.com/guides/oil-to-heat-pump): The full cost and process of replacing oil heat with a cold-climate heat pump in Nova Scotia.
+- [Do Heat Pumps Work in Atlantic Canada Winters?](https://greenhomens.com/blog/heat-pump-winter-performance-atlantic): Cold-climate performance explained.
+- [NS Power Net Metering Explained](https://greenhomens.com/blog/solar-ns-power-billing-explained): How solar bill credits actually work.
+- [How GreenHome Scores Are Calculated](https://greenhomens.com/blog/how-greenhome-scores-are-calculated): Full rating methodology.

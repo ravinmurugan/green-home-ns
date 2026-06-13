@@ -1,6 +1,41 @@
 import Link from "next/link";
 import { Sun, CheckCircle2, ArrowRight, DollarSign, Zap, MapPin } from "lucide-react";
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/JsonLd";
+import { faqSchema } from "@/lib/schema";
+
+const solarFaqs = [
+  {
+    question: "How does net metering work in Nova Scotia?",
+    answer:
+      "With NS Power net metering, your utility credits your bill at the full retail electricity rate (about $0.185/kWh) for every kWh your solar panels export to the grid. Credits roll over monthly and settle annually, and NS Power installs a bi-directional meter at no charge. Residential systems up to 100 kW are eligible.",
+  },
+  {
+    question: "How much does solar cost in Atlantic Canada?",
+    answer:
+      "Installed costs run roughly $14,000–$18,000 for a 5 kW system, $20,000–$26,000 for 8 kW, and $28,000–$36,000 for 12 kW. Prices are similar across NS, NB, PEI, NL, and Ontario. Get quotes from certified local installers for accurate pricing.",
+  },
+  {
+    question: "What is the payback period for solar panels by province?",
+    answer:
+      "Higher electricity rates mean faster payback. Nova Scotia is best at about 8–10 years, PEI and Ontario about 9–11 years, Newfoundland about 10–13 years, and New Brunswick about 11–14 years, based on a 10 kW system at roughly $25,000 installed.",
+  },
+  {
+    question: "Is there a federal solar rebate available?",
+    answer:
+      "The federal Canada Greener Homes Grant for solar PV closed to new applicants on February 12, 2024. No new applications are being accepted. Provincial net metering programs remain active. Check canada.ca for any replacement federal solar programs.",
+  },
+  {
+    question: "Is Atlantic Canada sunny enough for solar?",
+    answer:
+      "Yes. The provinces covered receive about 1,300–1,530 peak sun hours per year — more than Germany, which has one of the world's highest solar adoption rates. Halifax gets about 1,450 hours and Charlottetown about 1,480. Modern panels still produce on cloudy days, and snow sheds quickly due to panel heat and roof pitch.",
+  },
+  {
+    question: "What roof is best for solar panels in Nova Scotia?",
+    answer:
+      "A south-facing roof at a 35–45° pitch performs best across all Atlantic provinces. Combined with provincial electricity rates of $0.138–$0.185/kWh, this makes solar economics strong throughout the region, with Nova Scotia and Ontario offering the best mix of rates and sun hours.",
+  },
+];
 
 export const metadata: Metadata = {
   title: "Solar Panels Atlantic Canada 2026 | GreenHomeNS",
@@ -81,6 +116,7 @@ const sunHours = [
 export default function SolarPage() {
   return (
     <main className="max-w-5xl mx-auto px-4 py-12">
+      <JsonLd data={faqSchema(solarFaqs)} />
       {/* Header */}
       <div className="mb-10">
         <div className="flex items-center gap-2 text-amber-600 text-sm font-medium mb-3">

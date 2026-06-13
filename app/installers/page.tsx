@@ -4,8 +4,23 @@ import { useState, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { allInstallers, provinces, getCitiesForProvince, type Province } from "@/data/installers/index";
 import InstallerCard from "@/components/InstallerCard";
+import { JsonLd } from "@/components/JsonLd";
 import { ServiceType } from "@/lib/types";
 import { ShieldCheck, Sun, Thermometer, Zap } from "lucide-react";
+
+const installerItemList = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Heat Pump & Solar Installer Ratings",
+  itemListElement: [...allInstallers]
+    .sort((a, b) => b.greenHomeScore.overall - a.greenHomeScore.overall)
+    .map((i, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      name: i.name,
+      url: `https://greenhomens.com/installers/${i.slug}`,
+    })),
+};
 
 const serviceOptions: { value: ServiceType | "all"; label: string; icon?: React.ReactNode }[] = [
   { value: "all", label: "All Services" },
@@ -55,6 +70,7 @@ function RatingsPage() {
 
   return (
     <main className="max-w-7xl mx-auto px-4 py-10">
+      <JsonLd data={installerItemList} />
       {/* Header */}
       <div className="mb-6">
         <h1 className="text-3xl font-bold mb-2">Heat Pump & Solar Installer Ratings</h1>

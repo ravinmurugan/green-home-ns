@@ -1,6 +1,41 @@
 import Link from "next/link";
 import { Thermometer, CheckCircle2, ArrowRight, DollarSign } from "lucide-react";
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/JsonLd";
+import { faqSchema } from "@/lib/schema";
+
+const heatPumpFaqs = [
+  {
+    question: "How much does a heat pump cost in Nova Scotia?",
+    answer:
+      "Installed costs depend on the system type. A ductless mini-split runs about $3,000–$8,000, a central ducted heat pump $8,000–$15,000, and a cold-climate heat pump $5,000–$12,000. Ground-source (geothermal) systems are $20,000–$40,000. Efficiency Nova Scotia rebates of up to $3,000 reduce these costs.",
+  },
+  {
+    question: "What heat pump rebates are available in Nova Scotia?",
+    answer:
+      "Efficiency Nova Scotia offers up to $3,000 for a cold-climate heat pump (mini-split up to $2,000, central ducted up to $3,000). Income-qualified households can add up to $10,000 through the CleanHeat program, stacking to roughly $13,000. The federal Canada Greener Homes Grant closed to new applicants on February 12, 2024.",
+  },
+  {
+    question: "Do heat pumps work in Atlantic Canada winters?",
+    answer:
+      "Yes, if you install a cold-climate rated unit. Cold-climate heat pumps such as Mitsubishi Hyper-Heat and Fujitsu Halcyon are rated to roughly -25°C to -30°C and keep producing useful heat at those temperatures. Nova Scotia rarely drops below -20°C. Standard (non cold-climate) units lose efficiency below about -10°C to -15°C and are not suitable as a primary heat source.",
+  },
+  {
+    question: "Which heat pump type is best for replacing oil heat?",
+    answer:
+      "A central ducted cold-climate heat pump is usually the best fit for whole-home oil-to-electric conversions because it replaces the entire furnace and uses existing ductwork. Cold-climate units with an HSPF2 rating of 7.5 or higher qualify for the maximum provincial rebates.",
+  },
+  {
+    question: "What is the payback period for a heat pump in Nova Scotia?",
+    answer:
+      "Replacing oil heat with a cold-climate heat pump typically pays back in about 4 to 7 years once rebates and reduced fuel costs are factored in. Over 60% of Atlantic Canada homes still heat with oil, so the savings from switching are among the highest in the country.",
+  },
+  {
+    question: "Do I need an approved installer to get the rebate?",
+    answer:
+      "Yes. Only Efficiency Nova Scotia approved contractors qualify you for provincial rebates, and the installer normally submits the rebate application on your behalf after installation. Provincial rebates usually arrive within 4 to 8 weeks.",
+  },
+];
 
 export const metadata: Metadata = {
   title: "Heat Pumps Atlantic Canada — Guide 2026 | GreenHomeNS",
@@ -53,6 +88,7 @@ const ratingLabel: Record<string, { label: string; color: string }> = {
 export default function HeatPumpsPage() {
   return (
     <main className="max-w-5xl mx-auto px-4 py-12">
+      <JsonLd data={faqSchema(heatPumpFaqs)} />
       {/* Header */}
       <div className="mb-10">
         <div className="flex items-center gap-2 text-blue-600 text-sm font-medium mb-3">

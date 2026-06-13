@@ -1,0 +1,67 @@
+{
+  "checkedAt": "2026-06-13T12:25:18.323Z",
+  "total": 10,
+  "reachable": 6,
+  "programs": [
+    {
+      "id": "efficiency-ns-heat-pump",
+      "url": "https://www.efficiencyns.ca/residential/heating-cooling/heat-pumps/",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "id": "efficiency-ns-oil-to-heat-pump",
+      "url": "https://www.efficiencyns.ca/residential/heating-cooling/heat-pumps/",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "id": "efficiency-ns-clean-heat",
+      "url": "https://www.efficiencyns.ca/residential/heating-cooling/heat-pumps/",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "id": "ns-power-net-metering",
+      "url": "https://www.nspower.ca/for-home/green-energy/net-metering",
+      "ok": false,
+      "status": 404
+    },
+    {
+      "id": "federal-greener-homes-heat-pump",
+      "url": "https://www.canada.ca/en/natural-resources-canada/news/2021/05/canada-greener-homes-grant.html",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "id": "federal-greener-homes-solar",
+      "url": "https://www.canada.ca/en/natural-resources-canada/news/2021/05/canada-greener-homes-grant.html",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "id": "nb-power-heat-pump",
+      "url": "https://www.nbpower.com/en/save-energy/for-your-home/rebates-and-programs/",
+      "ok": false,
+      "status": 404
+    },
+    {
+      "id": "pei-heat-pump",
+      "url": "https://www.princeedwardisland.ca/en/topic/rebates-and-programs",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "id": "nl-heat-pump",
+      "url": "https://www.gov.nl.ca/exec/oee/residential/",
+      "ok": false,
+      "status": 404
+    },
+    {
+      "id": "enbridge-her-plus",
+      "url": "https://www.enbridgegas.com/home-efficiency-rebate",
+      "ok": false,
+      "status": 404
+    }
+  ]
+}

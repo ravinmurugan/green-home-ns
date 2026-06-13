@@ -3,6 +3,7 @@ import { ArrowRight, Leaf, Sun, Thermometer, DollarSign, Shield, Star } from "lu
 import { getFeaturedInstallers, stats } from "@/data/installers/index";
 import { totalMaxRebate } from "@/data/rebates/programs";
 import InstallerCard from "@/components/InstallerCard";
+import EmailCapture from "@/components/EmailCapture";
 
 const featured = getFeaturedInstallers(3);
 
@@ -36,14 +37,14 @@ export default function HomePage() {
       {/* Hero */}
       <section className="bg-gradient-to-br from-green-900 via-green-800 to-green-700 text-white">
         <div className="max-w-7xl mx-auto px-4 py-20 md:py-28">
-          <div className="max-w-2xl">
+          <div className="max-w-2xl fade-up">
             <div className="inline-flex items-center gap-2 bg-green-600/40 border border-green-500/30 rounded-full px-3 py-1 text-sm mb-6">
               <Leaf className="w-3.5 h-3.5" />
               Atlantic Canada &amp; Ontario — Independent Ratings
             </div>
             <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
               Heat Pump &amp; Solar Installer<br />
-              <span className="text-green-300">Ratings You Can Trust</span>
+              <span className="gradient-text">Ratings You Can Trust</span>
             </h1>
             <p className="text-green-100 text-lg mb-6 leading-relaxed">
               Independent research across NS, NB, PEI, NL &amp; Ontario.{" "}
@@ -62,6 +63,11 @@ export default function HomePage() {
               >
                 <DollarSign className="w-4 h-4" /> Check Rebate Eligibility
               </Link>
+            </div>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-6 text-sm text-green-200">
+              <span className="inline-flex items-center gap-1.5"><Shield className="w-3.5 h-3.5" /> Free to browse</span>
+              <span className="inline-flex items-center gap-1.5"><Star className="w-3.5 h-3.5" /> No pay-to-list</span>
+              <span className="inline-flex items-center gap-1.5"><Leaf className="w-3.5 h-3.5" /> Rebate links checked weekly</span>
             </div>
           </div>
         </div>
@@ -92,7 +98,7 @@ export default function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <Link
             href="/installers?service=heat-pump"
-            className="group bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-2xl p-8 hover:opacity-90 transition-opacity"
+            className="group card-lift bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-2xl p-8 hover:opacity-90 transition-opacity"
           >
             <Thermometer className="w-10 h-10 mb-4 text-blue-200" />
             <h3 className="text-2xl font-bold mb-2">Heat Pump Ratings</h3>
@@ -106,7 +112,7 @@ export default function HomePage() {
           </Link>
           <Link
             href="/installers?service=solar"
-            className="group bg-gradient-to-br from-amber-500 to-amber-700 text-white rounded-2xl p-8 hover:opacity-90 transition-opacity"
+            className="group card-lift bg-gradient-to-br from-amber-500 to-amber-700 text-white rounded-2xl p-8 hover:opacity-90 transition-opacity"
           >
             <Sun className="w-10 h-10 mb-4 text-amber-200" />
             <h3 className="text-2xl font-bold mb-2">Solar Installer Ratings</h3>
@@ -186,6 +192,16 @@ export default function HomePage() {
             </div>
           ))}
         </div>
+      </section>
+
+      {/* Email capture */}
+      <section className="max-w-7xl mx-auto px-4 pb-14">
+        <EmailCapture
+          variant="band"
+          source="homepage"
+          heading="Get NS rebate alerts + new installer ratings"
+          sub="Programs change and deadlines pass. We'll email you when rebate amounts shift or top-rated installers are added in your province. No spam — unsubscribe anytime."
+        />
       </section>
 
       {/* Final CTA */}
