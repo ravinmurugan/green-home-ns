@@ -1,11 +1,11 @@
 {
-  "checkedAt": "2026-06-13T12:25:18.323Z",
+  "checkedAt": "2026-06-13T12:48:44.860Z",
   "total": 10,
-  "reachable": 6,
+  "reachable": 10,
   "programs": [
     {
       "id": "efficiency-ns-heat-pump",
-      "url": "https://www.efficiencyns.ca/residential/heating-cooling/heat-pumps/",
+      "url": "https://www.efficiencyns.ca/programs-rebates/home-heating-system-rebates",
       "ok": true,
       "status": 200
     },
@@ -23,9 +23,9 @@
     },
     {
       "id": "ns-power-net-metering",
-      "url": "https://www.nspower.ca/for-home/green-energy/net-metering",
-      "ok": false,
-      "status": 404
+      "url": "https://www.nspower.ca/your-home/save-money-energy/make-own-energy/self-generating-option",
+      "ok": true,
+      "status": 200
     },
     {
       "id": "federal-greener-homes-heat-pump",
@@ -41,9 +41,9 @@
     },
     {
       "id": "nb-power-heat-pump",
-      "url": "https://www.nbpower.com/en/save-energy/for-your-home/rebates-and-programs/",
-      "ok": false,
-      "status": 404
+      "url": "https://www.saveenergynb.ca/for-home/enhanced-energy-savings-program/",
+      "ok": true,
+      "status": 200
     },
     {
       "id": "pei-heat-pump",
@@ -53,15 +53,15 @@
     },
     {
       "id": "nl-heat-pump",
-      "url": "https://www.gov.nl.ca/exec/oee/residential/",
-      "ok": false,
-      "status": 404
+      "url": "https://takechargenl.ca/oiltoelectric/",
+      "ok": true,
+      "status": 200
     },
     {
       "id": "enbridge-her-plus",
-      "url": "https://www.enbridgegas.com/home-efficiency-rebate",
-      "ok": false,
-      "status": 404
+      "url": "https://www.enbridgegas.com/ontario/rebates-energy-conservation/home-efficiency-rebate-plus",
+      "ok": true,
+      "status": 200
     }
   ]
 }
