@@ -14,11 +14,11 @@ const provinceData: Record<string, {
   maxRebateHP: number;
   rebateNote: string;
 }> = {
-  NS:  { name: "Nova Scotia",        electricRate: 0.185, oilRate: 1.55, propaneRate: 1.20, maxRebateHP: 13000, rebateNote: "ENS $3K + CleanHeat up to $10K (income-qualified)" },
-  NB:  { name: "New Brunswick",      electricRate: 0.138, oilRate: 1.52, propaneRate: 1.15, maxRebateHP: 2000,  rebateNote: "NB Power Smart Saver $2K — verify at nbpower.com" },
-  PEI: { name: "Prince Edward Is.",  electricRate: 0.172, oilRate: 1.58, propaneRate: 1.22, maxRebateHP: 2000,  rebateNote: "Island Prosperity Fund $2K — verify at gov.pe.ca" },
-  NL:  { name: "Newfoundland",       electricRate: 0.148, oilRate: 1.60, propaneRate: 1.25, maxRebateHP: 2000,  rebateNote: "NL Heat Pump Incentive $2K — verify at nlhydro.com" },
-  ON:  { name: "Ontario",            electricRate: 0.175, oilRate: 1.48, propaneRate: 1.10, maxRebateHP: 5000,  rebateNote: "Enbridge HER+ $5K — verify at enbridgegas.com" },
+  NS:  { name: "Nova Scotia",        electricRate: 0.185, oilRate: 1.55, propaneRate: 1.20, maxRebateHP: 13000, rebateNote: "ENS CleanHeat up to $10K (income-qual); standard $3K rebate closed Dec 2025 — efficiencyns.ca" },
+  NB:  { name: "New Brunswick",      electricRate: 0.1539, oilRate: 1.52, propaneRate: 1.15, maxRebateHP: 2000,  rebateNote: "SaveEnergyNB up to $2K — verify at saveenergynb.ca" },
+  PEI: { name: "Prince Edward Is.",  electricRate: 0.172, oilRate: 1.58, propaneRate: 1.22, maxRebateHP: 0,     rebateNote: "⚠️ Program paused Apr 2026 — verify at princeedwardisland.ca" },
+  NL:  { name: "Newfoundland",       electricRate: 0.148, oilRate: 1.60, propaneRate: 1.25, maxRebateHP: 9000,  rebateNote: "takeCHARGE up to $9K — verify at takechargenl.ca" },
+  ON:  { name: "Ontario",            electricRate: 0.175, oilRate: 1.48, propaneRate: 1.10, maxRebateHP: 5000,  rebateNote: "Home Renovation Savings (HRS) up to $7.5K — HER+ closed — enbridgegas.com" },
 };
 
 // Energy content in MJ/litre ÷ 3.6 = kWh/litre, then × furnace efficiency

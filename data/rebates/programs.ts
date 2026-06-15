@@ -84,7 +84,7 @@ export const rebatePrograms: RebateProgram[] = [
     services: ["heat-pump"],
     maxAmount: 5000,
     description:
-      "⚠️ CLOSED — The Canada Greener Homes Grant closed to new applicants on February 12, 2024. No new applications are being accepted. Check canada.ca for any replacement federal programs that may have launched. Provincial programs (Efficiency NS, NB Power Smart Saver, etc.) remain active.",
+      "⚠️ CLOSED — The Canada Greener Homes Grant closed to new applicants on February 12, 2024. The replacement is the Canada Greener Homes Affordability Program (CGHAP), an $800M initiative for low-to-median income households delivered through provincial programs. Check canada.ca/greener-homes for current eligibility.",
     eligibility: [
       "Program closed February 12, 2024 — no new applications accepted",
       "Check canada.ca/greener-homes for replacement programs",
@@ -100,7 +100,7 @@ export const rebatePrograms: RebateProgram[] = [
     services: ["solar"],
     maxAmount: 5000,
     description:
-      "⚠️ CLOSED — The Canada Greener Homes Grant (solar PV) closed to new applicants on February 12, 2024. No new applications are being accepted. Provincial net metering programs remain active. Check canada.ca for any replacement federal solar programs.",
+      "⚠️ CLOSED — The Canada Greener Homes Grant (solar PV) closed to new applicants on February 12, 2024. The Canada Greener Homes Affordability Program (CGHAP) may cover solar PV depending on province — check canada.ca/greener-homes. Provincial net metering programs remain active.",
     eligibility: [
       "Program closed February 12, 2024 — no new applications accepted",
       "Check canada.ca for replacement federal programs",
@@ -139,16 +139,14 @@ export const rebatePrograms: RebateProgram[] = [
     services: ["heat-pump"],
     maxAmount: 2000,
     description:
-      "PEI's Island Prosperity Fund provides up to $2,000 for residential heat pump installations on Prince Edward Island. The program is administered through the provincial government and supports homeowners switching from oil or electric baseboard to more efficient heat pump systems.",
+      "⚠️ PAUSED — PEI's residential heat pump rebate program (efficiencyPEI / Island Prosperity Fund) suspended new intake as of April 2026. Applications are not currently being accepted. The program had offered up to $900 per unit for standard applicants prior to the pause. Monitor princeedwardisland.ca/en/topic/energy-efficiency for updates on resumption. Low-income households (under $35,000/yr) may still qualify for the separate free heat pump program.",
     eligibility: [
-      "PEI homeowner, primary residence",
-      "Replacing oil heat or electric baseboard heating",
-      "Minimum HSPF2 efficiency rating required",
-      "Must use an approved Island contractor",
-      "Application submitted within 90 days of installation",
+      "Program intake suspended April 2026 — no new applications being accepted",
+      "Monitor princeedwardisland.ca for program resumption",
+      "Low-income households (under $35,000/yr income) may qualify for free heat pump program",
     ],
     url: "https://www.princeedwardisland.ca/en/topic/rebates-and-programs",
-    active: true,
+    active: false,
   },
 
   // ── Newfoundland ──────────────────────────────────────────────────────────
@@ -220,7 +218,7 @@ export interface ProvinceComparisonRow {
 export const provinceComparison: ProvinceComparisonRow[] = [
   { province: "NS",  heatPumpProvincial: 3000, heatPumpFederal: 0, incomeBonus: 10000, solarFederal: 0, totalMax: 13000 },
   { province: "NB",  heatPumpProvincial: 2000, heatPumpFederal: 0, incomeBonus: 0,     solarFederal: 0, totalMax: 2000  },
-  { province: "PEI", heatPumpProvincial: 2000, heatPumpFederal: 0, incomeBonus: 0,     solarFederal: 0, totalMax: 2000  },
-  { province: "NL",  heatPumpProvincial: 2000, heatPumpFederal: 0, incomeBonus: 0,     solarFederal: 0, totalMax: 2000  },
+  { province: "PEI", heatPumpProvincial: 0,    heatPumpFederal: 0, incomeBonus: 0,     solarFederal: 0, totalMax: 0     },
+  { province: "NL",  heatPumpProvincial: 9000, heatPumpFederal: 0, incomeBonus: 0,     solarFederal: 0, totalMax: 9000  },
   { province: "ON",  heatPumpProvincial: 5000, heatPumpFederal: 0, incomeBonus: 0,     solarFederal: 0, totalMax: 5000  },
 ];

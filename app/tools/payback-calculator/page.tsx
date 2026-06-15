@@ -13,11 +13,11 @@ const provinceData: Record<string, {
   sunHours: number;
   rebateNote: string;
 }> = {
-  NS:  { name: "Nova Scotia",       utility: "NS Power",         rate: 0.185, sunHours: 1450, rebateNote: "Federal Greener Homes CLOSED — verify replacement at canada.ca" },
-  NB:  { name: "New Brunswick",     utility: "NB Power",         rate: 0.138, sunHours: 1420, rebateNote: "Federal Greener Homes CLOSED — verify replacement at canada.ca" },
-  PEI: { name: "Prince Edward Is.", utility: "Maritime Electric", rate: 0.172, sunHours: 1480, rebateNote: "Federal Greener Homes CLOSED — verify replacement at canada.ca" },
-  NL:  { name: "Newfoundland",      utility: "NL Power",         rate: 0.148, sunHours: 1300, rebateNote: "Federal Greener Homes CLOSED — verify replacement at canada.ca" },
-  ON:  { name: "Ontario",           utility: "Local LDC",        rate: 0.175, sunHours: 1530, rebateNote: "Federal Greener Homes CLOSED — verify replacement at canada.ca" },
+  NS:  { name: "Nova Scotia",       utility: "NS Power",         rate: 0.185,  sunHours: 1450, rebateNote: "Greener Homes CLOSED; CGHAP (low-med income) may apply — canada.ca/greener-homes" },
+  NB:  { name: "New Brunswick",     utility: "NB Power",         rate: 0.1539, sunHours: 1420, rebateNote: "Greener Homes CLOSED; CGHAP (low-med income) may apply — canada.ca/greener-homes" },
+  PEI: { name: "Prince Edward Is.", utility: "Maritime Electric", rate: 0.172,  sunHours: 1480, rebateNote: "Greener Homes CLOSED; CGHAP (low-med income) may apply — canada.ca/greener-homes" },
+  NL:  { name: "Newfoundland",      utility: "NL Power",         rate: 0.148,  sunHours: 1300, rebateNote: "Greener Homes CLOSED; CGHAP (low-med income) may apply — canada.ca/greener-homes" },
+  ON:  { name: "Ontario",           utility: "Local LDC",        rate: 0.175,  sunHours: 1530, rebateNote: "Greener Homes CLOSED; CGHAP (low-med income) may apply — canada.ca/greener-homes" },
 };
 
 const DEGRADATION = 0.005;
