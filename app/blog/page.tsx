@@ -10,6 +10,16 @@ export const metadata: Metadata = {
 
 export const posts = [
   {
+    slug: "hspf2-rating-explained-ns-rebates",
+    title: "HSPF2 Ratings Explained: The Number That Determines Your NS Rebate",
+    excerpt:
+      "HSPF2 is the single spec that determines NS heat pump rebate eligibility. Learn what it means, how it differs from old HSPF, and how to verify a unit before you sign.",
+    date: "2026-06-24",
+    readTime: "6 min",
+    tag: "Heat Pumps",
+    tagColor: "bg-blue-100 text-blue-700",
+  },
+  {
     slug: "ohpa-program-2026-guide",
     title: "OHPA 2026: Is the Oil-to-Heat-Pump Grant Still Available?",
     excerpt:
