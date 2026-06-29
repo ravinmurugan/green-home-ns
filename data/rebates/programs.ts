@@ -27,8 +27,9 @@ export const rebatePrograms: RebateProgram[] = [
     services: ["heat-pump"],
     maxAmount: 3000,
     description:
-      "Enhanced rebate for homeowners replacing oil heating with a cold-climate heat pump as the primary heat source. Efficiency NS provides up to $3,000 plus potential additional support through the CleanHeat program for income-qualified households.",
+      "⚠️ OHPA closes July 31, 2026 — apply now. Enhanced rebate for homeowners replacing oil heating with a cold-climate heat pump as the primary heat source. The Oil to Heat Pump Affordability Program (OHPA) provides up to $5,000 provincial plus up to $10,000 federal match (total up to $15,000 combined). Standard provincial-only stream up to $3,000. Deadline to apply: July 31, 2026.",
     eligibility: [
+      "⚠️ Application deadline: July 31, 2026",
       "Current oil heat user replacing with heat pump as primary source",
       "Efficiency NS approved installer required",
       "Cold-climate heat pump (HSPF2 ≥ 7.5)",
@@ -118,8 +119,9 @@ export const rebatePrograms: RebateProgram[] = [
     services: ["heat-pump"],
     maxAmount: 2000,
     description:
-      "NB Power's heat pump rebates are now delivered through SaveEnergyNB. The Total Home Energy Savings stream offers up to $2,000 for eligible cold-climate heat pumps, while income-qualified households can access the Enhanced Energy Savings program for up to $15,000 in advance funding or free upgrades. Rebates cover mini-split and central ducted systems installed by registered contractors.",
+      "⚠️ OHPA-linked registrations close June 30, 2026 — apply immediately. NB Power's heat pump rebates are delivered through SaveEnergyNB. The Total Home Energy Savings stream (OHPA-backed) offers up to $2,000 for eligible cold-climate heat pumps, but OHPA registrations close June 30, 2026. Income-qualified households can access the Enhanced Energy Savings program for up to $15,000 in advance funding or free upgrades.",
     eligibility: [
+      "⚠️ OHPA registrations close June 30, 2026 — apply before deadline",
       "New Brunswick homeowner, primary or secondary residence",
       "NB Power electricity customer",
       "Installed by a SaveEnergyNB registered contractor",
