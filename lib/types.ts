@@ -38,6 +38,7 @@ export interface Installer {
   financing: boolean;
   serviceArea?: string[];
   emergency24hr?: boolean;
+  note?: string;
 }
 
 export interface RebateProgram {
