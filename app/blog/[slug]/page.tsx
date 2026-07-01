@@ -57,6 +57,55 @@ const articleContent: Record<string, React.ReactNode> = {
       <p>Every installer in our directory installs cold-climate rated systems. Check our <a href="/tools/heat-pump-sizer">Heat Pump Size Calculator</a> to verify you&apos;re being quoted the right capacity for your home.</p>
     </div>
   ),
+  "hspf2-rating-explained-ns-rebates": (
+    <div className="prose prose-gray max-w-none">
+      <p className="text-lg leading-relaxed text-gray-700 mb-6">
+        HSPF2 is the efficiency number printed on every heat pump spec sheet — and since 2023 it&apos;s the number that determines whether your installation qualifies for Nova Scotia rebates. Understanding it takes about five minutes and could save you thousands.
+      </p>
+
+      <h2>What HSPF2 Actually Measures</h2>
+      <p>HSPF2 stands for Heating Seasonal Performance Factor (second edition). It measures how many BTUs of heat a unit delivers per watt-hour of electricity consumed over a full heating season. A unit rated HSPF2 9.0 delivers roughly 9 BTUs per watt-hour — compared to an electric baseboard&apos;s effective rate of about 3.4 BTUs per watt-hour. That&apos;s why a heat pump can cut your heating bill by 50–65% compared to straight electric resistance heat.</p>
+      <p>The higher the HSPF2 number, the more efficient the unit. Cold-climate models from Mitsubishi, Fujitsu, Bosch, and Daikin typically score between 7.5 and 12.5 HSPF2 depending on the model and configuration.</p>
+
+      <h2>Why HSPF2 Is Not the Same as the Old HSPF Rating</h2>
+      <p>This is where most homeowner confusion starts. Before 2023, heat pump efficiency was reported as HSPF (now called HSPF1). Natural Resources Canada and the US Department of Energy switched to HSPF2 because the old test protocol overstated real-world efficiency — it used milder temperature assumptions that didn&apos;t reflect Canadian winters.</p>
+      <p>The HSPF2 test is stricter, so the numbers are lower for the same equipment — typically 15–20% lower. A unit that was marketed as &quot;HSPF 10&quot; before 2023 will often show HSPF2 8.1–8.5 on its updated NRCan data sheet. <strong>This is not a degradation in performance — it&apos;s a more honest measurement.</strong></p>
+      <p>Watch out: some manufacturer brochures and older installer quotes still list only the HSPF1 number. Always ask which standard a quoted number uses.</p>
+
+      <h2>NS Rebate Programs Require HSPF2 7.5 Minimum</h2>
+      <p>Both active Nova Scotia incentive programs gate eligibility on the HSPF2 rating:</p>
+      <ul>
+        <li><strong>Efficiency Nova Scotia (ENS) rebates — up to $3,000:</strong> Unit must be on the NRCan approved product list and meet HSPF2 ≥ 7.5</li>
+        <li><strong>CleanHeat rebate — up to $10,000 (income-qualified):</strong> Same HSPF2 threshold applies; income limits determine the exact amount</li>
+      </ul>
+      <p>Units below 7.5 HSPF2 do not qualify, regardless of brand or installer. Use the <a href="/tools/rebate-quiz">Rebate Eligibility Quiz</a> to see what you can stack based on your household income and current heating system.</p>
+
+      <h2>How to Read a Spec Sheet Before You Sign a Quote</h2>
+      <p>When your installer provides a quote, request the NRCan product data sheet for the specific model being installed. Check for:</p>
+      <ul>
+        <li><strong>HSPF2 (not just HSPF):</strong> Must be 7.5 or higher for rebate eligibility</li>
+        <li><strong>Rated heating capacity at -15°C:</strong> Confirms the unit can keep up on a cold NS night</li>
+        <li><strong>Rated heating capacity at -25°C:</strong> Relevant for inland NB, northern NS, and Newfoundland homeowners</li>
+        <li><strong>NRCan listing status:</strong> Only listed products qualify for federal and most provincial rebates</li>
+      </ul>
+      <p>If a spec sheet only shows &quot;HSPF&quot; without the &quot;2,&quot; ask for the updated figure or search the unit on the NRCan product database yourself.</p>
+
+      <h2>What a Higher HSPF2 Means for Your Annual Energy Cost</h2>
+      <p>The efficiency difference between a baseline 7.5 and a premium 10.5 HSPF2 unit is real money over time. For a typical NS home requiring 3,500 kWh of heat pump output annually, at $0.165/kWh (2026 NS Power residential rate):</p>
+      <ul>
+        <li><strong>HSPF2 7.5 unit:</strong> ~$770/year in electricity for heating</li>
+        <li><strong>HSPF2 10.5 unit:</strong> ~$550/year in electricity for heating</li>
+      </ul>
+      <p>That&apos;s roughly $220/year in savings — and higher-efficiency units often carry larger rebates, compressing the payback period further. That said, the most efficient units (HSPF2 12.0+) carry a meaningful price premium. They make the most sense for homes with high heating loads or those pairing the heat pump with <a href="/solar">solar PV</a> to offset electricity costs.</p>
+
+      <h2>Don&apos;t Confuse HSPF2 With COP or EER</h2>
+      <p>You may also see COP (Coefficient of Performance) on spec sheets. COP is a point-in-time efficiency measurement at a specific outdoor temperature — not a seasonal average. An HSPF2 rating of 8.0 corresponds very roughly to a seasonal average COP around 2.35. COP at -15°C is a useful comparison point for cold-climate performance; HSPF2 is what rebate programs care about.</p>
+
+      <h2>Bottom Line</h2>
+      <p>HSPF2 7.5 is the rebate floor, not a performance target. Most cold-climate units sold by reputable NS installers today hit 8.5–10.5 HSPF2 — comfortably above the threshold. The more important question to ask your installer is the <strong>rated heating capacity at -15°C</strong>, because a high HSPF2 score doesn&apos;t help if the unit can&apos;t keep pace on the coldest nights.</p>
+      <p>Browse <a href="/installers">rated NS installers</a> who specify HSPF2 on every quote, or compare <a href="/heat-pumps">heat pump models</a> side by side before your first installer conversation.</p>
+    </div>
+  ),
 };
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
